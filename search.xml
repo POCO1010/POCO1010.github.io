@@ -1,6 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>HDFS</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/HDFS/</url>
+    <content><![CDATA[<h1 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h1><h2 id="HDFS的使用场景"><a href="#HDFS的使用场景" class="headerlink" title="HDFS的使用场景"></a>HDFS的使用场景</h2><p><strong>适合一次写入，多次读出的场景，且不支持文件的修改。</strong></p>
+<h2 id="HDFS优点和缺点"><a href="#HDFS优点和缺点" class="headerlink" title="HDFS优点和缺点"></a>HDFS优点和缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>高容错性</li>
+<li>适合处理大数据</li>
+<li>可构建在廉价机器上，并通过多副本机制提高可靠性</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>不适合低延时数据访问</li>
+<li>无法高效的对大量小文件进行存储(小文件的寻址时间会超过读取时间，违反HDF的设计目标)</li>
+<li>不支持并发写入，文件随机修改（仅支持数据的追加）</li>
+</ol>
+<h2 id="HDFS文件块的大小（重点）"><a href="#HDFS文件块的大小（重点）" class="headerlink" title="HDFS文件块的大小（重点）"></a>HDFS文件块的大小（重点）</h2><p>HDFS中的文件是分块存储（Block），块的大小通过参数（<strong>dfs.blocksize</strong>）来控制</p>
+<p><strong>默认大小</strong> 128M（2.x）64M（1.x）</p>
+<p><strong>如何规定的默认大小</strong>（主要取决于磁盘传输速率）</p>
+<ol>
+<li>寻址时间约10ms，</li>
+<li>寻址时间为传输时间的1%时，则为最佳状态。</li>
+<li>目前磁盘的传输速率普遍100MB&#x2F;s </li>
+<li>传输时间：10ms &#x2F; 0.01 &#x3D; 1s</li>
+<li>block大小： 1s * 100MB&#x2F;s &#x3D; 100MB</li>
+</ol>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><strong>启动Hadoop集群</strong></p>
+<p><code>sbin/start-dfs.sh</code> </p>
+<p><code>sbin/start-yarn.sh</code></p>
+<p><strong>上传</strong></p>
+<ul>
+<li><p>-moveFromLocal   <strong>剪切</strong>粘贴</p>
+<p><code>hadoop fs -moveFromLocal ./kongming.txt /sanguo/shuguo</code></p>
+</li>
+<li><p>-copyFromLocal（-put）  <strong>复制</strong>粘贴</p>
+<p><code>hadoop fs -copyFromLocal README.txt /</code></p>
+<p><code>hadoop fs -put ./liubei.txt /user/atguigu/test/</code></p>
+</li>
+<li><p>-appendToFile  追加到一个文件（已经在HDFS中存在）的文件末尾</p>
+<p><code>hadoop fs -appendToFile liubei.txt /sanguo/shuguo/kongming.txt</code></p>
+</li>
+</ul>
+<p><strong>下载</strong></p>
+<ul>
+<li><p>-copyToLocal（-get）  <strong>复制</strong>粘贴</p>
+<p><code>hadoop fs -copyToLocal /sanguo/shuguo/kongming.txt ./</code></p>
+<p><code>hadoop fs -get /sanguo/shuguo/kongming.txt ./</code></p>
+</li>
+<li><p>-getmerge  <strong>合并</strong>下载多个文件（不会对HDFS中的文件进行合并）</p>
+<p><code>hadoop fs -getmerge /user/atguigu/test/* ./zaiyiqi.txt</code></p>
+</li>
+</ul>
+<p><strong>HDFS直接操作</strong></p>
+<ul>
+<li><p>-du  统计文件夹的大小信息</p>
+<p><code>hadoop fs -du  -h /user/atguigu/test</code></p>
+</li>
+<li><p>-setrep  设置HDFS中文件的副本数量  </p>
+<p><em>（最终副本量还是取决于节点数 这里只是改了设置只有节点数达到才生效）</em></p>
+<p><code>hadoop fs -setrep 10 /sanguo/shuguo/kongming.txt</code></p>
+</li>
+</ul>
+<h2 id="HDFS写数据流程"><a href="#HDFS写数据流程" class="headerlink" title="HDFS写数据流程"></a>HDFS写数据流程</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322173126301.png" alt="image-20220322173126301" style="zoom: 33%;">
+
+<h2 id="网络拓扑（节点距离计算）"><a href="#网络拓扑（节点距离计算）" class="headerlink" title="网络拓扑（节点距离计算）"></a>网络拓扑（节点距离计算）</h2><p>在HDFS写数据的过程中，NameNode会选择距离待上传数据最近距离的DataNode接收数据。那么这个最近距离怎么计算呢？（节点距离：两个节点到达最近的共同祖先的距离总和。）</p>
+<p>拓扑排序</p>
+<h2 id="机架感知（副本存储节点选择）"><a href="#机架感知（副本存储节点选择）" class="headerlink" title="机架感知（副本存储节点选择）"></a>机架感知（副本存储节点选择）</h2><p>副本节点选择</p>
+<ol>
+<li>第一个副本：在Client所处的节点上，如果客户端在集群外，随机选一个</li>
+<li>第二个副本：在另一个机架的随机一个节点</li>
+<li>第三个副本：在第二个副本所在机架的随机节点</li>
+</ol>
+<h2 id="HDFS读数据流程"><a href="#HDFS读数据流程" class="headerlink" title="HDFS读数据流程"></a>HDFS读数据流程</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322174853787.png" alt="image-20220322174853787" style="zoom: 33%;">
+
+<h2 id="NameNode和SecondaryNameNode（重点）"><a href="#NameNode和SecondaryNameNode（重点）" class="headerlink" title="NameNode和SecondaryNameNode（重点）"></a>NameNode和SecondaryNameNode（重点）</h2>]]></content>
+      <categories>
+        <category>Hadoop笔记</category>
+      </categories>
+      <tags>
+        <tag>HDFS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Markdown笔记</title>
     <url>/2022/03/22/%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8Markdown%E7%BC%96%E8%BE%91%E5%99%A8/</url>
     <content><![CDATA[<h1 id="欢迎使用Markdown编辑器"><a href="#欢迎使用Markdown编辑器" class="headerlink" title="欢迎使用Markdown编辑器"></a>欢迎使用Markdown编辑器</h1><p>你好！ 这是你第一次使用 <strong>Markdown编辑器</strong> 所展示的欢迎页。如果你想学习如何使用Markdown编辑器, 可以仔细阅读这篇文章，了解一下Markdown的基本语法知识。</p>
@@ -147,108 +227,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>HDFS</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/HDFS/</url>
-    <content><![CDATA[<h1 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h1><h2 id="HDFS的使用场景"><a href="#HDFS的使用场景" class="headerlink" title="HDFS的使用场景"></a>HDFS的使用场景</h2><p><strong>适合一次写入，多次读出的场景，且不支持文件的修改。</strong></p>
-<h2 id="HDFS优点和缺点"><a href="#HDFS优点和缺点" class="headerlink" title="HDFS优点和缺点"></a>HDFS优点和缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
-<li>高容错性</li>
-<li>适合处理大数据</li>
-<li>可构建在廉价机器上，并通过多副本机制提高可靠性</li>
-</ol>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
-<li>不适合低延时数据访问</li>
-<li>无法高效的对大量小文件进行存储(小文件的寻址时间会超过读取时间，违反HDF的设计目标)</li>
-<li>不支持并发写入，文件随机修改（仅支持数据的追加）</li>
-</ol>
-<h2 id="HDFS文件块的大小（重点）"><a href="#HDFS文件块的大小（重点）" class="headerlink" title="HDFS文件块的大小（重点）"></a>HDFS文件块的大小（重点）</h2><p>HDFS中的文件是分块存储（Block），块的大小通过参数（<strong>dfs.blocksize</strong>）来控制</p>
-<p><strong>默认大小</strong> 128M（2.x）64M（1.x）</p>
-<p><strong>如何规定的默认大小</strong>（主要取决于磁盘传输速率）</p>
-<ol>
-<li>寻址时间约10ms，</li>
-<li>寻址时间为传输时间的1%时，则为最佳状态。</li>
-<li>目前磁盘的传输速率普遍100MB&#x2F;s </li>
-<li>传输时间：10ms &#x2F; 0.01 &#x3D; 1s</li>
-<li>block大小： 1s * 100MB&#x2F;s &#x3D; 100MB</li>
-</ol>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><strong>启动Hadoop集群</strong></p>
-<p><code>sbin/start-dfs.sh</code> </p>
-<p><code>sbin/start-yarn.sh</code></p>
-<p><strong>上传</strong></p>
-<ul>
-<li><p>-moveFromLocal   <strong>剪切</strong>粘贴</p>
-<p><code>hadoop fs -moveFromLocal ./kongming.txt /sanguo/shuguo</code></p>
-</li>
-<li><p>-copyFromLocal（-put）  <strong>复制</strong>粘贴</p>
-<p><code>hadoop fs -copyFromLocal README.txt /</code></p>
-<p><code>hadoop fs -put ./liubei.txt /user/atguigu/test/</code></p>
-</li>
-<li><p>-appendToFile  追加到一个文件（已经在HDFS中存在）的文件末尾</p>
-<p><code>hadoop fs -appendToFile liubei.txt /sanguo/shuguo/kongming.txt</code></p>
-</li>
-</ul>
-<p><strong>下载</strong></p>
-<ul>
-<li><p>-copyToLocal（-get）  <strong>复制</strong>粘贴</p>
-<p><code>hadoop fs -copyToLocal /sanguo/shuguo/kongming.txt ./</code></p>
-<p><code>hadoop fs -get /sanguo/shuguo/kongming.txt ./</code></p>
-</li>
-<li><p>-getmerge  <strong>合并</strong>下载多个文件（不会对HDFS中的文件进行合并）</p>
-<p><code>hadoop fs -getmerge /user/atguigu/test/* ./zaiyiqi.txt</code></p>
-</li>
-</ul>
-<p><strong>HDFS直接操作</strong></p>
-<ul>
-<li><p>-du  统计文件夹的大小信息</p>
-<p><code>hadoop fs -du  -h /user/atguigu/test</code></p>
-</li>
-<li><p>-setrep  设置HDFS中文件的副本数量  </p>
-<p><em>（最终副本量还是取决于节点数 这里只是改了设置只有节点数达到才生效）</em></p>
-<p><code>hadoop fs -setrep 10 /sanguo/shuguo/kongming.txt</code></p>
-</li>
-</ul>
-<h2 id="HDFS写数据流程"><a href="#HDFS写数据流程" class="headerlink" title="HDFS写数据流程"></a>HDFS写数据流程</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322173126301.png" alt="image-20220322173126301" style="zoom: 33%;">
-
-<h2 id="网络拓扑（节点距离计算）"><a href="#网络拓扑（节点距离计算）" class="headerlink" title="网络拓扑（节点距离计算）"></a>网络拓扑（节点距离计算）</h2><p>在HDFS写数据的过程中，NameNode会选择距离待上传数据最近距离的DataNode接收数据。那么这个最近距离怎么计算呢？（节点距离：两个节点到达最近的共同祖先的距离总和。）</p>
-<p>拓扑排序</p>
-<h2 id="机架感知（副本存储节点选择）"><a href="#机架感知（副本存储节点选择）" class="headerlink" title="机架感知（副本存储节点选择）"></a>机架感知（副本存储节点选择）</h2><p>副本节点选择</p>
-<ol>
-<li>第一个副本：在Client所处的节点上，如果客户端在集群外，随机选一个</li>
-<li>第二个副本：在另一个机架的随机一个节点</li>
-<li>第三个副本：在第二个副本所在机架的随机节点</li>
-</ol>
-<h2 id="HDFS读数据流程"><a href="#HDFS读数据流程" class="headerlink" title="HDFS读数据流程"></a>HDFS读数据流程</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322174853787.png" alt="image-20220322174853787" style="zoom: 33%;">
-
-<h2 id="NameNode和SecondaryNameNode（重点）"><a href="#NameNode和SecondaryNameNode（重点）" class="headerlink" title="NameNode和SecondaryNameNode（重点）"></a>NameNode和SecondaryNameNode（重点）</h2>]]></content>
-      <categories>
-        <category>Hadoop笔记</category>
-      </categories>
-      <tags>
-        <tag>HDFS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java笔记</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Java笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MySQL笔记</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/MySQL%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>MySQL笔记</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>haodoop概念总结</title>
     <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/Hadoop%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h1 id="haodoop概念总结"><a href="#haodoop概念总结" class="headerlink" title="haodoop概念总结"></a>haodoop概念总结</h1><p>[TOC]</p>
@@ -369,6 +347,17 @@
       </tags>
   </entry>
   <entry>
+    <title>MySQL笔记</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/MySQL%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>MySQL笔记</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ZooKeeper笔记</title>
     <url>/2022/03/22/%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[]]></content>
@@ -377,6 +366,17 @@
       </categories>
       <tags>
         <tag>ZooKeeper</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java笔记</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Java笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
 </search>
