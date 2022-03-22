@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello ChouChou</title>
+    <url>/2022/03/19/text/hello%20chouchou/</url>
+    <content><![CDATA[<h1 id="hello-chouchou"><a href="#hello-chouchou" class="headerlink" title="hello chouchou"></a>hello chouchou</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloFriend</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHelloToFriend</span><span class="params">(String name)</span>&#123;</span><br><span class="line">        <span class="type">Hello</span> <span class="variable">hello</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Hello</span>();</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> hello.sayHello(name)+<span class="string">&quot; I am &quot;</span>+<span class="built_in">this</span>.getMyName();</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getMyName</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Idea&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>Hello ChouChou ❤️❤️</title>
+    <url>/2022/03/19/text/hello-world/</url>
+    <content><![CDATA[<p>Welcome to poco‘world!</p>
+<p>accompany is love</p>
+<p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/111.jpg"></p>
+]]></content>
+  </entry>
+</search>
