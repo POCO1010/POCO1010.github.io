@@ -549,7 +549,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/22/%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8Markdown%E7%BC%96%E8%BE%91%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/MapReduce/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -563,7 +563,155 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/03/22/%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8Markdown%E7%BC%96%E8%BE%91%E5%99%A8/" class="post-title-link" itemprop="url">Markdown笔记</a>
+            <a href="/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/MapReduce/" class="post-title-link" itemprop="url">MapReduce</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-22 21:39:26" itemprop="dateCreated datePublished" datetime="2022-03-22T21:39:26+08:00">2022-03-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-24 21:24:45" itemprop="dateModified" datetime="2022-03-24T21:24:45+08:00">2022-03-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Hadoop笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h1><p>将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序</p>
+<h2 id="MapReduce优缺点"><a href="#MapReduce优缺点" class="headerlink" title="MapReduce优缺点"></a>MapReduce优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li><strong>MapReduce 易于编程</strong></li>
+<li><strong>良好的扩展性</strong></li>
+<li><strong>高容错性</strong></li>
+<li><strong>适合PB级以上海量数据的离线处理</strong></li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li><strong>不擅长实时计算</strong></li>
+<li><strong>不擅长流式计算</strong></li>
+<li><strong>不擅长DAG（有向无环图）计算</strong>（多个应用程序存在依赖关系，后一个应用程序的输入为前一个的输出，在这种情况下，MapReduce并不是不能做，而是使用后，每个MapReduce作业的输出结果都会写入到磁盘，会造成大量的磁盘IO，导致性能非常的低下）</li>
+</ol>
+<h2 id="MapReduce核心思想"><a href="#MapReduce核心思想" class="headerlink" title="MapReduce核心思想"></a>MapReduce核心思想</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220324182403256.png" alt="image-20220324182403256" style="zoom: 50%;">
+
+<h2 id="常用数据序列化类型"><a href="#常用数据序列化类型" class="headerlink" title="常用数据序列化类型"></a>常用数据序列化类型</h2><table>
+<thead>
+<tr>
+<th>Java类型</th>
+<th align="center">Hadoop Writable类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Boolean</td>
+<td align="center">BooleanWritable</td>
+</tr>
+<tr>
+<td>Byte</td>
+<td align="center">ByteWritable</td>
+</tr>
+<tr>
+<td>Int</td>
+<td align="center">IntWritable</td>
+</tr>
+<tr>
+<td>Float</td>
+<td align="center">FloatWritable</td>
+</tr>
+<tr>
+<td>Long</td>
+<td align="center">LongWritable</td>
+</tr>
+<tr>
+<td>Double</td>
+<td align="center">DoubleWritable</td>
+</tr>
+<tr>
+<td>String</td>
+<td align="center">Text</td>
+</tr>
+<tr>
+<td>Map</td>
+<td align="center">MapWritable</td>
+</tr>
+<tr>
+<td>Array</td>
+<td align="center">ArrayWritable</td>
+</tr>
+<tr>
+<td>Null</td>
+<td align="center">NullWritable</td>
+</tr>
+</tbody></table>
+<h2 id="Hadoop序列化"><a href="#Hadoop序列化" class="headerlink" title="Hadoop序列化"></a>Hadoop序列化</h2><h3 id="什么是序列化"><a href="#什么是序列化" class="headerlink" title="什么是序列化"></a>什么是序列化</h3><p>序列化就是把内存中的对象，转换成字节序列（或其他数据传输协议）以便于存储到磁盘（持久化）和网络传输</p>
+<h3 id="为什么不用Java的序列化"><a href="#为什么不用Java的序列化" class="headerlink" title="为什么不用Java的序列化"></a>为什么不用Java的序列化</h3><p>Java的序列化是一个重量级序列化框架，序列化后会附带很多额外的信息（校验信息，Header，继承体系），不便于高效传输</p>
+<h3 id="Hadoop序列化特点"><a href="#Hadoop序列化特点" class="headerlink" title="Hadoop序列化特点"></a>Hadoop序列化特点</h3><ol>
+<li>紧凑：高效使用存储空间</li>
+<li>快速：读写数据的额外开销小</li>
+<li>可扩展：随着通信协议的升级而可升级</li>
+<li>互操作：支持多语言的交互</li>
+</ol>
+<p>自定义bean对象实现序列化接口（Writable）<strong>注意反序列化的顺序和序列化的顺序完全一致</strong></p>
+<h2 id="MapReduce框架原理"><a href="#MapReduce框架原理" class="headerlink" title="MapReduce框架原理"></a>MapReduce框架原理</h2><h3 id="InputFormat数据输入"><a href="#InputFormat数据输入" class="headerlink" title="InputFormat数据输入"></a>InputFormat数据输入</h3><h4 id="切片与MapTask并行度决定机制"><a href="#切片与MapTask并行度决定机制" class="headerlink" title="切片与MapTask并行度决定机制"></a>切片与MapTask并行度决定机制</h4><p><strong>数据块：</strong>Block是HDFS物理上把数据分成一块一块。数据块是HDFS存储数据单位。</p>
+<p><strong>数据切片：</strong>数据切片只是在逻辑上对输入进行分片，并不会在磁盘上将其切分成片进行存储。数据切片是MapReduce程序计算输入数据的单位，一个切片会对应启动一个MapTask。</p>
+<img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220324192552080.png" alt="image-20220324192552080" style="zoom:50%;">
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/22/Markdown%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="POCO_POCO_POCO">
+      <meta itemprop="description" content="To Infinity and beyond ">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="POCO的小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/22/Markdown%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Markdown笔记</a>
         </h2>
 
         <div class="post-meta">
@@ -1309,7 +1457,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1322,7 +1470,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
