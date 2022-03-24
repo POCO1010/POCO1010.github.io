@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="To Infinity and beyond">
+  <meta name="description" content="去重操作 DISTINCTSELECT DISTINCT ename FROM emp where条件使用# 查询年龄大于20岁 SELECT * FROM emp WHERE age&gt;20 模糊查询# 查询所有姓张人员信息 # %代表通配符，匹配任意内容 SELECT * FROM emp WHERE ename LIKE ‘张**%**’ # 查询姓名中最后一个字 亮结尾 SELECT">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ZooKeeper笔记">
-<meta property="og:url" content="http://example.com/2022/03/22/%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="SQL查询操作">
+<meta property="og:url" content="http://example.com/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="POCO的小站">
-<meta property="og:description" content="To Infinity and beyond">
+<meta property="og:description" content="去重操作 DISTINCTSELECT DISTINCT ename FROM emp where条件使用# 查询年龄大于20岁 SELECT * FROM emp WHERE age&gt;20 模糊查询# 查询所有姓张人员信息 # %代表通配符，匹配任意内容 SELECT * FROM emp WHERE ename LIKE ‘张**%**’ # 查询姓名中最后一个字 亮结尾 SELECT">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-03-22T09:52:13.063Z">
-<meta property="article:modified_time" content="2022-03-22T10:12:23.691Z">
+<meta property="article:published_time" content="2022-03-24T08:39:41.741Z">
+<meta property="article:modified_time" content="2022-03-24T09:41:19.166Z">
 <meta property="article:author" content="POCO_POCO_POCO">
-<meta property="article:tag" content="ZooKeeper">
+<meta property="article:tag" content="MySql查询">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/03/22/%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/">
+<link rel="canonical" href="http://example.com/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>ZooKeeper笔记 | POCO的小站</title>
+  <title>SQL查询操作 | POCO的小站</title>
   
 
 
@@ -189,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/22/%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -202,7 +202,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          ZooKeeper笔记
+          SQL查询操作
         </h1>
 
         <div class="post-meta">
@@ -213,7 +213,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-03-22 17:52:13 / 修改时间：18:12:23" itemprop="dateCreated datePublished" datetime="2022-03-22T17:52:13+08:00">2022-03-22</time>
+              <time title="创建时间：2022-03-24 16:39:41 / 修改时间：17:41:19" itemprop="dateCreated datePublished" datetime="2022-03-24T16:39:41+08:00">2022-03-24</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -221,7 +221,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ZooKeeper%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">ZooKeeper笔记</span></a>
+                  <a href="/categories/MySql%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">MySql笔记</span></a>
                 </span>
             </span>
 
@@ -243,7 +243,86 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h2 id="去重操作-DISTINCT"><a href="#去重操作-DISTINCT" class="headerlink" title="去重操作 DISTINCT"></a>去重操作 DISTINCT</h2><p>SELECT <strong>DISTINCT</strong> ename FROM emp</p>
+<h2 id="where条件使用"><a href="#where条件使用" class="headerlink" title="where条件使用"></a>where条件使用</h2><p># 查询年龄大于20岁</p>
+<p>SELECT * FROM emp <strong>WHERE</strong> age&gt;20</p>
+<h2 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h2><p># 查询所有姓张人员信息</p>
+<p><strong># %代表通配符，匹配任意内容</strong></p>
+<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘张**%**’</p>
+<p># 查询姓名中最后一个字 亮结尾</p>
+<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘**%**亮’</p>
+<p># 查询姓名包含张</p>
+<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘<strong>%<strong>张</strong>%</strong>‘</p>
+<p># 查询姓名里面第一个字母是m，m后面包含三个字母</p>
+<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘m**___**’</p>
+<h2 id="排序操作"><a href="#排序操作" class="headerlink" title="排序操作   !"></a>排序操作   !</h2><p># 查询emp表所有记录，根据eid进行排序</p>
+<p>SELECT * FROM emp <strong>ORDER BY</strong> eid <strong>ASC</strong></p>
+<p>SELECT * FROM emp <strong>ORDER BY</strong> eid <strong>DESC</strong></p>
+<h2 id="查询区间范围"><a href="#查询区间范围" class="headerlink" title="查询区间范围"></a>查询区间范围</h2><p># 查询emp表年龄 30-50范围  </p>
+<p>SELECT * FROM emp <strong>WHERE</strong> age&gt;&#x3D;30 <strong>AND</strong> age&lt;&#x3D;50 </p>
+<p># BETWEEN 开始值 AND 结束值</p>
+<p>SELECT * FROM emp <strong>WHERE</strong> age <strong>BETWEEN</strong> 30 <strong>AND</strong> 50</p>
+<p># 查询年龄是 20 40 60</p>
+<p>SELECT * FROM emp <strong>WHERE</strong> age <strong>IN</strong>(20,40,60)</p>
+<h3 id="mysql分页查询"><a href="#mysql分页查询" class="headerlink" title="mysql分页查询"></a>mysql分页查询</h3><p>（1）limit后面有两个参数</p>
+<p>第一个参数 查询数据开始位置，从0开始</p>
+<p>第二个参数 每页显示多少条记录</p>
+<p>（2）查询数据开始位置计算公式</p>
+<p>(当前页-1)*每页显示记录数</p>
+<p>3、编写分页语句</p>
+<p># 分页语句</p>
+<p>SELECT * FROM emp LIMIT 0,3</p>
+<p>SELECT * FROM emp LIMIT 3,3</p>
+<h2 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h2><h3 id="count-：统计"><a href="#count-：统计" class="headerlink" title="count() ：统计"></a>count() ：统计</h3><p>## 查询表有多少条记录</p>
+<p>SELECT <strong>COUNT(*)</strong> AS num FROM emp</p>
+<p>## 查询年龄大于40人员数量</p>
+<p>SELECT <strong>COUNT(*)</strong> FROM emp WHERE age&gt;40</p>
+<h3 id="sum-：求和"><a href="#sum-：求和" class="headerlink" title="sum()：求和"></a>sum()：求和</h3><p># sum()：求和</p>
+<p>SELECT <strong>SUM</strong>(age) FROM emp</p>
+<h3 id="avg-计算平均数"><a href="#avg-计算平均数" class="headerlink" title="avg():   计算平均数"></a>avg():   计算平均数</h3><p># avg(): 计算平均数</p>
+<p>SELECT <strong>AVG</strong>(age) FROM emp</p>
+<p>## 把平均数值小数点后面位数</p>
+<p>SELECT CAST(<strong>AVG</strong>(age) AS <strong>DECIMAL(10,2)</strong>) AS avgnum FROM emp</p>
+<h3 id="max-获取最大值"><a href="#max-获取最大值" class="headerlink" title="max():   获取最大值"></a>max():   获取最大值</h3><p>SELECT <strong>MAX</strong>(age) FROM emp</p>
+<h3 id="min-获取最小值"><a href="#min-获取最小值" class="headerlink" title="min():   获取最小值"></a>min():   获取最小值</h3><p>SELECT <strong>MIN</strong>(age) FROM emp</p>
+<h2 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询 !"></a>分组查询 !</h2><p><strong>group by</strong> 分组字段</p>
+<h3 id="编写分组sql"><a href="#编写分组sql" class="headerlink" title="编写分组sql"></a>编写分组sql</h3><p>查询每个部门里面有多少个员工</p>
+<p>SELECT COUNT(*) AS num,edid AS deptid </p>
+<p>FROM emp </p>
+<p><strong>GROUP BY</strong> edid</p>
+<p>统计每个部门的年龄最大者</p>
+<p>SELECT MAX(age),emp.edid</p>
+<p>FROM emp </p>
+<p><strong>GROUP BY</strong> emp.edid</p>
+<p>统计每个部门里面最高工资</p>
+<p>SELECT MAX(salarystand),emp.edid</p>
+<p>FROM emp,salary</p>
+<p>WHERE emp.stid&#x3D;salary.stid</p>
+<p><strong>GROUP BY</strong> emp.edid</p>
+<p>获取最高工资大于5000的部门</p>
+<p>SELECT MAX(salarystand),emp.edid</p>
+<p>FROM emp,salary</p>
+<p>WHERE emp.stid&#x3D;salary.stid  </p>
+<p><strong>GROUP BY</strong> emp.edid</p>
+<p><strong>HAVING</strong> MAX(salarystand)&gt;5000</p>
+<h2 id="Mysql子查询"><a href="#Mysql子查询" class="headerlink" title="Mysql子查询"></a>Mysql子查询</h2><p><strong>一个查询结果，作为另外一个查询条件</strong></p>
+<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>查询比“张无忌”的工资高 查询张无忌工资 查询工资大于张无忌工资值</p>
+<p>SELECT * FROM emp,salary </p>
+<p>WHERE emp.stid&#x3D;salary.stid </p>
+<p>AND salary.salarystand <strong>&gt;</strong>  </p>
+<p><strong>(<strong>SELECT salary.salarystand  FROM emp,salary WHERE emp.stid&#x3D;salary.stid AND emp.ename&#x3D;’张无忌’</strong>)</strong></p>
+<h3 id="exists子查询"><a href="#exists子查询" class="headerlink" title="exists子查询"></a>exists子查询</h3><p>SELECT * FROM t_department </p>
+<p>WHERE <strong>EXISTS</strong> <strong>(<strong>SELECT * FROM t_employee WHERE t_employee.dept_id &#x3D; t_department.did</strong>)</strong>;</p>
+<h3 id="复制子查询"><a href="#复制子查询" class="headerlink" title="复制子查询"></a>复制子查询</h3><p>（1）拷贝表结构</p>
+<p>CREATE TABLE newadmin LIKE admin;</p>
+<p>（2）拷贝表结构和数据（但约束与索引除外）</p>
+<p>CREATE TABLE newadmin AS  ( SELECT * FROM admin ) ;</p>
+<p>（3）拷贝表结构+数据</p>
+<p>CREATE TABLE newadmin LIKE admin;  </p>
+<p>INSERT INTO newadmin SELECT * FROM admin;</p>
+<p>（4）跨数据库拷贝表</p>
+<p>CREATE TABLE newadmin LIKE shop.admin; </p>
+
     </div>
 
     
@@ -252,7 +331,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/ZooKeeper/" rel="tag"># ZooKeeper</a>
+              <a href="/tags/MySql%E6%9F%A5%E8%AF%A2/" rel="tag"># MySql查询</a>
           </div>
 
         
@@ -261,13 +340,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/03/22/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/" rel="prev" title="Java笔记">
-      <i class="fa fa-chevron-left"></i> Java笔记
+    <a href="/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2%E4%B8%8E%E5%A4%9A%E8%A1%A8%E5%85%B3%E8%81%94/" rel="prev" title="SQL简单查询与多表关联">
+      <i class="fa fa-chevron-left"></i> SQL简单查询与多表关联
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/03/22/%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8Markdown%E7%BC%96%E8%BE%91%E5%99%A8/" rel="next" title="Markdown笔记">
-      Markdown笔记 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -326,6 +402,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%BB%E9%87%8D%E6%93%8D%E4%BD%9C-DISTINCT"><span class="nav-number">1.</span> <span class="nav-text">去重操作 DISTINCT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#where%E6%9D%A1%E4%BB%B6%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">where条件使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.</span> <span class="nav-text">模糊查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">排序操作   !</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%8C%BA%E9%97%B4%E8%8C%83%E5%9B%B4"><span class="nav-number">5.</span> <span class="nav-text">查询区间范围</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="nav-number">5.1.</span> <span class="nav-text">mysql分页查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0"><span class="nav-number">6.</span> <span class="nav-text">聚合函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#count-%EF%BC%9A%E7%BB%9F%E8%AE%A1"><span class="nav-number">6.1.</span> <span class="nav-text">count() ：统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sum-%EF%BC%9A%E6%B1%82%E5%92%8C"><span class="nav-number">6.2.</span> <span class="nav-text">sum()：求和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#avg-%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%9D%87%E6%95%B0"><span class="nav-number">6.3.</span> <span class="nav-text">avg():   计算平均数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#max-%E8%8E%B7%E5%8F%96%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="nav-number">6.4.</span> <span class="nav-text">max():   获取最大值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#min-%E8%8E%B7%E5%8F%96%E6%9C%80%E5%B0%8F%E5%80%BC"><span class="nav-number">6.5.</span> <span class="nav-text">min():   获取最小值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2"><span class="nav-number">7.</span> <span class="nav-text">分组查询 !</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E5%88%86%E7%BB%84sql"><span class="nav-number">7.1.</span> <span class="nav-text">编写分组sql</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-number">8.</span> <span class="nav-text">Mysql子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-number">8.1.</span> <span class="nav-text">子查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exists%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-number">8.2.</span> <span class="nav-text">exists子查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-number">8.3.</span> <span class="nav-text">复制子查询</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
