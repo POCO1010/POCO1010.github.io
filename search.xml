@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Java笔记</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Java笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Markdown笔记</title>
     <url>/2022/03/22/%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8Markdown%E7%BC%96%E8%BE%91%E5%99%A8/</url>
     <content><![CDATA[<h1 id="欢迎使用Markdown编辑器"><a href="#欢迎使用Markdown编辑器" class="headerlink" title="欢迎使用Markdown编辑器"></a>欢迎使用Markdown编辑器</h1><p>你好！ 这是你第一次使用 <strong>Markdown编辑器</strong> 所展示的欢迎页。如果你想学习如何使用Markdown编辑器, 可以仔细阅读这篇文章，了解一下Markdown的基本语法知识。</p>
@@ -158,226 +147,14 @@
 ]]></content>
   </entry>
   <entry>
-    <title>haodoop概念总结</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/Hadoop%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<h1 id="haodoop概念总结"><a href="#haodoop概念总结" class="headerlink" title="haodoop概念总结"></a>haodoop概念总结</h1><h2 id="大数据部门组织结构"><a href="#大数据部门组织结构" class="headerlink" title="大数据部门组织结构"></a>大数据部门组织结构</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322121236808.png" alt="image-20220322121236808"></p>
-<h2 id="Hadoop的优势（4高）"><a href="#Hadoop的优势（4高）" class="headerlink" title="Hadoop的优势（4高）"></a>Hadoop的优势（4高）</h2><ol>
-<li>高可靠性：Hadoop底层维护多个数据副本</li>
-<li>高扩展性：在集群间分配任务数据，可方便的扩展</li>
-<li>高效性：在MapReduce的思想下，Hadoop时并行工作的，从而加快任务处理速度</li>
-<li>高容错性：能够自动将失败的任务重新分配</li>
-</ol>
-<h2 id="Hadoop组成（重点）"><a href="#Hadoop组成（重点）" class="headerlink" title="Hadoop组成（重点）"></a>Hadoop组成（重点）</h2><ul>
-<li><p>hadoop1.x </p>
-<p>mapreduce（计算+<strong>资料调度</strong>） HDFS（数据存储） Common（辅助工具）</p>
-</li>
-<li><p>hadoop2.x</p>
-<p>mapreduce（<strong>计算</strong>） HDFS（数据存储） Common（辅助工具） yarn（<strong>资料调度</strong>）</p>
-</li>
-</ul>
-<h2 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfsarchitecture.png" alt="hdfsarchitecture" style="zoom: 67%;">
-
-<ul>
-<li><p><strong>NameNode</strong>（主管）  </p>
-<p>存储文件的元数据 （文件名，文件目录结构，文件属性（生成时间，副本数，文件权限））以及每个文件的块列表和块所在的DataNode</p>
-<ol>
-<li>管理HDFS的名称空间</li>
-<li>配置副本策略</li>
-<li>管理数据块（Block）映射信息</li>
-<li>处理客户端读写请求</li>
-</ol>
-</li>
-<li><p><strong>Secondary NameNode</strong>（主管秘书） </p>
-<p>每隔一段时间对NameNode元数据备份 </p>
-<p><strong>！！</strong>-&gt;并非NameNode的热备 无法在NameNode无法工作时代替NameNode工作</p>
-<ol>
-<li>辅助NameNode，分担其工作量（如：定期合并Fsimage和Edits，并推送给NameNode）</li>
-<li>在紧急情况下，可辅助恢复NameNode</li>
-</ol>
-</li>
-<li><p><strong>DataNode</strong>（员工） </p>
-<p>在本地文件系统存储文件块数据，以及块数据的校验和</p>
-<ol>
-<li>存储实际的数据块</li>
-<li>执行数据块的读&#x2F;写操作</li>
-</ol>
-</li>
-<li><p><strong>Client</strong> (客户端)</p>
-<ol>
-<li>文件切分</li>
-<li>与NameNode交互，获取文件的位置信息</li>
-<li>与DataNode交互，读取或写入数据</li>
-<li>执行一些命令来管理HDFS（如：NameNode的格式化）</li>
-<li>执行一些命令来访问HDFS(如：HDFS的增删改查)</li>
-</ol>
-</li>
-</ul>
-<h2 id="YARN架构"><a href="#YARN架构" class="headerlink" title="YARN架构"></a>YARN架构</h2><ul>
-<li><p>ResourceManager（RM）</p>
-<ol>
-<li>处理客户端请求</li>
-<li>监控NodeManager</li>
-<li>启动或监控ApplicationMaster</li>
-<li>资源的分配与调度</li>
-</ol>
-</li>
-<li><p>NodeManager（NM）</p>
-<ol>
-<li>管理单个节点上的资源</li>
-<li>处理来自ResourceManager的命令</li>
-<li>处理来自ApplicationMaster的命令</li>
-</ol>
-</li>
-<li><p>ApplicationMaster</p>
-<ol>
-<li>负责数据的切分</li>
-<li>为应用程序申请资源并分配给内部的任务</li>
-<li>任务的监控与容错</li>
-</ol>
-</li>
-<li><p>Container</p>
-<p>Container是YARN中的资源抽象，封装了某个节点上的多维度资源，（内存，cpu，磁盘，网络）</p>
-</li>
-</ul>
-<h2 id="大数据技术生态体系"><a href="#大数据技术生态体系" class="headerlink" title="大数据技术生态体系"></a>大数据技术生态体系</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322133034426.png" alt="image-20220322133034426"></p>
-<h2 id="Hadoop环境搭建的常用命令"><a href="#Hadoop环境搭建的常用命令" class="headerlink" title="Hadoop环境搭建的常用命令"></a>Hadoop环境搭建的常用命令</h2><ul>
-<li><p>修改主机名称</p>
-<p><code>vim /etc/hostname</code></p>
-</li>
-<li><p>配置linux克隆机主机名称映射hosts</p>
-<p><code>vim /etc/hosts</code></p>
-</li>
-<li><p>解压JDK到&#x2F;opt&#x2F;module目录下</p>
-<p><code>tar -zxvf jdk-8u212-linux-x64.tar.gz -C /opt/module/</code></p>
-</li>
-<li><p>配置JDK环境变量</p>
-</li>
-<li><p>新建&#x2F;etc&#x2F;profile.d&#x2F;my_env.sh文件</p>
-<p><code>sudo vim /etc/profile.d/my_env.sh</code></p>
-<p>添加如下内容</p>
-<p><code>#JAVA_HOME</code></p>
-<p><code>export JAVA_HOME=/opt/module/jdk1.8.0_212</code></p>
-<p><code>export PATH=$PATH:$JAVA_HOME/bin</code></p>
-</li>
-<li><p>环境变量PATH生效</p>
-<p><code>source /etc/profile</code></p>
-</li>
-<li><p>生成公钥和私钥</p>
-<p><code>ssh-keygen -t rsa</code></p>
-</li>
-<li><p>Hadoop执行MapReduce程序</p>
-<p><code>hadoop jar wc.jar com.atguigu.wordcount.WordcountDriver /user/atguigu/input /user/atguigu/output</code></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Hadoop笔记</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>Yarn</tag>
-        <tag>HDFS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ZooKeeper笔记</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/</url>
+    <title>Java笔记</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[]]></content>
       <categories>
-        <category>ZooKeeper笔记</category>
+        <category>Java笔记</category>
       </categories>
       <tags>
-        <tag>ZooKeeper</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL查询操作</title>
-    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h2 id="去重操作-DISTINCT"><a href="#去重操作-DISTINCT" class="headerlink" title="去重操作 DISTINCT"></a>去重操作 DISTINCT</h2><p>SELECT <strong>DISTINCT</strong> ename FROM emp</p>
-<h2 id="where条件使用"><a href="#where条件使用" class="headerlink" title="where条件使用"></a>where条件使用</h2><p># 查询年龄大于20岁</p>
-<p>SELECT * FROM emp <strong>WHERE</strong> age&gt;20</p>
-<h2 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h2><p># 查询所有姓张人员信息</p>
-<p><strong># %代表通配符，匹配任意内容</strong></p>
-<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘张**%**’</p>
-<p># 查询姓名中最后一个字 亮结尾</p>
-<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘**%**亮’</p>
-<p># 查询姓名包含张</p>
-<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘<strong>%<strong>张</strong>%</strong>‘</p>
-<p># 查询姓名里面第一个字母是m，m后面包含三个字母</p>
-<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘m**___**’</p>
-<h2 id="排序操作"><a href="#排序操作" class="headerlink" title="排序操作   !"></a>排序操作   !</h2><p># 查询emp表所有记录，根据eid进行排序</p>
-<p>SELECT * FROM emp <strong>ORDER BY</strong> eid <strong>ASC</strong></p>
-<p>SELECT * FROM emp <strong>ORDER BY</strong> eid <strong>DESC</strong></p>
-<h2 id="查询区间范围"><a href="#查询区间范围" class="headerlink" title="查询区间范围"></a>查询区间范围</h2><p># 查询emp表年龄 30-50范围  </p>
-<p>SELECT * FROM emp <strong>WHERE</strong> age&gt;&#x3D;30 <strong>AND</strong> age&lt;&#x3D;50 </p>
-<p># BETWEEN 开始值 AND 结束值</p>
-<p>SELECT * FROM emp <strong>WHERE</strong> age <strong>BETWEEN</strong> 30 <strong>AND</strong> 50</p>
-<p># 查询年龄是 20 40 60</p>
-<p>SELECT * FROM emp <strong>WHERE</strong> age <strong>IN</strong>(20,40,60)</p>
-<h3 id="mysql分页查询"><a href="#mysql分页查询" class="headerlink" title="mysql分页查询"></a>mysql分页查询</h3><p>（1）limit后面有两个参数</p>
-<p>第一个参数 查询数据开始位置，从0开始</p>
-<p>第二个参数 每页显示多少条记录</p>
-<p>（2）查询数据开始位置计算公式</p>
-<p>(当前页-1)*每页显示记录数</p>
-<p>3、编写分页语句</p>
-<p># 分页语句</p>
-<p>SELECT * FROM emp LIMIT 0,3</p>
-<p>SELECT * FROM emp LIMIT 3,3</p>
-<h2 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h2><h3 id="count-：统计"><a href="#count-：统计" class="headerlink" title="count() ：统计"></a>count() ：统计</h3><p>## 查询表有多少条记录</p>
-<p>SELECT <strong>COUNT(*)</strong> AS num FROM emp</p>
-<p>## 查询年龄大于40人员数量</p>
-<p>SELECT <strong>COUNT(*)</strong> FROM emp WHERE age&gt;40</p>
-<h3 id="sum-：求和"><a href="#sum-：求和" class="headerlink" title="sum()：求和"></a>sum()：求和</h3><p># sum()：求和</p>
-<p>SELECT <strong>SUM</strong>(age) FROM emp</p>
-<h3 id="avg-计算平均数"><a href="#avg-计算平均数" class="headerlink" title="avg():   计算平均数"></a>avg():   计算平均数</h3><p># avg(): 计算平均数</p>
-<p>SELECT <strong>AVG</strong>(age) FROM emp</p>
-<p>## 把平均数值小数点后面位数</p>
-<p>SELECT CAST(<strong>AVG</strong>(age) AS <strong>DECIMAL(10,2)</strong>) AS avgnum FROM emp</p>
-<h3 id="max-获取最大值"><a href="#max-获取最大值" class="headerlink" title="max():   获取最大值"></a>max():   获取最大值</h3><p>SELECT <strong>MAX</strong>(age) FROM emp</p>
-<h3 id="min-获取最小值"><a href="#min-获取最小值" class="headerlink" title="min():   获取最小值"></a>min():   获取最小值</h3><p>SELECT <strong>MIN</strong>(age) FROM emp</p>
-<h2 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询 !"></a>分组查询 !</h2><p><strong>group by</strong> 分组字段</p>
-<h3 id="编写分组sql"><a href="#编写分组sql" class="headerlink" title="编写分组sql"></a>编写分组sql</h3><p>查询每个部门里面有多少个员工</p>
-<p>SELECT COUNT(*) AS num,edid AS deptid </p>
-<p>FROM emp </p>
-<p><strong>GROUP BY</strong> edid</p>
-<p>统计每个部门的年龄最大者</p>
-<p>SELECT MAX(age),emp.edid</p>
-<p>FROM emp </p>
-<p><strong>GROUP BY</strong> emp.edid</p>
-<p>统计每个部门里面最高工资</p>
-<p>SELECT MAX(salarystand),emp.edid</p>
-<p>FROM emp,salary</p>
-<p>WHERE emp.stid&#x3D;salary.stid</p>
-<p><strong>GROUP BY</strong> emp.edid</p>
-<p>获取最高工资大于5000的部门</p>
-<p>SELECT MAX(salarystand),emp.edid</p>
-<p>FROM emp,salary</p>
-<p>WHERE emp.stid&#x3D;salary.stid  </p>
-<p><strong>GROUP BY</strong> emp.edid</p>
-<p><strong>HAVING</strong> MAX(salarystand)&gt;5000</p>
-<h2 id="Mysql子查询"><a href="#Mysql子查询" class="headerlink" title="Mysql子查询"></a>Mysql子查询</h2><p><strong>一个查询结果，作为另外一个查询条件</strong></p>
-<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>查询比“张无忌”的工资高 查询张无忌工资 查询工资大于张无忌工资值</p>
-<p>SELECT * FROM emp,salary </p>
-<p>WHERE emp.stid&#x3D;salary.stid </p>
-<p>AND salary.salarystand <strong>&gt;</strong>  </p>
-<p><strong>(<strong>SELECT salary.salarystand  FROM emp,salary WHERE emp.stid&#x3D;salary.stid AND emp.ename&#x3D;’张无忌’</strong>)</strong></p>
-<h3 id="exists子查询"><a href="#exists子查询" class="headerlink" title="exists子查询"></a>exists子查询</h3><p>SELECT * FROM t_department </p>
-<p>WHERE <strong>EXISTS</strong> <strong>(<strong>SELECT * FROM t_employee WHERE t_employee.dept_id &#x3D; t_department.did</strong>)</strong>;</p>
-<h3 id="复制子查询"><a href="#复制子查询" class="headerlink" title="复制子查询"></a>复制子查询</h3><p>（1）拷贝表结构</p>
-<p>CREATE TABLE newadmin LIKE admin;</p>
-<p>（2）拷贝表结构和数据（但约束与索引除外）</p>
-<p>CREATE TABLE newadmin AS  ( SELECT * FROM admin ) ;</p>
-<p>（3）拷贝表结构+数据</p>
-<p>CREATE TABLE newadmin LIKE admin;  </p>
-<p>INSERT INTO newadmin SELECT * FROM admin;</p>
-<p>（4）跨数据库拷贝表</p>
-<p>CREATE TABLE newadmin LIKE shop.admin; </p>
-]]></content>
-      <categories>
-        <category>MySql笔记</category>
-      </categories>
-      <tags>
-        <tag>MySql查询</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -506,54 +283,226 @@
       </tags>
   </entry>
   <entry>
-    <title>SQL表操作</title>
-    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E8%A1%A8%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p><strong>create</strong> database db_0224；</p>
-<h3 id="查看有哪些数据库"><a href="#查看有哪些数据库" class="headerlink" title="查看有哪些数据库"></a>查看有哪些数据库</h3><p><strong>show</strong> databases;</p>
-<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><p><strong>DROP</strong> DATABASE db_0224;</p>
-<h3 id="切换数据库"><a href="#切换数据库" class="headerlink" title="切换数据库"></a>切换数据库</h3><p><strong>USE</strong> 数据库名称;</p>
-<h3 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h3><p><strong>DESC</strong> t_stu</p>
-<h3 id="重命名表"><a href="#重命名表" class="headerlink" title="重命名表"></a>重命名表</h3><p>ALTER TABLE t_stu <strong>RENAME</strong> students</p>
-<h3 id="增加一列"><a href="#增加一列" class="headerlink" title="增加一列"></a>增加一列</h3><p>ALTER TABLE students <strong>ADD</strong> newcolumn INT</p>
-<h3 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h3><p>ALTER TABLE students <strong>DROP</strong> newcolumn2;</p>
-<h3 id="修改列类型"><a href="#修改列类型" class="headerlink" title="修改列类型"></a>修改列类型</h3><p>ALTER TABLE students <strong>MODIFY</strong> newcolumn VARCHAR(100);</p>
-<h3 id="修改列名"><a href="#修改列名" class="headerlink" title="修改列名"></a>修改列名</h3><p>ALTER TABLE students <strong>CHANGE</strong> newcolumn address VARCHAR(100);</p>
-<h2 id="添加操作记录sql"><a href="#添加操作记录sql" class="headerlink" title="添加操作记录sql"></a><strong>添加操作记录sql</strong></h2><p><strong>INSERT INTO</strong></p>
-<p> students(id,NAME,gender,salary,birthday,createtime)</p>
-<p> VALUES(1,’张三’,’男’,999,’2020-11-11’,NULL)</p>
-<h2 id="Mysql约束"><a href="#Mysql约束" class="headerlink" title="Mysql约束"></a><strong>Mysql约束</strong></h2><h3 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h3><p>CREATE TABLE users (</p>
-<p>  id INT <strong>PRIMARY KEY</strong>,</p>
-<p>  NAME VARCHAR(100)</p>
-<p>)</p>
-<h3 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h3><p>CREATE TABLE book (</p>
-<p>  id INT PRIMARY KEY ,</p>
-<p>  bname VARCHAR(100) <strong>UNIQUE</strong></p>
-<p>)</p>
-<h3 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h3><p>CREATE TABLE orders (</p>
-<p>  id INT PRIMARY KEY,</p>
-<p>  ordersname VARCHAR(100) <strong>NOT NULL</strong></p>
-<p>)</p>
-<h3 id="缺省约束"><a href="#缺省约束" class="headerlink" title="缺省约束"></a>缺省约束</h3><p>CREATE TABLE person (</p>
-<p>  id INT PRIMARY KEY,</p>
-<p>  pname VARCHAR(100) <strong>DEFAULT</strong> ‘lucy’</p>
-<p>)</p>
-<h2 id="自动增长和索引"><a href="#自动增长和索引" class="headerlink" title="自动增长和索引"></a><strong>自动增长和索引</strong></h2><h3 id="自动增长"><a href="#自动增长" class="headerlink" title="自动增长"></a>自动增长</h3><p>CREATE TABLE dept (</p>
-<p> id INT PRIMARY KEY <strong>AUTO_INCREMENT</strong>,</p>
-<p> dname VARCHAR(100)</p>
-<p>)</p>
-<h2 id="添加记录sql语句"><a href="#添加记录sql语句" class="headerlink" title="添加记录sql语句"></a><strong>添加记录sql语句</strong></h2><h3 id="添加sql语句"><a href="#添加sql语句" class="headerlink" title="添加sql语句"></a>添加sql语句</h3><p><strong>insert into</strong> 表名称(字段名称1,字段名称2..) values(值1,值2..)</p>
-<h3 id="添加一条记录"><a href="#添加一条记录" class="headerlink" title="添加一条记录"></a>添加一条记录</h3><p><strong>INSERT INTO</strong> dept VALUE(NULL,’研发部’)</p>
-<h3 id="添加多条记录"><a href="#添加多条记录" class="headerlink" title="添加多条记录"></a>添加多条记录</h3><p><strong>INSERT INTO</strong> dept VALUES(NULL,’外交部’),(NULL,’社区互动部’),(NULL,’运维保障’)</p>
-<h2 id="DML-修改操作"><a href="#DML-修改操作" class="headerlink" title="DML-修改操作"></a><strong>DML-修改操作</strong></h2><h3 id="修改操作sql语句"><a href="#修改操作sql语句" class="headerlink" title="修改操作sql语句"></a><strong>修改操作sql语句</strong></h3><p><strong>update</strong> 表名称 <strong>set</strong> 字段名称&#x3D;值, 字段名称&#x3D;值… <strong>where</strong> 条件</p>
-<h2 id="DML-删除操作"><a href="#DML-删除操作" class="headerlink" title="DML-删除操作"></a><strong>DML-删除操作</strong></h2><h3 id="删除操作sql语句"><a href="#删除操作sql语句" class="headerlink" title="删除操作sql语句"></a>删除操作sql语句</h3><p><strong>delete</strong> from 表名称 <strong>where</strong> 条件</p>
-<h3 id="删除表所有记录-delete-from-和-truncate方式"><a href="#删除表所有记录-delete-from-和-truncate方式" class="headerlink" title="删除表所有记录 delete from 和 truncate方式"></a>删除表所有记录 delete from 和 truncate方式</h3><p>DELETE from stu</p>
-<p>TRUNCATE stu</p>
+    <title>haodoop概念总结</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/Hadoop%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h1 id="haodoop概念总结"><a href="#haodoop概念总结" class="headerlink" title="haodoop概念总结"></a>haodoop概念总结</h1><h2 id="大数据部门组织结构"><a href="#大数据部门组织结构" class="headerlink" title="大数据部门组织结构"></a>大数据部门组织结构</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322121236808.png" alt="image-20220322121236808"></p>
+<h2 id="Hadoop的优势（4高）"><a href="#Hadoop的优势（4高）" class="headerlink" title="Hadoop的优势（4高）"></a>Hadoop的优势（4高）</h2><ol>
+<li>高可靠性：Hadoop底层维护多个数据副本</li>
+<li>高扩展性：在集群间分配任务数据，可方便的扩展</li>
+<li>高效性：在MapReduce的思想下，Hadoop时并行工作的，从而加快任务处理速度</li>
+<li>高容错性：能够自动将失败的任务重新分配</li>
+</ol>
+<h2 id="Hadoop组成（重点）"><a href="#Hadoop组成（重点）" class="headerlink" title="Hadoop组成（重点）"></a>Hadoop组成（重点）</h2><ul>
+<li><p>hadoop1.x </p>
+<p>mapreduce（计算+<strong>资料调度</strong>） HDFS（数据存储） Common（辅助工具）</p>
+</li>
+<li><p>hadoop2.x</p>
+<p>mapreduce（<strong>计算</strong>） HDFS（数据存储） Common（辅助工具） yarn（<strong>资料调度</strong>）</p>
+</li>
+</ul>
+<h2 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfsarchitecture.png" alt="hdfsarchitecture" style="zoom: 67%;">
+
+<ul>
+<li><p><strong>NameNode</strong>（主管）  </p>
+<p>存储文件的元数据 （文件名，文件目录结构，文件属性（生成时间，副本数，文件权限））以及每个文件的块列表和块所在的DataNode</p>
+<ol>
+<li>管理HDFS的名称空间</li>
+<li>配置副本策略</li>
+<li>管理数据块（Block）映射信息</li>
+<li>处理客户端读写请求</li>
+</ol>
+</li>
+<li><p><strong>Secondary NameNode</strong>（主管秘书） </p>
+<p>每隔一段时间对NameNode元数据备份 </p>
+<p><strong>！！</strong>-&gt;并非NameNode的热备 无法在NameNode无法工作时代替NameNode工作</p>
+<ol>
+<li>辅助NameNode，分担其工作量（如：定期合并Fsimage和Edits，并推送给NameNode）</li>
+<li>在紧急情况下，可辅助恢复NameNode</li>
+</ol>
+</li>
+<li><p><strong>DataNode</strong>（员工） </p>
+<p>在本地文件系统存储文件块数据，以及块数据的校验和</p>
+<ol>
+<li>存储实际的数据块</li>
+<li>执行数据块的读&#x2F;写操作</li>
+</ol>
+</li>
+<li><p><strong>Client</strong> (客户端)</p>
+<ol>
+<li>文件切分</li>
+<li>与NameNode交互，获取文件的位置信息</li>
+<li>与DataNode交互，读取或写入数据</li>
+<li>执行一些命令来管理HDFS（如：NameNode的格式化）</li>
+<li>执行一些命令来访问HDFS(如：HDFS的增删改查)</li>
+</ol>
+</li>
+</ul>
+<h2 id="YARN架构"><a href="#YARN架构" class="headerlink" title="YARN架构"></a>YARN架构</h2><ul>
+<li><p>ResourceManager（RM）</p>
+<ol>
+<li>处理客户端请求</li>
+<li>监控NodeManager</li>
+<li>启动或监控ApplicationMaster</li>
+<li>资源的分配与调度</li>
+</ol>
+</li>
+<li><p>NodeManager（NM）</p>
+<ol>
+<li>管理单个节点上的资源</li>
+<li>处理来自ResourceManager的命令</li>
+<li>处理来自ApplicationMaster的命令</li>
+</ol>
+</li>
+<li><p>ApplicationMaster</p>
+<ol>
+<li>负责数据的切分</li>
+<li>为应用程序申请资源并分配给内部的任务</li>
+<li>任务的监控与容错</li>
+</ol>
+</li>
+<li><p>Container</p>
+<p>Container是YARN中的资源抽象，封装了某个节点上的多维度资源，（内存，cpu，磁盘，网络）</p>
+</li>
+</ul>
+<h2 id="大数据技术生态体系"><a href="#大数据技术生态体系" class="headerlink" title="大数据技术生态体系"></a>大数据技术生态体系</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322133034426.png" alt="image-20220322133034426"></p>
+<h2 id="Hadoop环境搭建的常用命令"><a href="#Hadoop环境搭建的常用命令" class="headerlink" title="Hadoop环境搭建的常用命令"></a>Hadoop环境搭建的常用命令</h2><ul>
+<li><p>修改主机名称</p>
+<p><code>vim /etc/hostname</code></p>
+</li>
+<li><p>配置linux克隆机主机名称映射hosts</p>
+<p><code>vim /etc/hosts</code></p>
+</li>
+<li><p>解压JDK到&#x2F;opt&#x2F;module目录下</p>
+<p><code>tar -zxvf jdk-8u212-linux-x64.tar.gz -C /opt/module/</code></p>
+</li>
+<li><p>配置JDK环境变量</p>
+</li>
+<li><p>新建&#x2F;etc&#x2F;profile.d&#x2F;my_env.sh文件</p>
+<p><code>sudo vim /etc/profile.d/my_env.sh</code></p>
+<p>添加如下内容</p>
+<p><code>#JAVA_HOME</code></p>
+<p><code>export JAVA_HOME=/opt/module/jdk1.8.0_212</code></p>
+<p><code>export PATH=$PATH:$JAVA_HOME/bin</code></p>
+</li>
+<li><p>环境变量PATH生效</p>
+<p><code>source /etc/profile</code></p>
+</li>
+<li><p>生成公钥和私钥</p>
+<p><code>ssh-keygen -t rsa</code></p>
+</li>
+<li><p>Hadoop执行MapReduce程序</p>
+<p><code>hadoop jar wc.jar com.atguigu.wordcount.WordcountDriver /user/atguigu/input /user/atguigu/output</code></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hadoop笔记</category>
+      </categories>
+      <tags>
+        <tag>HDFS</tag>
+        <tag>Hadoop</tag>
+        <tag>Yarn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ZooKeeper笔记</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>ZooKeeper笔记</category>
+      </categories>
+      <tags>
+        <tag>ZooKeeper</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL查询操作</title>
+    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h2 id="去重操作-DISTINCT"><a href="#去重操作-DISTINCT" class="headerlink" title="去重操作 DISTINCT"></a>去重操作 DISTINCT</h2><p>SELECT <strong>DISTINCT</strong> ename FROM emp</p>
+<h2 id="where条件使用"><a href="#where条件使用" class="headerlink" title="where条件使用"></a>where条件使用</h2><p># 查询年龄大于20岁</p>
+<p>SELECT * FROM emp <strong>WHERE</strong> age&gt;20</p>
+<h2 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h2><p># 查询所有姓张人员信息</p>
+<p><strong># %代表通配符，匹配任意内容</strong></p>
+<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘张**%**’</p>
+<p># 查询姓名中最后一个字 亮结尾</p>
+<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘**%**亮’</p>
+<p># 查询姓名包含张</p>
+<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘<strong>%<strong>张</strong>%</strong>‘</p>
+<p># 查询姓名里面第一个字母是m，m后面包含三个字母</p>
+<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘m**___**’</p>
+<h2 id="排序操作"><a href="#排序操作" class="headerlink" title="排序操作   !"></a>排序操作   !</h2><p># 查询emp表所有记录，根据eid进行排序</p>
+<p>SELECT * FROM emp <strong>ORDER BY</strong> eid <strong>ASC</strong></p>
+<p>SELECT * FROM emp <strong>ORDER BY</strong> eid <strong>DESC</strong></p>
+<h2 id="查询区间范围"><a href="#查询区间范围" class="headerlink" title="查询区间范围"></a>查询区间范围</h2><p># 查询emp表年龄 30-50范围  </p>
+<p>SELECT * FROM emp <strong>WHERE</strong> age&gt;&#x3D;30 <strong>AND</strong> age&lt;&#x3D;50 </p>
+<p># BETWEEN 开始值 AND 结束值</p>
+<p>SELECT * FROM emp <strong>WHERE</strong> age <strong>BETWEEN</strong> 30 <strong>AND</strong> 50</p>
+<p># 查询年龄是 20 40 60</p>
+<p>SELECT * FROM emp <strong>WHERE</strong> age <strong>IN</strong>(20,40,60)</p>
+<h3 id="mysql分页查询"><a href="#mysql分页查询" class="headerlink" title="mysql分页查询"></a>mysql分页查询</h3><p>（1）limit后面有两个参数</p>
+<p>第一个参数 查询数据开始位置，从0开始</p>
+<p>第二个参数 每页显示多少条记录</p>
+<p>（2）查询数据开始位置计算公式</p>
+<p>(当前页-1)*每页显示记录数</p>
+<p>3、编写分页语句</p>
+<p># 分页语句</p>
+<p>SELECT * FROM emp LIMIT 0,3</p>
+<p>SELECT * FROM emp LIMIT 3,3</p>
+<h2 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h2><h3 id="count-：统计"><a href="#count-：统计" class="headerlink" title="count() ：统计"></a>count() ：统计</h3><p>## 查询表有多少条记录</p>
+<p>SELECT <strong>COUNT(*)</strong> AS num FROM emp</p>
+<p>## 查询年龄大于40人员数量</p>
+<p>SELECT <strong>COUNT(*)</strong> FROM emp WHERE age&gt;40</p>
+<h3 id="sum-：求和"><a href="#sum-：求和" class="headerlink" title="sum()：求和"></a>sum()：求和</h3><p># sum()：求和</p>
+<p>SELECT <strong>SUM</strong>(age) FROM emp</p>
+<h3 id="avg-计算平均数"><a href="#avg-计算平均数" class="headerlink" title="avg():   计算平均数"></a>avg():   计算平均数</h3><p># avg(): 计算平均数</p>
+<p>SELECT <strong>AVG</strong>(age) FROM emp</p>
+<p>## 把平均数值小数点后面位数</p>
+<p>SELECT CAST(<strong>AVG</strong>(age) AS <strong>DECIMAL(10,2)</strong>) AS avgnum FROM emp</p>
+<h3 id="max-获取最大值"><a href="#max-获取最大值" class="headerlink" title="max():   获取最大值"></a>max():   获取最大值</h3><p>SELECT <strong>MAX</strong>(age) FROM emp</p>
+<h3 id="min-获取最小值"><a href="#min-获取最小值" class="headerlink" title="min():   获取最小值"></a>min():   获取最小值</h3><p>SELECT <strong>MIN</strong>(age) FROM emp</p>
+<h2 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询 !"></a>分组查询 !</h2><p><strong>group by</strong> 分组字段</p>
+<h3 id="编写分组sql"><a href="#编写分组sql" class="headerlink" title="编写分组sql"></a>编写分组sql</h3><p>查询每个部门里面有多少个员工</p>
+<p>SELECT COUNT(*) AS num,edid AS deptid </p>
+<p>FROM emp </p>
+<p><strong>GROUP BY</strong> edid</p>
+<p>统计每个部门的年龄最大者</p>
+<p>SELECT MAX(age),emp.edid</p>
+<p>FROM emp </p>
+<p><strong>GROUP BY</strong> emp.edid</p>
+<p>统计每个部门里面最高工资</p>
+<p>SELECT MAX(salarystand),emp.edid</p>
+<p>FROM emp,salary</p>
+<p>WHERE emp.stid&#x3D;salary.stid</p>
+<p><strong>GROUP BY</strong> emp.edid</p>
+<p>获取最高工资大于5000的部门</p>
+<p>SELECT MAX(salarystand),emp.edid</p>
+<p>FROM emp,salary</p>
+<p>WHERE emp.stid&#x3D;salary.stid  </p>
+<p><strong>GROUP BY</strong> emp.edid</p>
+<p><strong>HAVING</strong> MAX(salarystand)&gt;5000</p>
+<h2 id="Mysql子查询"><a href="#Mysql子查询" class="headerlink" title="Mysql子查询"></a>Mysql子查询</h2><p><strong>一个查询结果，作为另外一个查询条件</strong></p>
+<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>查询比“张无忌”的工资高 查询张无忌工资 查询工资大于张无忌工资值</p>
+<p>SELECT * FROM emp,salary </p>
+<p>WHERE emp.stid&#x3D;salary.stid </p>
+<p>AND salary.salarystand <strong>&gt;</strong>  </p>
+<p><strong>(<strong>SELECT salary.salarystand  FROM emp,salary WHERE emp.stid&#x3D;salary.stid AND emp.ename&#x3D;’张无忌’</strong>)</strong></p>
+<h3 id="exists子查询"><a href="#exists子查询" class="headerlink" title="exists子查询"></a>exists子查询</h3><p>SELECT * FROM t_department </p>
+<p>WHERE <strong>EXISTS</strong> <strong>(<strong>SELECT * FROM t_employee WHERE t_employee.dept_id &#x3D; t_department.did</strong>)</strong>;</p>
+<h3 id="复制子查询"><a href="#复制子查询" class="headerlink" title="复制子查询"></a>复制子查询</h3><p>（1）拷贝表结构</p>
+<p>CREATE TABLE newadmin LIKE admin;</p>
+<p>（2）拷贝表结构和数据（但约束与索引除外）</p>
+<p>CREATE TABLE newadmin AS  ( SELECT * FROM admin ) ;</p>
+<p>（3）拷贝表结构+数据</p>
+<p>CREATE TABLE newadmin LIKE admin;  </p>
+<p>INSERT INTO newadmin SELECT * FROM admin;</p>
+<p>（4）跨数据库拷贝表</p>
+<p>CREATE TABLE newadmin LIKE shop.admin; </p>
 ]]></content>
       <categories>
         <category>MySql笔记</category>
       </categories>
       <tags>
-        <tag>MySql表操作</tag>
+        <tag>MySql查询</tag>
       </tags>
   </entry>
   <entry>
@@ -609,6 +558,57 @@
       </categories>
       <tags>
         <tag>MySql查询</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL表操作</title>
+    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E8%A1%A8%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p><strong>create</strong> database db_0224；</p>
+<h3 id="查看有哪些数据库"><a href="#查看有哪些数据库" class="headerlink" title="查看有哪些数据库"></a>查看有哪些数据库</h3><p><strong>show</strong> databases;</p>
+<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><p><strong>DROP</strong> DATABASE db_0224;</p>
+<h3 id="切换数据库"><a href="#切换数据库" class="headerlink" title="切换数据库"></a>切换数据库</h3><p><strong>USE</strong> 数据库名称;</p>
+<h3 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h3><p><strong>DESC</strong> t_stu</p>
+<h3 id="重命名表"><a href="#重命名表" class="headerlink" title="重命名表"></a>重命名表</h3><p>ALTER TABLE t_stu <strong>RENAME</strong> students</p>
+<h3 id="增加一列"><a href="#增加一列" class="headerlink" title="增加一列"></a>增加一列</h3><p>ALTER TABLE students <strong>ADD</strong> newcolumn INT</p>
+<h3 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h3><p>ALTER TABLE students <strong>DROP</strong> newcolumn2;</p>
+<h3 id="修改列类型"><a href="#修改列类型" class="headerlink" title="修改列类型"></a>修改列类型</h3><p>ALTER TABLE students <strong>MODIFY</strong> newcolumn VARCHAR(100);</p>
+<h3 id="修改列名"><a href="#修改列名" class="headerlink" title="修改列名"></a>修改列名</h3><p>ALTER TABLE students <strong>CHANGE</strong> newcolumn address VARCHAR(100);</p>
+<h2 id="添加操作记录sql"><a href="#添加操作记录sql" class="headerlink" title="添加操作记录sql"></a><strong>添加操作记录sql</strong></h2><p><strong>INSERT INTO</strong></p>
+<p> students(id,NAME,gender,salary,birthday,createtime)</p>
+<p> VALUES(1,’张三’,’男’,999,’2020-11-11’,NULL)</p>
+<h2 id="Mysql约束"><a href="#Mysql约束" class="headerlink" title="Mysql约束"></a><strong>Mysql约束</strong></h2><h3 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h3><p>CREATE TABLE users (</p>
+<p>  id INT <strong>PRIMARY KEY</strong>,</p>
+<p>  NAME VARCHAR(100)</p>
+<p>)</p>
+<h3 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h3><p>CREATE TABLE book (</p>
+<p>  id INT PRIMARY KEY ,</p>
+<p>  bname VARCHAR(100) <strong>UNIQUE</strong></p>
+<p>)</p>
+<h3 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h3><p>CREATE TABLE orders (</p>
+<p>  id INT PRIMARY KEY,</p>
+<p>  ordersname VARCHAR(100) <strong>NOT NULL</strong></p>
+<p>)</p>
+<h3 id="缺省约束"><a href="#缺省约束" class="headerlink" title="缺省约束"></a>缺省约束</h3><p>CREATE TABLE person (</p>
+<p>  id INT PRIMARY KEY,</p>
+<p>  pname VARCHAR(100) <strong>DEFAULT</strong> ‘lucy’</p>
+<p>)</p>
+<h2 id="自动增长和索引"><a href="#自动增长和索引" class="headerlink" title="自动增长和索引"></a><strong>自动增长和索引</strong></h2><h3 id="自动增长"><a href="#自动增长" class="headerlink" title="自动增长"></a>自动增长</h3><p>CREATE TABLE dept (</p>
+<p> id INT PRIMARY KEY <strong>AUTO_INCREMENT</strong>,</p>
+<p> dname VARCHAR(100)</p>
+<p>)</p>
+<h2 id="添加记录sql语句"><a href="#添加记录sql语句" class="headerlink" title="添加记录sql语句"></a><strong>添加记录sql语句</strong></h2><h3 id="添加sql语句"><a href="#添加sql语句" class="headerlink" title="添加sql语句"></a>添加sql语句</h3><p><strong>insert into</strong> 表名称(字段名称1,字段名称2..) values(值1,值2..)</p>
+<h3 id="添加一条记录"><a href="#添加一条记录" class="headerlink" title="添加一条记录"></a>添加一条记录</h3><p><strong>INSERT INTO</strong> dept VALUE(NULL,’研发部’)</p>
+<h3 id="添加多条记录"><a href="#添加多条记录" class="headerlink" title="添加多条记录"></a>添加多条记录</h3><p><strong>INSERT INTO</strong> dept VALUES(NULL,’外交部’),(NULL,’社区互动部’),(NULL,’运维保障’)</p>
+<h2 id="DML-修改操作"><a href="#DML-修改操作" class="headerlink" title="DML-修改操作"></a><strong>DML-修改操作</strong></h2><h3 id="修改操作sql语句"><a href="#修改操作sql语句" class="headerlink" title="修改操作sql语句"></a><strong>修改操作sql语句</strong></h3><p><strong>update</strong> 表名称 <strong>set</strong> 字段名称&#x3D;值, 字段名称&#x3D;值… <strong>where</strong> 条件</p>
+<h2 id="DML-删除操作"><a href="#DML-删除操作" class="headerlink" title="DML-删除操作"></a><strong>DML-删除操作</strong></h2><h3 id="删除操作sql语句"><a href="#删除操作sql语句" class="headerlink" title="删除操作sql语句"></a>删除操作sql语句</h3><p><strong>delete</strong> from 表名称 <strong>where</strong> 条件</p>
+<h3 id="删除表所有记录-delete-from-和-truncate方式"><a href="#删除表所有记录-delete-from-和-truncate方式" class="headerlink" title="删除表所有记录 delete from 和 truncate方式"></a>删除表所有记录 delete from 和 truncate方式</h3><p>DELETE from stu</p>
+<p>TRUNCATE stu</p>
+]]></content>
+      <categories>
+        <category>MySql笔记</category>
+      </categories>
+      <tags>
+        <tag>MySql表操作</tag>
       </tags>
   </entry>
 </search>
