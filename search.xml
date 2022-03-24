@@ -147,17 +147,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Java笔记</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Java笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HDFS</title>
     <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/HDFS/</url>
     <content><![CDATA[<h1 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h1><h2 id="HDFS的使用场景"><a href="#HDFS的使用场景" class="headerlink" title="HDFS的使用场景"></a>HDFS的使用场景</h2><p><strong>适合一次写入，多次读出的场景，且不支持文件的修改。</strong></p>
@@ -280,6 +269,17 @@
       </categories>
       <tags>
         <tag>HDFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java笔记</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Java笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -506,6 +506,57 @@
       </tags>
   </entry>
   <entry>
+    <title>SQL表操作</title>
+    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E8%A1%A8%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p><strong>create</strong> database db_0224；</p>
+<h3 id="查看有哪些数据库"><a href="#查看有哪些数据库" class="headerlink" title="查看有哪些数据库"></a>查看有哪些数据库</h3><p><strong>show</strong> databases;</p>
+<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><p><strong>DROP</strong> DATABASE db_0224;</p>
+<h3 id="切换数据库"><a href="#切换数据库" class="headerlink" title="切换数据库"></a>切换数据库</h3><p><strong>USE</strong> 数据库名称;</p>
+<h3 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h3><p><strong>DESC</strong> t_stu</p>
+<h3 id="重命名表"><a href="#重命名表" class="headerlink" title="重命名表"></a>重命名表</h3><p>ALTER TABLE t_stu <strong>RENAME</strong> students</p>
+<h3 id="增加一列"><a href="#增加一列" class="headerlink" title="增加一列"></a>增加一列</h3><p>ALTER TABLE students <strong>ADD</strong> newcolumn INT</p>
+<h3 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h3><p>ALTER TABLE students <strong>DROP</strong> newcolumn2;</p>
+<h3 id="修改列类型"><a href="#修改列类型" class="headerlink" title="修改列类型"></a>修改列类型</h3><p>ALTER TABLE students <strong>MODIFY</strong> newcolumn VARCHAR(100);</p>
+<h3 id="修改列名"><a href="#修改列名" class="headerlink" title="修改列名"></a>修改列名</h3><p>ALTER TABLE students <strong>CHANGE</strong> newcolumn address VARCHAR(100);</p>
+<h2 id="添加操作记录sql"><a href="#添加操作记录sql" class="headerlink" title="添加操作记录sql"></a><strong>添加操作记录sql</strong></h2><p><strong>INSERT INTO</strong></p>
+<p> students(id,NAME,gender,salary,birthday,createtime)</p>
+<p> VALUES(1,’张三’,’男’,999,’2020-11-11’,NULL)</p>
+<h2 id="Mysql约束"><a href="#Mysql约束" class="headerlink" title="Mysql约束"></a><strong>Mysql约束</strong></h2><h3 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h3><p>CREATE TABLE users (</p>
+<p>  id INT <strong>PRIMARY KEY</strong>,</p>
+<p>  NAME VARCHAR(100)</p>
+<p>)</p>
+<h3 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h3><p>CREATE TABLE book (</p>
+<p>  id INT PRIMARY KEY ,</p>
+<p>  bname VARCHAR(100) <strong>UNIQUE</strong></p>
+<p>)</p>
+<h3 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h3><p>CREATE TABLE orders (</p>
+<p>  id INT PRIMARY KEY,</p>
+<p>  ordersname VARCHAR(100) <strong>NOT NULL</strong></p>
+<p>)</p>
+<h3 id="缺省约束"><a href="#缺省约束" class="headerlink" title="缺省约束"></a>缺省约束</h3><p>CREATE TABLE person (</p>
+<p>  id INT PRIMARY KEY,</p>
+<p>  pname VARCHAR(100) <strong>DEFAULT</strong> ‘lucy’</p>
+<p>)</p>
+<h2 id="自动增长和索引"><a href="#自动增长和索引" class="headerlink" title="自动增长和索引"></a><strong>自动增长和索引</strong></h2><h3 id="自动增长"><a href="#自动增长" class="headerlink" title="自动增长"></a>自动增长</h3><p>CREATE TABLE dept (</p>
+<p> id INT PRIMARY KEY <strong>AUTO_INCREMENT</strong>,</p>
+<p> dname VARCHAR(100)</p>
+<p>)</p>
+<h2 id="添加记录sql语句"><a href="#添加记录sql语句" class="headerlink" title="添加记录sql语句"></a><strong>添加记录sql语句</strong></h2><h3 id="添加sql语句"><a href="#添加sql语句" class="headerlink" title="添加sql语句"></a>添加sql语句</h3><p><strong>insert into</strong> 表名称(字段名称1,字段名称2..) values(值1,值2..)</p>
+<h3 id="添加一条记录"><a href="#添加一条记录" class="headerlink" title="添加一条记录"></a>添加一条记录</h3><p><strong>INSERT INTO</strong> dept VALUE(NULL,’研发部’)</p>
+<h3 id="添加多条记录"><a href="#添加多条记录" class="headerlink" title="添加多条记录"></a>添加多条记录</h3><p><strong>INSERT INTO</strong> dept VALUES(NULL,’外交部’),(NULL,’社区互动部’),(NULL,’运维保障’)</p>
+<h2 id="DML-修改操作"><a href="#DML-修改操作" class="headerlink" title="DML-修改操作"></a><strong>DML-修改操作</strong></h2><h3 id="修改操作sql语句"><a href="#修改操作sql语句" class="headerlink" title="修改操作sql语句"></a><strong>修改操作sql语句</strong></h3><p><strong>update</strong> 表名称 <strong>set</strong> 字段名称&#x3D;值, 字段名称&#x3D;值… <strong>where</strong> 条件</p>
+<h2 id="DML-删除操作"><a href="#DML-删除操作" class="headerlink" title="DML-删除操作"></a><strong>DML-删除操作</strong></h2><h3 id="删除操作sql语句"><a href="#删除操作sql语句" class="headerlink" title="删除操作sql语句"></a>删除操作sql语句</h3><p><strong>delete</strong> from 表名称 <strong>where</strong> 条件</p>
+<h3 id="删除表所有记录-delete-from-和-truncate方式"><a href="#删除表所有记录-delete-from-和-truncate方式" class="headerlink" title="删除表所有记录 delete from 和 truncate方式"></a>删除表所有记录 delete from 和 truncate方式</h3><p>DELETE from stu</p>
+<p>TRUNCATE stu</p>
+]]></content>
+      <categories>
+        <category>MySql笔记</category>
+      </categories>
+      <tags>
+        <tag>MySql表操作</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL简单查询与多表关联</title>
     <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2%E4%B8%8E%E5%A4%9A%E8%A1%A8%E5%85%B3%E8%81%94/</url>
     <content><![CDATA[<h2 id="Mysql简单查询操作"><a href="#Mysql简单查询操作" class="headerlink" title="Mysql简单查询操作"></a>Mysql简单查询操作</h2><p>SELECT 字段1,字段2… FROM 表名称1,表名称2…</p>
@@ -558,57 +609,6 @@
       </categories>
       <tags>
         <tag>MySql查询</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL表操作</title>
-    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E8%A1%A8%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p><strong>create</strong> database db_0224；</p>
-<h3 id="查看有哪些数据库"><a href="#查看有哪些数据库" class="headerlink" title="查看有哪些数据库"></a>查看有哪些数据库</h3><p><strong>show</strong> databases;</p>
-<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><p><strong>DROP</strong> DATABASE db_0224;</p>
-<h3 id="切换数据库"><a href="#切换数据库" class="headerlink" title="切换数据库"></a>切换数据库</h3><p><strong>USE</strong> 数据库名称;</p>
-<h3 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h3><p><strong>DESC</strong> t_stu</p>
-<h3 id="重命名表"><a href="#重命名表" class="headerlink" title="重命名表"></a>重命名表</h3><p>ALTER TABLE t_stu <strong>RENAME</strong> students</p>
-<h3 id="增加一列"><a href="#增加一列" class="headerlink" title="增加一列"></a>增加一列</h3><p>ALTER TABLE students <strong>ADD</strong> newcolumn INT</p>
-<h3 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h3><p>ALTER TABLE students <strong>DROP</strong> newcolumn2;</p>
-<h3 id="修改列类型"><a href="#修改列类型" class="headerlink" title="修改列类型"></a>修改列类型</h3><p>ALTER TABLE students <strong>MODIFY</strong> newcolumn VARCHAR(100);</p>
-<h3 id="修改列名"><a href="#修改列名" class="headerlink" title="修改列名"></a>修改列名</h3><p>ALTER TABLE students <strong>CHANGE</strong> newcolumn address VARCHAR(100);</p>
-<h2 id="添加操作记录sql"><a href="#添加操作记录sql" class="headerlink" title="添加操作记录sql"></a><strong>添加操作记录sql</strong></h2><p><strong>INSERT INTO</strong></p>
-<p> students(id,NAME,gender,salary,birthday,createtime)</p>
-<p> VALUES(1,’张三’,’男’,999,’2020-11-11’,NULL)</p>
-<h2 id="Mysql约束"><a href="#Mysql约束" class="headerlink" title="Mysql约束"></a><strong>Mysql约束</strong></h2><h3 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h3><p>CREATE TABLE users (</p>
-<p>  id INT <strong>PRIMARY KEY</strong>,</p>
-<p>  NAME VARCHAR(100)</p>
-<p>)</p>
-<h3 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h3><p>CREATE TABLE book (</p>
-<p>  id INT PRIMARY KEY ,</p>
-<p>  bname VARCHAR(100) <strong>UNIQUE</strong></p>
-<p>)</p>
-<h3 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h3><p>CREATE TABLE orders (</p>
-<p>  id INT PRIMARY KEY,</p>
-<p>  ordersname VARCHAR(100) <strong>NOT NULL</strong></p>
-<p>)</p>
-<h3 id="缺省约束"><a href="#缺省约束" class="headerlink" title="缺省约束"></a>缺省约束</h3><p>CREATE TABLE person (</p>
-<p>  id INT PRIMARY KEY,</p>
-<p>  pname VARCHAR(100) <strong>DEFAULT</strong> ‘lucy’</p>
-<p>)</p>
-<h2 id="自动增长和索引"><a href="#自动增长和索引" class="headerlink" title="自动增长和索引"></a><strong>自动增长和索引</strong></h2><h3 id="自动增长"><a href="#自动增长" class="headerlink" title="自动增长"></a>自动增长</h3><p>CREATE TABLE dept (</p>
-<p> id INT PRIMARY KEY <strong>AUTO_INCREMENT</strong>,</p>
-<p> dname VARCHAR(100)</p>
-<p>)</p>
-<h2 id="添加记录sql语句"><a href="#添加记录sql语句" class="headerlink" title="添加记录sql语句"></a><strong>添加记录sql语句</strong></h2><h3 id="添加sql语句"><a href="#添加sql语句" class="headerlink" title="添加sql语句"></a>添加sql语句</h3><p><strong>insert into</strong> 表名称(字段名称1,字段名称2..) values(值1,值2..)</p>
-<h3 id="添加一条记录"><a href="#添加一条记录" class="headerlink" title="添加一条记录"></a>添加一条记录</h3><p><strong>INSERT INTO</strong> dept VALUE(NULL,’研发部’)</p>
-<h3 id="添加多条记录"><a href="#添加多条记录" class="headerlink" title="添加多条记录"></a>添加多条记录</h3><p><strong>INSERT INTO</strong> dept VALUES(NULL,’外交部’),(NULL,’社区互动部’),(NULL,’运维保障’)</p>
-<h2 id="DML-修改操作"><a href="#DML-修改操作" class="headerlink" title="DML-修改操作"></a><strong>DML-修改操作</strong></h2><h3 id="修改操作sql语句"><a href="#修改操作sql语句" class="headerlink" title="修改操作sql语句"></a><strong>修改操作sql语句</strong></h3><p><strong>update</strong> 表名称 <strong>set</strong> 字段名称&#x3D;值, 字段名称&#x3D;值… <strong>where</strong> 条件</p>
-<h2 id="DML-删除操作"><a href="#DML-删除操作" class="headerlink" title="DML-删除操作"></a><strong>DML-删除操作</strong></h2><h3 id="删除操作sql语句"><a href="#删除操作sql语句" class="headerlink" title="删除操作sql语句"></a>删除操作sql语句</h3><p><strong>delete</strong> from 表名称 <strong>where</strong> 条件</p>
-<h3 id="删除表所有记录-delete-from-和-truncate方式"><a href="#删除表所有记录-delete-from-和-truncate方式" class="headerlink" title="删除表所有记录 delete from 和 truncate方式"></a>删除表所有记录 delete from 和 truncate方式</h3><p>DELETE from stu</p>
-<p>TRUNCATE stu</p>
-]]></content>
-      <categories>
-        <category>MySql笔记</category>
-      </categories>
-      <tags>
-        <tag>MySql表操作</tag>
       </tags>
   </entry>
 </search>
