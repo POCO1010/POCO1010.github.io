@@ -208,10 +208,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-03-22 17:52:13 / 修改时间：21:58:40" itemprop="dateCreated datePublished" datetime="2022-03-22T17:52:13+08:00">2022-03-22</time>
+              <time title="创建时间：2022-03-22 17:52:13" itemprop="dateCreated datePublished" datetime="2022-03-22T17:52:13+08:00">2022-03-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-27 20:18:10" itemprop="dateModified" datetime="2022-03-27T20:18:10+08:00">2022-03-27</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -233,7 +239,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h1><h2 id="HDFS的使用场景"><a href="#HDFS的使用场景" class="headerlink" title="HDFS的使用场景"></a>HDFS的使用场景</h2><p><strong>适合一次写入，多次读出的场景，且不支持文件的修改。</strong></p>
+          <h2 id="HDFS的使用场景"><a href="#HDFS的使用场景" class="headerlink" title="HDFS的使用场景"></a>HDFS的使用场景</h2><p><strong>适合一次写入，多次读出的场景，且不支持文件的修改。</strong></p>
 <h2 id="HDFS优点和缺点"><a href="#HDFS优点和缺点" class="headerlink" title="HDFS优点和缺点"></a>HDFS优点和缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
 <li>高容错性</li>
 <li>适合处理大数据</li>
@@ -319,17 +325,9 @@
 <li><strong>自定义时间</strong>为2*dfs.namenode.heartbeat.recheck-interval +10**dfs.heartbeat.interval</li>
 </ol>
 <p> 需要注意的是hdfs-site.xml 配置文件中的heartbeat.recheck.interval的单位为<strong>毫秒</strong>，dfs.heartbeat.interval的单位为<strong>秒</strong></p>
-<property>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.heartbeat.recheck-interval<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>300000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.heartbeat.interval<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>3<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><name>dfs.namenode.heartbeat.recheck-interval</name></p>
-<p><value>300000</value></p>
-</property>
 
-<property>
-
-<p><name>dfs.heartbeat.interval</name></p>
-<p><value>3</value></p>
-</property>
 
 <h3 id="服役新数据节点"><a href="#服役新数据节点" class="headerlink" title="服役新数据节点"></a>服役新数据节点</h3><ul>
 <li>直接启动DataNode，即可关联到集群</li>
@@ -340,11 +338,9 @@
 </ul>
 <p><code>./start-balancer.sh</code></p>
 <h3 id="DataNode多目录配置"><a href="#DataNode多目录配置" class="headerlink" title="DataNode多目录配置"></a>DataNode多目录配置</h3><p>在hdfs-site.xml文件中添加如下内容</p>
-<property>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>file://$&#123;hadoop.tmp.dir&#125;/dfs/data1,file://$&#123;hadoop.tmp.dir&#125;/dfs/data2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p> <name>dfs.datanode.data.dir</name></p>
-<p><value>file:&#x2F;&#x2F;${hadoop.tmp.dir}&#x2F;dfs&#x2F;data1,file:&#x2F;&#x2F;${hadoop.tmp.dir}&#x2F;dfs&#x2F;data2</value></p>
-</property>
+
 
 <h2 id="图解HDFS数据原理"><a href="#图解HDFS数据原理" class="headerlink" title="图解HDFS数据原理"></a>图解HDFS数据原理</h2><h3 id="HDFS写数据原理"><a href="#HDFS写数据原理" class="headerlink" title="HDFS写数据原理"></a>HDFS写数据原理<img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-write-1.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-write-2.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-write-3.jpg" alt="img"></h3><h3 id="HDFS读数据原理"><a href="#HDFS读数据原理" class="headerlink" title="HDFS读数据原理"></a>HDFS读数据原理</h3><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-read-1.jpg"></p>
 <h3 id="HDFS故障类型和其检测方法"><a href="#HDFS故障类型和其检测方法" class="headerlink" title="HDFS故障类型和其检测方法"></a>HDFS故障类型和其检测方法<img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-tolerance-1.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/BigData-notes/raw/master/pictures/hdfs-tolerance-2.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-tolerance-3.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-tolerance-4.jpg" alt="img"></h3>
@@ -397,7 +393,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-24 18:55:36" itemprop="dateModified" datetime="2022-03-24T18:55:36+08:00">2022-03-24</time>
+                <time title="修改时间：2022-03-27 20:17:26" itemprop="dateModified" datetime="2022-03-27T20:17:26+08:00">2022-03-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -420,7 +416,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="haodoop概念总结"><a href="#haodoop概念总结" class="headerlink" title="haodoop概念总结"></a>haodoop概念总结</h1><h2 id="大数据部门组织结构"><a href="#大数据部门组织结构" class="headerlink" title="大数据部门组织结构"></a>大数据部门组织结构</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322121236808.png" alt="image-20220322121236808"></p>
+          <h2 id="大数据部门组织结构"><a href="#大数据部门组织结构" class="headerlink" title="大数据部门组织结构"></a>大数据部门组织结构</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322121236808.png" alt="image-20220322121236808"></p>
 <h2 id="Hadoop的优势（4高）"><a href="#Hadoop的优势（4高）" class="headerlink" title="Hadoop的优势（4高）"></a>Hadoop的优势（4高）</h2><ol>
 <li>高可靠性：Hadoop底层维护多个数据副本</li>
 <li>高扩展性：在集群间分配任务数据，可方便的扩展</li>
@@ -515,9 +511,9 @@
 <li><p>新建&#x2F;etc&#x2F;profile.d&#x2F;my_env.sh文件</p>
 <p><code>sudo vim /etc/profile.d/my_env.sh</code></p>
 <p>添加如下内容</p>
-<p><code>#JAVA_HOME</code></p>
-<p><code>export JAVA_HOME=/opt/module/jdk1.8.0_212</code></p>
-<p><code>export PATH=$PATH:$JAVA_HOME/bin</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#JAVA_HOME</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/opt/module/jdk1.8.0_212</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br></pre></td></tr></table></figure>
+
+
 </li>
 <li><p>环境变量PATH生效</p>
 <p><code>source /etc/profile</code></p>
