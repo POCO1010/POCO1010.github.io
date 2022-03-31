@@ -275,10 +275,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-03-27 19:19:02 / 修改时间：19:20:15" itemprop="dateCreated datePublished" datetime="2022-03-27T19:19:02+08:00">2022-03-27</time>
+              <time title="创建时间：2022-03-27 19:19:02" itemprop="dateCreated datePublished" datetime="2022-03-27T19:19:02+08:00">2022-03-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-31 23:18:48" itemprop="dateModified" datetime="2022-03-31T23:18:48+08:00">2022-03-31</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -300,7 +306,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="正则速记"><a href="#正则速记" class="headerlink" title="正则速记"></a>正则速记</h1>
+          
       
     </div>
 
@@ -342,10 +348,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-03-27 10:59:19 / 修改时间：20:10:22" itemprop="dateCreated datePublished" datetime="2022-03-27T10:59:19+08:00">2022-03-27</time>
+              <time title="创建时间：2022-03-27 10:59:19" itemprop="dateCreated datePublished" datetime="2022-03-27T10:59:19+08:00">2022-03-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-31 23:18:03" itemprop="dateModified" datetime="2022-03-31T23:18:03+08:00">2022-03-31</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -400,1483 +412,15 @@
 </li>
 <li><p><strong>&#x2F;srv</strong></p>
 <p>service缩写，该目录存放一些服务启动之后需要提取的数据</p>
-</li>
-<li><p><strong>&#x2F;sys</strong></p>
-<p>这是Linux2.6内核的一个很大的变化，如果安装2.6内核中新出现的一个文件系统sysfs</p>
-</li>
-<li><p><strong>&#x2F;tmp</strong></p>
-<p>这个目录是用来存放一些临时文件的</p>
-</li>
-<li><p><strong>&#x2F;dev</strong></p>
-<p>类似与Windows的设备管理器，把所有的硬件用文件的形式存储</p>
-</li>
-<li><p><strong>&#x2F;media</strong></p>
-<p>Linux系统会自动识别一些设备(U盘，光驱)，识别后，Linux会把识别的设备挂载到这个目录下</p>
-<p>centos迁移到&#x2F;run&#x2F;media</p>
-</li>
-<li><p><strong>&#x2F;mnt</strong></p>
-<p>系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将外部的存储挂载在&#x2F;mnt&#x2F;上，然后进入该目录就可以查看里的内容了</p>
-</li>
-<li><p><strong>&#x2F;opt</strong></p>
-<p>这是给主机额外安装软件所摆放的目录</p>
-</li>
-<li><p><strong>&#x2F;var</strong></p>
-<p>这个目录中存放着在不断扩充着的东西。</p>
-</li>
-</ul>
-<h2 id="VI-x2F-VIM编辑器"><a href="#VI-x2F-VIM编辑器" class="headerlink" title="VI&#x2F;VIM编辑器"></a>VI&#x2F;VIM编辑器</h2><h3 id="一般模式"><a href="#一般模式" class="headerlink" title="一般模式"></a>一般模式</h3><table>
-<thead>
-<tr>
-<th align="center">语法</th>
-<th align="center">功能描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">yy</td>
-<td align="center">复制光标当前一行</td>
-</tr>
-<tr>
-<td align="center">y数字y</td>
-<td align="center">复制一段（从第几行到第几行）</td>
-</tr>
-<tr>
-<td align="center">p</td>
-<td align="center">箭头移动到目的行粘贴</td>
-</tr>
-<tr>
-<td align="center">u</td>
-<td align="center">撤销上一步</td>
-</tr>
-<tr>
-<td align="center">dd</td>
-<td align="center">删除光标当前行</td>
-</tr>
-<tr>
-<td align="center">d数字d</td>
-<td align="center">删除光标（含）后多少行</td>
-</tr>
-<tr>
-<td align="center">x</td>
-<td align="center">剪切一个字母，相当于del</td>
-</tr>
-<tr>
-<td align="center">X</td>
-<td align="center">剪切一个字母，相当于Backspace</td>
-</tr>
-<tr>
-<td align="center">yw</td>
-<td align="center">复制一个词</td>
-</tr>
-<tr>
-<td align="center">dw</td>
-<td align="center">删除一个词</td>
-</tr>
-<tr>
-<td align="center">shift+6（^）</td>
-<td align="center">移动到行头</td>
-</tr>
-<tr>
-<td align="center">shift+4 （$）</td>
-<td align="center">移动到行尾</td>
-</tr>
-<tr>
-<td align="center">1+shift+g</td>
-<td align="center">移动到页头，数字</td>
-</tr>
-<tr>
-<td align="center">shift+g</td>
-<td align="center">移动到页尾</td>
-</tr>
-<tr>
-<td align="center">数字+shift+g</td>
-<td align="center">移动到目标行</td>
-</tr>
-</tbody></table>
-<h3 id="编辑模式"><a href="#编辑模式" class="headerlink" title="编辑模式"></a>编辑模式</h3><table>
-<thead>
-<tr>
-<th align="center">按键</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">i</td>
-<td align="center">当前光标前</td>
-</tr>
-<tr>
-<td align="center">a</td>
-<td align="center">当前光标后</td>
-</tr>
-<tr>
-<td align="center">o</td>
-<td align="center">当前光标行的下一行</td>
-</tr>
-<tr>
-<td align="center">I</td>
-<td align="center">光标所在行最前</td>
-</tr>
-<tr>
-<td align="center">A</td>
-<td align="center">光标所在行最后</td>
-</tr>
-<tr>
-<td align="center">O</td>
-<td align="center">当前光标行的上一行</td>
-</tr>
-</tbody></table>
-<h3 id="指令模式"><a href="#指令模式" class="headerlink" title="指令模式"></a>指令模式</h3><table>
-<thead>
-<tr>
-<th align="center">命令</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">:w</td>
-<td align="center">保存</td>
-</tr>
-<tr>
-<td align="center">:q</td>
-<td align="center">退出</td>
-</tr>
-<tr>
-<td align="center">:!</td>
-<td align="center">强制执行</td>
-</tr>
-<tr>
-<td align="center">&#x2F;要查找的词</td>
-<td align="center">n 查找下一个，N 往上查找</td>
-</tr>
-<tr>
-<td align="center">:noh</td>
-<td align="center">取消高亮显示</td>
-</tr>
-<tr>
-<td align="center">:set nu</td>
-<td align="center">显示行号</td>
-</tr>
-<tr>
-<td align="center">:set nonu</td>
-<td align="center">关闭行号</td>
-</tr>
-<tr>
-<td align="center">:%s&#x2F;old&#x2F;new&#x2F;g</td>
-<td align="center">替换内容  &#x2F;g 替换匹配到的所有内容</td>
-</tr>
-</tbody></table>
-<h2 id="网络配置和系统管理操作"><a href="#网络配置和系统管理操作" class="headerlink" title="网络配置和系统管理操作"></a>网络配置和系统管理操作</h2><h3 id="网络和主机名"><a href="#网络和主机名" class="headerlink" title="网络和主机名"></a>网络和主机名</h3><ul>
-<li><p><strong>查看当前网络ip</strong></p>
-<p>ifconfig</p>
-</li>
-<li><p><strong>查看IP配置文件</strong></p>
-<p>vim &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-ens33</p>
-</li>
-<li><p><strong>重启网络</strong></p>
-<p>service network restart</p>
-</li>
-<li><p><strong>查看当前服务器主机名称</strong></p>
-<p>hostname</p>
-</li>
-<li><p><strong>修改主机名称</strong></p>
-<p>vi &#x2F;etc&#x2F;hostname</p>
-</li>
-<li><p><strong>修改hosts映射文件</strong></p>
-<p>vim &#x2F;etc&#x2F;hosts</p>
-</li>
-</ul>
-<h3 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h3><h4 id="service-（CentOS-6版本）"><a href="#service-（CentOS-6版本）" class="headerlink" title="service （CentOS 6版本）"></a>service （CentOS 6版本）</h4><ul>
-<li><p>查看网络服务的状态</p>
-<p>service network status</p>
-</li>
-<li><p>停止网络服务</p>
-<p>service network stop</p>
-</li>
-<li><p>启动网络服务</p>
-<p>service network start</p>
-</li>
-<li><p>重启网络服务</p>
-<p>service network restart</p>
-</li>
-</ul>
-<h4 id="chkconfig-设置后台服务的自启配置（CentOS-6版本）"><a href="#chkconfig-设置后台服务的自启配置（CentOS-6版本）" class="headerlink" title="chkconfig 设置后台服务的自启配置（CentOS 6版本）"></a>chkconfig 设置后台服务的自启配置（CentOS 6版本）</h4><ul>
-<li><p>开启&#x2F;关闭network(网络)服务的自动启动</p>
-<p>chkconfig network on </p>
-<p>chkconfig network off</p>
-</li>
-<li><p>开启&#x2F;关闭 network服务指定级别的自动启动</p>
-<p>chkconfig –level 指定级别 network on</p>
-<p>chkconfig –level 指定级别 network off</p>
-</li>
-</ul>
-<h4 id="systemctl（CentOS-7版本-重点掌握）"><a href="#systemctl（CentOS-7版本-重点掌握）" class="headerlink" title="systemctl（CentOS 7版本-重点掌握）"></a>systemctl（CentOS 7版本-重点掌握）</h4><ul>
-<li><p>查看防火墙服务的状态</p>
-<p>systemctl status firewalld</p>
-</li>
-<li><p>停止防火墙服务</p>
-<p>systemctl stop firewalld</p>
-</li>
-<li><p>启动防火墙服务</p>
-<p>systemctl start firewalld</p>
-</li>
-<li><p>重启防火墙服务</p>
-<p>systemctl restart firewalld</p>
-</li>
-</ul>
-<h4 id="systemctl-设置后台服务的自启配置（CentOS-7版本）"><a href="#systemctl-设置后台服务的自启配置（CentOS-7版本）" class="headerlink" title="systemctl 设置后台服务的自启配置（CentOS 7版本）"></a>systemctl 设置后台服务的自启配置（CentOS 7版本）</h4><ul>
-<li><p>开启&#x2F;关闭iptables(防火墙)服务的自动启动</p>
-<p>systemctl enable firewalld.service</p>
-<p>systemctl disable firewalld.service</p>
-</li>
-</ul>
-<h4 id="临时关闭防火墙"><a href="#临时关闭防火墙" class="headerlink" title="临时关闭防火墙"></a>临时关闭防火墙</h4><ul>
-<li><p>查看防火墙状态</p>
-<p>systemctl status firewalld</p>
-</li>
-<li><p>临时关闭防火墙</p>
-<p>systemctl stop firewalld</p>
-</li>
-</ul>
-<h4 id="开机启动时关闭防火墙"><a href="#开机启动时关闭防火墙" class="headerlink" title="开机启动时关闭防火墙"></a>开机启动时关闭防火墙</h4><ul>
-<li><p>查看防火墙开机启动状态</p>
-<p>systemctl enable firewalld.service</p>
-</li>
-<li><p>设置开机时关闭防火墙</p>
-<p>systemctl disable firewalld.service</p>
-</li>
-</ul>
-<h4 id="关机重启命令"><a href="#关机重启命令" class="headerlink" title="关机重启命令"></a>关机重启命令</h4><ul>
-<li><p>将数据由内存同步到硬盘中</p>
-<p>sync </p>
-</li>
-<li><p>重启</p>
-<p>reboot</p>
-</li>
-<li><p>关机</p>
-<p>halt</p>
-</li>
-<li><p>计算机将在1分钟后关机，并且会显示在登录用户的当前屏幕中</p>
-<p>shutdown -h 1 ‘This server will shutdown after 1 mins’</p>
-</li>
-<li><p>立马关机（等同于 halt）</p>
-<p>shutdown -h now</p>
-</li>
-<li><p>系统立马重启（等同于 reboot）</p>
-<p>shutdown -r now</p>
-</li>
-</ul>
-<h2 id="常用基本命令"><a href="#常用基本命令" class="headerlink" title="常用基本命令"></a>常用基本命令</h2><h3 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h3><ul>
-<li><p>man 获得帮助信息</p>
-<table>
-<thead>
-<tr>
-<th align="center">信息</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">NAME</td>
-<td align="center">命令的名称和单行描述</td>
-</tr>
-<tr>
-<td align="center">SYNOPSIS</td>
-<td align="center">怎样使用命令</td>
-</tr>
-<tr>
-<td align="center">DESCRIPTION</td>
-<td align="center">命令功能的深入讨论</td>
-</tr>
-<tr>
-<td align="center">EXAMPLES</td>
-<td align="center">怎样使用命令的例子</td>
-</tr>
-<tr>
-<td align="center">SEE ALSO</td>
-<td align="center">相关主题（通常是手册页）</td>
-</tr>
-</tbody></table>
-<p>man ls</p>
-</li>
-<li><p>help 获得shell内置命令的帮助信息</p>
-<p>help cd</p>
-</li>
-</ul>
-<h3 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h3><table>
-<thead>
-<tr>
-<th align="center">常用快捷键</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">ctrl + c</td>
-<td align="center">停止进程</td>
-</tr>
-<tr>
-<td align="center">ctrl+l</td>
-<td align="center">清屏；彻底清屏是：reset</td>
-</tr>
-<tr>
-<td align="center">ctrl + q</td>
-<td align="center">退出</td>
-</tr>
-<tr>
-<td align="center">善于用tab键</td>
-<td align="center">提示(更重要的是可以防止敲错)</td>
-</tr>
-<tr>
-<td align="center">上下键</td>
-<td align="center">查找执行过的命令</td>
-</tr>
-<tr>
-<td align="center">ctrl +alt</td>
-<td align="center">linux和Windows之间切换</td>
-</tr>
-</tbody></table>
-<h3 id="文件目录类"><a href="#文件目录类" class="headerlink" title="文件目录类"></a>文件目录类</h3><ul>
-<li><p>显示当前工作目录的绝对路径</p>
-<p>pwd</p>
-</li>
-<li><p>列出目录的内容</p>
-<p><strong>基本语法</strong></p>
-<p>ls [选项] [目录或是文件]</p>
-<p><strong>选项说明</strong></p>
-<table>
-<thead>
-<tr>
-<th align="center">选项</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-a</td>
-<td align="center">全部的文件，连同隐藏档( 开头为 . 的文件) 一起列出来(常用)</td>
-</tr>
-<tr>
-<td align="center">-l</td>
-<td align="center">长数据串列出，包含文件的属性与权限等等数据；(常用)等价于“ll”</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>cd 切换目录</p>
-<p><strong>参数说明</strong></p>
-<table>
-<thead>
-<tr>
-<th align="center">参数</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">cd 绝对路径</td>
-<td align="center">切换路径</td>
-</tr>
-<tr>
-<td align="center">cd相对路径</td>
-<td align="center">切换路径</td>
-</tr>
-<tr>
-<td align="center">cd ~或者cd</td>
-<td align="center">回到自己的家目录</td>
-</tr>
-<tr>
-<td align="center">cd -</td>
-<td align="center">回到上一次所在目录</td>
-</tr>
-<tr>
-<td align="center">cd ..</td>
-<td align="center">回到当前目录的上一级目录</td>
-</tr>
-<tr>
-<td align="center">cd -P</td>
-<td align="center">跳转到实际物理路径，而非快捷方式路径</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>mkdir 创建一个新的目录</p>
-<table>
-<thead>
-<tr>
-<th align="center">选项</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-p</td>
-<td align="center">创建多层目录</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>rmdir 删除一个空的目录</p>
-</li>
-<li><p>touch 创建空文件</p>
-</li>
-<li><p>cp 复制文件或目录</p>
-<p><strong>基本语法</strong></p>
-<p>cp [选项] source dest             （功能描述：复制source文件到dest）</p>
-<p><strong>选项说明</strong></p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-r</td>
-<td>递归复制整个文件夹</td>
-</tr>
-</tbody></table>
-<p><strong>参数说明</strong></p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>source</td>
-<td>源文件</td>
-</tr>
-<tr>
-<td>dest</td>
-<td>目标文件</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>rm 删除文件或目录</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>-r</td>
-<td>递归删除目录中所有内容</td>
-</tr>
-<tr>
-<td>-f</td>
-<td>强制执行删除操作，而不提示用于进行确认。</td>
-</tr>
-<tr>
-<td>-v</td>
-<td>显示指令的详细执行过程</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>mv 移动文件与目录或重命名</p>
-</li>
-<li><p>cat 查看文件内容</p>
-<table>
-<thead>
-<tr>
-<th align="center">选项</th>
-<th align="center">功能描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-n</td>
-<td align="center">显示所有行的行号，包括空行。</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>more 文件内容分屏查看器</p>
-<table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">功能说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">空白键 (space)</td>
-<td align="center">代表向下翻一页；</td>
-</tr>
-<tr>
-<td align="center">Enter</td>
-<td align="center">代表向下翻『一行』；</td>
-</tr>
-<tr>
-<td align="center">q</td>
-<td align="center">代表立刻离开 more ，不再显示该文件内容。</td>
-</tr>
-<tr>
-<td align="center">Ctrl+F</td>
-<td align="center">向下滚动一屏</td>
-</tr>
-<tr>
-<td align="center">Ctrl+B</td>
-<td align="center">返回上一屏</td>
-</tr>
-<tr>
-<td align="center">&#x3D;</td>
-<td align="center">输出当前行的行号</td>
-</tr>
-<tr>
-<td align="center">:f</td>
-<td align="center">输出文件名和当前行的行号</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>less 分屏显示文件内容</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">功能说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">空白键</td>
-<td align="center">向下翻动一页；</td>
-</tr>
-<tr>
-<td align="center">[pagedown]</td>
-<td align="center">向下翻动一页</td>
-</tr>
-<tr>
-<td align="center">[pageup]</td>
-<td align="center">向上翻动一页；</td>
-</tr>
-<tr>
-<td align="center">&#x2F;字串</td>
-<td align="center">向下搜寻『字串』的功能；n：向下查找；N：向上查找；</td>
-</tr>
-<tr>
-<td align="center">?字串</td>
-<td align="center">向上搜寻『字串』的功能；n：向上查找；N：向下查找；</td>
-</tr>
-<tr>
-<td align="center">q</td>
-<td align="center">离开 less 这个程序；</td>
-</tr>
-</tbody></table>
-<ul>
-<li>echo输出内容到控制台</li>
-</ul>
-<p>基本语法   echo [选项] [输出内容]       -e： 支持反斜线控制的字符转换</p>
-<table>
-<thead>
-<tr>
-<th>控制字符</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>\</td>
-<td>输出\本身</td>
-</tr>
-<tr>
-<td>\n</td>
-<td>换行符</td>
-</tr>
-<tr>
-<td>\t</td>
-<td>制表符，也就是Tab键</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p>head 显示文件头部内容</p>
-<p>head 文件      （功能描述：查看文件头10行内容）</p>
-<p>head -n 5 文件   （功能描述：查看文件头5行内容，5可以是任意行数）</p>
-</li>
-<li><p>tail 输出文件尾部内容</p>
-<p>（1）tail 文件          （功能描述：查看文件尾部10行内容）</p>
-<p>（2）tail -n  5 文件     （功能描述：查看文件尾部5行内容，5可以是任意行数）</p>
-<p>（3）tail -f 文件      （功能描述：实时追踪该文档的所有更新）</p>
-</li>
-<li><p>&gt; 输出重定向和 &gt;&gt; 追加</p>
-</li>
-</ul>
-<p>  （1）ls -l  &gt; 文件       （功能描述：列表的内容写入文件a.txt中（<strong>覆盖写</strong>））</p>
-<p>  （2）ls -al  &gt;&gt; 文件     （功能描述：列表的内容<strong>追加</strong>到文件aa.txt的末尾）</p>
-<p>  （3）cat 文件1 &gt; 文件2  （功能描述：将文件1的内容覆盖到文件2）</p>
-<p>  （4）echo “内容” &gt;&gt; 文件</p>
-<ul>
-<li><p>ln 软链接（软链接也成为符号链接，类似于windows里的快捷方式，有自己的数据块，主要存放了链接其他文件的路径）</p>
-<p>基本语法</p>
-<p>ln -s [原文件或目录] [软链接名]    （功能描述：给原文件创建一个软链接）</p>
-<p>经验技巧</p>
-<p>删除软链接： rm -rf 软链接名，而不是rm -rf 软链接名&#x2F;</p>
-<p>如果使用 rm -rf 软链接名&#x2F; 删除，会把软链接对应的真实目录下内容删掉</p>
-<p>查询：通过ll就可以查看，列表属性第1位是l，尾部会有位置指向。</p>
-</li>
-<li><p>history 查看已经执行过历史命令</p>
-</li>
-</ul>
-<h3 id="时间日期类"><a href="#时间日期类" class="headerlink" title="时间日期类"></a>时间日期类</h3><ul>
-<li><p>时间日期类</p>
-<p>基本语法</p>
-<p>date [OPTION]… [+FORMAT]</p>
-<p>选项说明</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-d&lt;时间字符串&gt;</td>
-<td>显示指定的“时间字符串”表示的时间，而非当前时间</td>
-</tr>
-<tr>
-<td>-s&lt;日期时间&gt;</td>
-<td>设置系统日期时间</td>
-</tr>
-</tbody></table>
-<p>参数说明</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>&lt;+日期时间格式&gt;</td>
-<td>指定显示时使用的日期时间格式</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>date 显示当前时间</p>
-<p>（1）date                            （功能描述：显示当前时间）</p>
-<p>（2）date +%Y                        （功能描述：显示当前年份）</p>
-<p>（3）date +%m                        （功能描述：显示当前月份）</p>
-<p>（4）date +%d                        （功能描述：显示当前是哪一天）</p>
-<p>（5）date “+%Y-%m-%d %H:%M:%S”      （功能描述：显示年月日时分秒）</p>
-</li>
-<li><p>date 显示非当前时间</p>
-</li>
-</ul>
-<p>  （1）date -d ‘1 days ago’          （功能描述：显示前一天时间）</p>
-<p>  （2）date -d ‘-1 days ago’          （功能描述：显示明天时间）</p>
-<ul>
-<li><p>date 设置系统时间</p>
-<p>date -s 字符串时间</p>
-</li>
-<li><p>cal 查看日历</p>
-<p>查看当前月的日历</p>
-<p>cal</p>
-<p>查看2017年的日历</p>
-<p>cal 2017</p>
-</li>
-</ul>
-<h3 id="用户管理命令"><a href="#用户管理命令" class="headerlink" title="用户管理命令"></a>用户管理命令</h3><ul>
-<li><p>useradd 添加新用户</p>
-<p>useradd 用户名          （功能描述：添加新用户）</p>
-<p>useradd -g 组名 用户名   （功能描述：添加新用户到某个组）</p>
-</li>
-<li><p>passwd 设置用户密码</p>
-<p>passwd 用户名   </p>
-</li>
-<li><p>id 查看用户是否存在</p>
-<p>id 用户名</p>
-</li>
-<li><p>cat &#x2F;etc&#x2F;passwd 查看创建了哪些用户</p>
-</li>
-<li><p>su 切换用户</p>
-<p>su 用户名称  （功能描述：切换用户，只能获得用户的执行权限，不能获得环境变量）</p>
-<p>su - 用户名称    （功能描述：切换到用户并获得该用户的环境变量及执行权限）</p>
-</li>
-<li><p>userdel 删除用户</p>
-<p>（1）userdel 用户名     （功能描述：删除用户但保存用户主目录）</p>
-<p>（2）userdel -r 用户名    （功能描述：用户和用户主目录，都删除）</p>
-</li>
-<li><p>who 查看登录用户信息</p>
-<p>（1）whoami       （功能描述：显示自身用户名称）</p>
-<p>（2）who am i       （功能描述：显示登录用户的用户名以及登陆时间）</p>
-</li>
-<li><p>sudo 设置普通用户具有root权限</p>
-</li>
-<li><p>usermod 将用户加入到用户组</p>
-<p>usermod -g root zhubajie</p>
-</li>
-</ul>
-<h3 id="用户组管理命令"><a href="#用户组管理命令" class="headerlink" title="用户组管理命令"></a>用户组管理命令</h3><ul>
-<li><p>groupadd 新增组</p>
-</li>
-<li><p>groupdel 删除组</p>
-</li>
-<li><p>groupmod 修改组</p>
-<p>修改atguigu组名称为atguigu1</p>
-<p>groupmod -n xitian xitianqujing</p>
-</li>
-<li><p>cat &#x2F;etc&#x2F;group 查看创建了哪些组</p>
-</li>
-</ul>
-<h3 id="文件权限类"><a href="#文件权限类" class="headerlink" title="文件权限类"></a>文件权限类</h3><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220327175906466.png" alt="image-20220327175906466"></p>
-<ul>
-<li><p>chmod 改变权限</p>
-<p>第一种方式变更权限</p>
-<p>chmod [{ugoa}{+-&#x3D;}{rwx}] 文件或目录</p>
-<p>第二种方式变更权限</p>
-<p>chmod [mode&#x3D;421 ] [文件或目录]</p>
-<p>经验技巧</p>
-<p>u:所有者 g:所有组 o:其他人 a:所有人(u、g、o的总和)</p>
-<p>r&#x3D;4 w&#x3D;2 x&#x3D;1    rwx&#x3D;4+2+1&#x3D;7</p>
-<p>（1）修改文件使其所属主用户具有执行权限</p>
-<p>cp xiyou&#x2F;dssz&#x2F;houge.txt .&#x2F;</p>
-<p>chmod u+x houge.txt</p>
-<p>（2）修改文件使其所属组用户具有执行权限</p>
-<p>chmod g+x houge.txt</p>
-<p>（3）修改文件所属主用户执行权限,并使其他用户具有执行权限</p>
-<p>chmod u-x,o+x houge.txt</p>
-<p>（4）采用数字的方式，设置文件所有者、所属组、其他用户都具有可读可写可执行权限。</p>
-<p>chmod 777 houge.txt</p>
-<p>（5）修改整个文件夹里面的所有文件的所有者、所属组、其他用户都具有可读可写可执行权限。</p>
-<p>chmod -R 777 xiyou&#x2F;</p>
-</li>
-<li><p>chown 改变所有者</p>
-<p>修改文件所有者</p>
-<p>chown atguigu houge.txt</p>
-<p>递归改变文件所有者和所有组</p>
-<p>chown -R atguigu:atguigu xiyou&#x2F;</p>
-</li>
-<li><p>chgrp 改变所属组</p>
-</li>
-</ul>
-<h3 id="搜索查找类"><a href="#搜索查找类" class="headerlink" title="搜索查找类"></a>搜索查找类</h3><ul>
-<li><p>find 查找文件或者目录</p>
-<p>基本语法</p>
-<p>​    find [搜索范围] [选项]</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th align="left">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-name&lt;查询方式&gt;</td>
-<td align="left">按照指定的文件名查找模式查找文件</td>
-</tr>
-<tr>
-<td>-user&lt;用户名&gt;</td>
-<td align="left">查找属于指定用户名所有文件</td>
-</tr>
-<tr>
-<td>-size&lt;文件大小&gt;</td>
-<td align="left">按照指定的文件大小查找文件,单位为:   <strong>b</strong> —— 块（512字节）  <strong>c</strong> —— 字节  <strong>w</strong> —— 字（2字节）  <strong>k</strong> —— 千字节  <strong>M</strong> —— 兆字节  <strong>G</strong> —— 吉字节    （+n 大于 -n小于  n等于）</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>locate 快速定位文件路径 可搜索文件或文件夹</p>
-<p>locate指令利用事先建立的系统中所有文件名称及路径的locate数据库实现快速定位给定的文件。Locate指令<strong>无需遍历整个文件系统，查询速度较快</strong>。为了保证查询结果的准确度，管理员必须定期更新locate时刻。</p>
-<p>由于locate指令基于数据库进行查询，所以第一次运行前，必须使用updatedb指令创建locate数据库。</p>
-<p>updatedb</p>
-<p>locate tmp</p>
-</li>
-<li><p>grep 过滤查找及“|”管道符</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-n</td>
-<td>显示匹配行及行号。</td>
-</tr>
-</tbody></table>
-<p>查找某文件在第几行</p>
-<p>ls | grep -n test</p>
-</li>
-</ul>
-<h3 id="压缩和解压类"><a href="#压缩和解压类" class="headerlink" title="压缩和解压类"></a>压缩和解压类</h3><ul>
-<li><p>gzip&#x2F;gunzip 压缩</p>
-<p>基本语法</p>
-<p>gzip 文件       （功能描述：压缩文件，只能将文件压缩为*.gz文件）</p>
-<p>gunzip 文件.gz   （功能描述：解压缩文件命令）</p>
-<p>经验技巧</p>
-<p>（1）只能压缩文件不能压缩目录</p>
-<p>（2）不保留原来的文件</p>
-<p>（3）同时多个文件会产生多个压缩包</p>
-</li>
-<li><p>zip&#x2F;unzip 压缩</p>
-<p>基本语法</p>
-<p>zip [选项] XXX.zip 将要压缩的内容      （功能描述：压缩文件和目录的命令）</p>
-<p>unzip [选项] XXX.zip                   （功能描述：解压缩文件）</p>
-<table>
-<thead>
-<tr>
-<th>zip选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-r</td>
-<td>压缩目录</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>unzip选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-d&lt;目录&gt;</td>
-<td>指定解压后文件的存放目录</td>
-</tr>
-</tbody></table>
-<p>经验技巧</p>
-<p>zip 压缩命令在window&#x2F;linux都通用，可以压缩目录且保留源文件。</p>
-</li>
-<li><p>tar 打包</p>
-<p>tar [选项] XXX.tar.gz 将要打包进去的内容      （功能描述：打包目录，压缩后的文件格式.tar.gz）</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-c</td>
-<td align="center">产生.tar打包文件</td>
-</tr>
-<tr>
-<td>-v</td>
-<td align="center">显示详细信息</td>
-</tr>
-<tr>
-<td>-f</td>
-<td align="center">指定压缩后的文件名</td>
-</tr>
-<tr>
-<td>-z</td>
-<td align="center">打包同时压缩</td>
-</tr>
-<tr>
-<td>-x</td>
-<td align="center">解包.tar文件</td>
-</tr>
-<tr>
-<td>-C</td>
-<td align="center">解压到指定目录</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<h3 id="磁盘分区类"><a href="#磁盘分区类" class="headerlink" title="磁盘分区类"></a>磁盘分区类</h3><ul>
-<li><p>df 查看磁盘空间使用情况 (df: disk free 空余硬盘)</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-h</td>
-<td>以人们较易阅读的 GBytes, MBytes, KBytes 等格式自行显示；</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>fdisk 查看分区</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-l</td>
-<td>显示所有硬盘的分区列表</td>
-</tr>
-</tbody></table>
-<p>Linux分区</p>
-<p>Device：分区序列</p>
-<p>Boot：引导</p>
-<p>Start：从X磁柱开始</p>
-<p>End：到Y磁柱结束</p>
-<p>Blocks：容量</p>
-<p>Id：分区类型ID</p>
-<p>System：分区类型</p>
-</li>
-<li><p>lsblk 查看设备挂载情况</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-f</td>
-<td>查看详细的设备挂载情况，显示文件系统信息</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>mount&#x2F;umount 挂载&#x2F;卸载</p>
-<p>基本语法</p>
-<p>mount [-t vfstype] [-o options] device dir   （功能描述：挂载设备）</p>
-<p>umount 设备文件名或挂载点         （功能描述：卸载设备）</p>
-<p>参数说明</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-t vfstype</td>
-<td>指定文件系统的类型，通常不必指定。mount 会自动选择正确的类型。常用类型有：  光盘或光盘镜像：iso9660  DOS fat16文件系统：msdos  <a target="_blank" rel="noopener" href="http://blog.csdn.net/hancunai0017/article/details/6995284">Windows</a> 9x fat32文件系统：vfat  Windows NT ntfs文件系统：ntfs  Mount Windows文件<a target="_blank" rel="noopener" href="http://blog.csdn.net/hancunai0017/article/details/6995284">网络</a>共享：smbfs  <a target="_blank" rel="noopener" href="http://blog.csdn.net/hancunai0017/article/details/6995284">UNIX</a>(LINUX) 文件网络共享：nfs</td>
-</tr>
-<tr>
-<td>-o options</td>
-<td>主要用来描述设备或档案的挂接方式。常用的参数有：  loop：用来把一个文件当成硬盘分区挂接上系统  ro：采用只读方式挂接设备  rw：采用读写方式挂接设备  　 iocharset：指定访问文件系统所用字符集</td>
-</tr>
-<tr>
-<td>device</td>
-<td>要挂接(mount)的设备</td>
-</tr>
-<tr>
-<td>dir</td>
-<td>设备在系统上的挂接点(mount point)</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<h3 id="进程线程类"><a href="#进程线程类" class="headerlink" title="进程线程类"></a>进程线程类</h3><ul>
-<li><p>ps 查看当前系统进程状态(ps:process status 进程状态)</p>
-<p>基本语法</p>
-<p>​    ps -aux | grep xxx     （功能描述：查看系统中所有进程）</p>
-<p>​    ps -ef | grep xxx      （功能描述：可以查看子父进程之间的关系）</p>
-<p>选项说明</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-a</td>
-<td>选择所有进程</td>
-</tr>
-<tr>
-<td>-u</td>
-<td>显示所有用户的所有进程</td>
-</tr>
-<tr>
-<td>-x</td>
-<td>显示没有终端的进程</td>
-</tr>
-</tbody></table>
-<p>功能说明</p>
-<p>（1）ps -aux显示信息说明</p>
-<p>USER：该进程是由哪个用户产生的</p>
-<p>PID：进程的ID号</p>
-<p>%CPU：该进程占用CPU资源的百分比，占用越高，进程越耗费资源；</p>
-<p>%MEM：该进程占用物理内存的百分比，占用越高，进程越耗费资源；</p>
-<p>VSZ：该进程占用虚拟内存的大小，单位KB；</p>
-<p>RSS：该进程占用实际物理内存的大小，单位KB；</p>
-<p>TTY：该进程是在哪个终端中运行的。其中tty1-tty7代表本地控制台终端，tty1-tty6是本地的字符界面终端，tty7是图形终端。pts&#x2F;0-255代表虚拟终端。</p>
-<p>STAT：进程状态。常见的状态有：R：运行、S：睡眠、T：停止状态、s：包含子进程、+：位于后台</p>
-<p>START：该进程的启动时间</p>
-<p>TIME：该进程占用CPU的运算时间，注意不是系统时间</p>
-<p>COMMAND：产生此进程的命令名</p>
-<p>（2）ps -ef显示信息说明</p>
-<p>UID：用户ID </p>
-<p>PID：进程ID </p>
-<p>PPID：父进程ID </p>
-<p>C：CPU用于计算执行优先级的因子。数值越大，表明进程是CPU密集型运算，执行优先级会降低；数值越小，表明进程是I&#x2F;O密集型运算，执行优先级会提高 </p>
-<p>STIME：进程启动的时间</p>
-<p>TTY：完整的终端名称</p>
-<p>TIME：CPU时间 </p>
-<p>CMD：启动进程所用的命令和参数</p>
-<p>经验技巧</p>
-<p>如果想查看进程的CPU占用率和内存占用率，可以使用aux;</p>
-<p>如果想查看进程的父进程ID可以使用ef;</p>
-</li>
-<li><p>kill 终止进程</p>
-<p>kill [选项] 进程号      （功能描述：通过进程号杀死进程）</p>
-<p>killall 进程名称         （功能描述：通过进程名称杀死进程，也支持通配符，这在系统因负载过大而变得很慢时很有用）</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-9</td>
-<td>表示强迫进程立即停止</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>pstree 查看进程树</p>
-<p>pstree [选项]</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-p</td>
-<td>显示进程的PID</td>
-</tr>
-<tr>
-<td>-u</td>
-<td>显示进程的所属用户</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>top 查看系统健康状态</p>
-<p>top [选项]   </p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-d 秒数</td>
-<td>指定top命令每隔几秒更新。默认是3秒在top命令的交互模式当中可以执行的命令：</td>
-</tr>
-<tr>
-<td>-i</td>
-<td>使top不显示任何闲置或者僵死进程。</td>
-</tr>
-<tr>
-<td>-p</td>
-<td>通过指定监控进程ID来仅仅监控某个进程的状态。</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>P</td>
-<td>以CPU使用率排序，默认就是此项</td>
-</tr>
-<tr>
-<td>M</td>
-<td>以内存的使用率排序</td>
-</tr>
-<tr>
-<td>N</td>
-<td>以PID排序</td>
-</tr>
-<tr>
-<td>q</td>
-<td>退出top</td>
-</tr>
-</tbody></table>
-<p><strong>查询结果字段解释</strong></p>
-<p>第一行信息为任务队列信息</p>
-<table>
-<thead>
-<tr>
-<th>内容</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>12:26:46</td>
-<td>系统当前时间</td>
-</tr>
-<tr>
-<td>up 1 day, 13:32</td>
-<td>系统的运行时间，本机已经运行1天  13小时32分钟</td>
-</tr>
-<tr>
-<td>2 users</td>
-<td>当前登录了两个用户</td>
-</tr>
-<tr>
-<td>load average:   0.00, 0.00, 0.00</td>
-<td>系统在之前1分钟，5分钟，15分钟的平均负载。一般认为小于1时，负载较小。如果大于1，系统已经超出负荷。</td>
-</tr>
-</tbody></table>
-<p>第二行为进程信息</p>
-<table>
-<thead>
-<tr>
-<th>Tasks: 95 total</th>
-<th>系统中的进程总数</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1 running</td>
-<td>正在运行的进程数</td>
-</tr>
-<tr>
-<td>94 sleeping</td>
-<td>睡眠的进程</td>
-</tr>
-<tr>
-<td>0 stopped</td>
-<td>正在停止的进程</td>
-</tr>
-<tr>
-<td>0 zombie</td>
-<td>僵尸进程。如果不是0，需要手工检查僵尸进程</td>
-</tr>
-</tbody></table>
-<p>第三行为CPU信息</p>
-<table>
-<thead>
-<tr>
-<th>Cpu(s): 0.1%us</th>
-<th>用户模式占用的CPU百分比</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0.1%sy</td>
-<td>系统模式占用的CPU百分比</td>
-</tr>
-<tr>
-<td>0.0%ni</td>
-<td>改变过优先级的用户进程占用的CPU百分比</td>
-</tr>
-<tr>
-<td>99.7%id</td>
-<td>空闲CPU的CPU百分比</td>
-</tr>
-<tr>
-<td>0.1%wa</td>
-<td>等待输入&#x2F;输出的进程的占用CPU百分比</td>
-</tr>
-<tr>
-<td>0.0%hi</td>
-<td>硬中断请求服务占用的CPU百分比</td>
-</tr>
-<tr>
-<td>0.1%si</td>
-<td>软中断请求服务占用的CPU百分比</td>
-</tr>
-<tr>
-<td>0.0%st</td>
-<td>st（Steal time）虚拟时间百分比。就是当有虚拟机时，虚拟CPU等待实际CPU的时间百分比。</td>
-</tr>
-</tbody></table>
-<p>第四行为物理内存信息</p>
-<table>
-<thead>
-<tr>
-<th>Mem:  625344k total</th>
-<th>物理内存的总量，单位KB</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>571504k used</td>
-<td>已经使用的物理内存数量</td>
-</tr>
-<tr>
-<td>53840k free</td>
-<td>空闲的物理内存数量，我们使用的是虚拟机，总共只分配了628MB内存，所以只有53MB的空闲内存了</td>
-</tr>
-<tr>
-<td>65800k buffers</td>
-<td>作为缓冲的内存数量</td>
-</tr>
-</tbody></table>
-<p>第五行为交换分区（swap）信息</p>
-<table>
-<thead>
-<tr>
-<th>Swap:  524280k total</th>
-<th>交换分区（虚拟内存）的总大小</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0k used</td>
-<td>已经使用的交互分区的大小</td>
-</tr>
-<tr>
-<td>524280k free</td>
-<td>空闲交换分区的大小</td>
-</tr>
-<tr>
-<td>409280k cached</td>
-<td>作为缓存的交互分区的大小</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>netstat 显示网络统计信息和端口占用情况</p>
-<p>netstat -anp | grep 进程号   （功能描述：查看该进程网络信息）</p>
-<p>netstat –nlp | grep 端口号   （功能描述：查看网络端口号占用情况）</p>
-<p>选项说明</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-n</td>
-<td>拒绝显示别名，能显示数字的全部转化成数字</td>
-</tr>
-<tr>
-<td>-l</td>
-<td>仅列出有在listen（监听）的服务状态</td>
-</tr>
-<tr>
-<td>-p</td>
-<td>表示显示哪个进程在调用</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<h3 id="crontab-系统定时任务"><a href="#crontab-系统定时任务" class="headerlink" title="crontab 系统定时任务"></a>crontab 系统定时任务</h3><ul>
-<li><p>crontab 服务管理</p>
-<p>重新启动crond服务</p>
-<p>systemctl restart crond</p>
-</li>
-<li><p>crontab 定时任务设置</p>
-<p>crontab [选项]</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-e</td>
-<td>编辑crontab定时任务</td>
-</tr>
-<tr>
-<td>-l</td>
-<td>查询crontab任务</td>
-</tr>
-<tr>
-<td>-r</td>
-<td>删除当前用户所有的crontab任务</td>
-</tr>
-</tbody></table>
-<p>参数说明</p>
-<p>[root@hadoop101 ~]# crontab -e </p>
-<p>（1）进入crontab编辑界面。会打开vim编辑你的工作。</p>
-<p>* * * * * 执行的任务</p>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>含义</th>
-<th>范围</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>第一个“*”</td>
-<td>一小时当中的第几分钟</td>
-<td>0-59</td>
-</tr>
-<tr>
-<td>第二个“*”</td>
-<td>一天当中的第几小时</td>
-<td>0-23</td>
-</tr>
-<tr>
-<td>第三个“*”</td>
-<td>一个月当中的第几天</td>
-<td>1-31</td>
-</tr>
-<tr>
-<td>第四个“*”</td>
-<td>一年当中的第几月</td>
-<td>1-12</td>
-</tr>
-<tr>
-<td>第五个“*”</td>
-<td>一周当中的星期几</td>
-<td>0-7（0和7都代表星期日）</td>
-</tr>
-</tbody></table>
-<p>（2）特殊符号</p>
-<table>
-<thead>
-<tr>
-<th align="left">特殊符号</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">*</td>
-<td>代表任何时间。比如第一个“*”就代表一小时中每分钟都执行一次的意思。</td>
-</tr>
-<tr>
-<td align="left">，</td>
-<td>代表不连续的时间。比如“0 8,12,16 * * * 命令”，就代表在每天的8点0分，12点0分，16点0分都执行一次命令</td>
-</tr>
-<tr>
-<td align="left">-</td>
-<td>代表连续的时间范围。比如“0 5 *   * 1-6命令”，代表在周一到周六的凌晨5点0分执行命令</td>
-</tr>
-<tr>
-<td align="left">*&#x2F;n</td>
-<td>代表每隔多久执行一次。比如“*&#x2F;10 *   * * * 命令”，代表每隔10分钟就执行一遍命令</td>
-</tr>
-</tbody></table>
-<p>（3）特定时间执行命令</p>
-<table>
-<thead>
-<tr>
-<th>时间</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>45 22 * * * 命令</td>
-<td>在22点45分执行命令</td>
-</tr>
-<tr>
-<td>0 17 * * 1 命令</td>
-<td>每周1 的17点0分执行命令</td>
-</tr>
-<tr>
-<td>0 5 1,15 * * 命令</td>
-<td>每月1号和15号的凌晨5点0分执行命令</td>
-</tr>
-<tr>
-<td>40 4 * * 1-5 命令</td>
-<td>每周一到周五的凌晨4点40分执行命令</td>
-</tr>
-<tr>
-<td>*&#x2F;10 4 * * * 命令</td>
-<td>每天的凌晨4点，每隔10分钟执行一次命令</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0 0 1,15 * 1 命令</td>
-<td>每月1号和15号，每周1的0点0分都会执行命令。注意：星期几和几号最好不要同时出现，因为他们定义的都是天。非常容易让管理员混乱。</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<h2 id="软件包管理"><a href="#软件包管理" class="headerlink" title="软件包管理"></a>软件包管理</h2><h3 id="RPM"><a href="#RPM" class="headerlink" title="RPM"></a>RPM</h3><ul>
-<li><p>RPM查询命令（rpm -qa）</p>
-<p>rpm -qa            （功能描述：查询所安装的所有rpm软件包）</p>
-<p>由于软件包比较多，一般都会采取过滤。rpm -qa | grep rpm软件包</p>
-</li>
-<li><p>RPM卸载命令（rpm -e）</p>
-<p>（1）rpm -e RPM软件包  </p>
-<p>（2） rpm -e –nodeps 软件包 </p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-e</td>
-<td>卸载软件包</td>
-</tr>
-<tr>
-<td>–nodeps</td>
-<td>卸载软件时，不检查依赖。这样的话，那些使用该软件包的软件在此之后可能就不能正常工作了。</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>RPM安装命令（rpm -ivh）</p>
-<p>rpm -ivh RPM包全名</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-i</td>
-<td>-i&#x3D;install，安装</td>
-</tr>
-<tr>
-<td>-v</td>
-<td>-v&#x3D;verbose，显示详细信息</td>
-</tr>
-<tr>
-<td>-h</td>
-<td>-h&#x3D;hash，进度条</td>
-</tr>
-<tr>
-<td>–nodeps</td>
-<td>–nodeps，不检测依赖进度</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<h3 id="YUM"><a href="#YUM" class="headerlink" title="YUM"></a>YUM</h3><ul>
-<li><p>YUM的常用命令</p>
-<p>yum [选项] [参数]</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-y</td>
-<td>对所有提问都回答“yes”</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>install</td>
-<td>安装rpm软件包</td>
-</tr>
-<tr>
-<td>update</td>
-<td>更新rpm软件包</td>
-</tr>
-<tr>
-<td>check-update</td>
-<td>检查是否有可用的更新rpm软件包</td>
-</tr>
-<tr>
-<td>remove</td>
-<td>删除指定的rpm软件包</td>
-</tr>
-<tr>
-<td>list</td>
-<td>显示软件包信息</td>
-</tr>
-<tr>
-<td>clean</td>
-<td>清理yum过期的缓存</td>
-</tr>
-<tr>
-<td>deplist</td>
-<td>显示yum软件包的所有依赖关系</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-
+<h3 id><a href="#" class="headerlink" title></a></h3></li></ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/27/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/Linux%E5%9F%BA%E7%A1%80/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1918,10 +462,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-03-27 10:58:55 / 修改时间：20:18:51" itemprop="dateCreated datePublished" datetime="2022-03-27T10:58:55+08:00">2022-03-27</time>
+              <time title="创建时间：2022-03-27 10:58:55" itemprop="dateCreated datePublished" datetime="2022-03-27T10:58:55+08:00">2022-03-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-31 23:18:10" itemprop="dateModified" datetime="2022-03-31T23:18:10+08:00">2022-03-31</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -1946,12 +496,15 @@
           <h2 id="shell概述"><a href="#shell概述" class="headerlink" title="shell概述"></a>shell概述</h2><p>shell是一个命令行解释器，它接收应用程序&#x2F;用户命令，然后调用系统内核。</p>
 <p>shell还是一个功能相当强大的编程语言，易编写，易调用，灵活性强。</p>
 <p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220327201501681.png" alt="image-20220327201501681"></p>
-<ul>
-<li><p>Linux提供的Shell解析器</p>
-<p><code>cat /etc/shells</code> </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/bin/sh</span><br><span class="line">/bin/bash</span><br><span class="line">/sbin/nologin</span><br><span class="line">/bin/dash</span><br><span class="line">/bin/tcsh</span><br><span class="line">/bin/csh</span><br></pre></td></tr></table></figure></li>
-</ul>
-
+<h3 id><a href="#" class="headerlink" title></a></h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/27/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/shell%E7%BC%96%E7%A8%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2001,7 +554,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-31 23:10:03" itemprop="dateModified" datetime="2022-03-31T23:10:03+08:00">2022-03-31</time>
+                <time title="修改时间：2022-03-31 23:17:51" itemprop="dateModified" datetime="2022-03-31T23:17:51+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2036,56 +589,15 @@
 <p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘<strong>%<strong>张</strong>%</strong>‘</p>
 <p># 查询姓名里面第一个字母是m，m后面包含三个字母</p>
 <p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘m**___**’</p>
-<h2 id="排序操作"><a href="#排序操作" class="headerlink" title="排序操作   !"></a>排序操作   !</h2><p># 查询emp表所有记录，根据eid进行排序</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">ORDER</span> <span class="keyword">BY</span> eid <span class="operator">*</span><span class="operator">*</span><span class="keyword">ASC</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">ORDER</span> <span class="keyword">BY</span> eid <span class="operator">*</span><span class="keyword">DESC</span><span class="operator">*</span><span class="operator">*</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="查询区间范围"><a href="#查询区间范围" class="headerlink" title="查询区间范围"></a>查询区间范围</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 查询emp表年龄 <span class="number">30</span><span class="number">-50</span>范围  </span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> age<span class="operator">&gt;=</span><span class="number">30</span> <span class="keyword">AND</span> age<span class="operator">&lt;=</span><span class="number">50</span> </span><br><span class="line"></span><br><span class="line"># <span class="keyword">BETWEEN</span> 开始值 <span class="keyword">AND</span> 结束值</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> age <span class="keyword">BETWEEN</span> <span class="number">30</span> <span class="keyword">AND</span> <span class="number">50</span></span><br><span class="line"></span><br><span class="line"># 查询年龄是 <span class="number">20</span> <span class="number">40</span> <span class="number">60</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> age <span class="keyword">IN</span>(<span class="number">20</span>,<span class="number">40</span>,<span class="number">60</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="mysql分页查询"><a href="#mysql分页查询" class="headerlink" title="mysql分页查询"></a>mysql分页查询</h3><p>（1）limit后面有两个参数</p>
-<p>第一个参数 查询数据开始位置，从0开始</p>
-<p>第二个参数 每页显示多少条记录</p>
-<p>（2）查询数据开始位置计算公式</p>
-<p>(当前页-1)*每页显示记录数</p>
-<p>3、编写分页语句</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 分页语句</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp LIMIT <span class="number">0</span>,<span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp LIMIT <span class="number">3</span>,<span class="number">3</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h2><h3 id="count-：统计"><a href="#count-：统计" class="headerlink" title="count() ：统计"></a>count() ：统计</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">## 查询表有多少条记录</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> num <span class="keyword">FROM</span> emp</span><br><span class="line"></span><br><span class="line"># 查询年龄大于<span class="number">40</span>人员数量</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> age<span class="operator">&gt;</span><span class="number">40</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="sum-：求和"><a href="#sum-：求和" class="headerlink" title="sum()：求和"></a>sum()：求和</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># <span class="built_in">sum</span>()：求和</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(age) <span class="keyword">FROM</span> emp</span><br></pre></td></tr></table></figure>
-
-<h3 id="avg-计算平均数"><a href="#avg-计算平均数" class="headerlink" title="avg():   计算平均数"></a>avg():   计算平均数</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># <span class="built_in">sum</span>()：求和</span><br><span class="line"># <span class="built_in">avg</span>(): 计算平均数</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">AVG</span>(age) <span class="keyword">FROM</span> emp</span><br><span class="line"></span><br><span class="line"># 把平均数值小数点后面位数</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">CAST</span>(<span class="built_in">AVG</span>(age) <span class="keyword">AS</span> <span class="type">DECIMAL</span>(<span class="number">10</span>,<span class="number">2</span>)) <span class="keyword">AS</span> avgnum <span class="keyword">FROM</span> emp</span><br></pre></td></tr></table></figure>
-
-<h3 id="max-获取最大值"><a href="#max-获取最大值" class="headerlink" title="max():   获取最大值"></a>max():   获取最大值</h3><p>SELECT <strong>MAX</strong>(age) FROM emp</p>
-<h3 id="min-获取最小值"><a href="#min-获取最小值" class="headerlink" title="min():   获取最小值"></a>min():   获取最小值</h3><p>SELECT <strong>MIN</strong>(age) FROM emp</p>
-<h2 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询 !"></a>分组查询 !</h2><p><strong>group by</strong> 分组字段</p>
-<h3 id="编写分组sql"><a href="#编写分组sql" class="headerlink" title="编写分组sql"></a>编写分组sql</h3><p>查询每个部门里面有多少个员工</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> num,edid <span class="keyword">AS</span> deptid </span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> emp </span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> edid</span><br></pre></td></tr></table></figure>
-
-<p>统计每个部门的年龄最大者</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(age),emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> emp </span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> emp.edid</span><br></pre></td></tr></table></figure>
-
-<p>统计每个部门里面最高工资</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(salarystand),emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> emp,salary</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.stid<span class="operator">=</span>salary.stid</span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> emp.edid</span><br></pre></td></tr></table></figure>
-
-<p>获取最高工资大于5000的部门</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(salarystand),emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> emp,salary</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.stid<span class="operator">=</span>salary.stid  </span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">MAX</span>(salarystand)<span class="operator">&gt;</span><span class="number">5000</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Mysql子查询"><a href="#Mysql子查询" class="headerlink" title="Mysql子查询"></a>Mysql子查询</h2><p><strong>一个查询结果，作为另外一个查询条件</strong></p>
-<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>查询比“张无忌”的工资高 查询张无忌工资 查询工资大于张无忌工资值</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp,salary </span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.stid<span class="operator">=</span>salary.stid </span><br><span class="line"></span><br><span class="line"><span class="keyword">AND</span> salary.salarystand <span class="operator">&gt;</span>  </span><br><span class="line"></span><br><span class="line">(<span class="keyword">SELECT</span> salary.salarystand  <span class="keyword">FROM</span> emp,salary <span class="keyword">WHERE</span> emp.stid<span class="operator">=</span>salary.stid <span class="keyword">AND</span> emp.ename<span class="operator">=</span><span class="string">&#x27;张无忌</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="exists子查询"><a href="#exists子查询" class="headerlink" title="exists子查询"></a>exists子查询</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_department </span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">EXISTS</span> (<span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_employee <span class="keyword">WHERE</span> t_employee.dept_id <span class="operator">=</span> t_department.did);</span><br></pre></td></tr></table></figure>
-
-<h3 id="复制子查询"><a href="#复制子查询" class="headerlink" title="复制子查询"></a>复制子查询</h3><p>（1）拷贝表结构</p>
-<p>CREATE TABLE newadmin LIKE admin;</p>
-<p>（2）拷贝表结构和数据（但约束与索引除外）</p>
-<p>CREATE TABLE newadmin AS  ( SELECT * FROM admin ) ;</p>
-<p>（3）拷贝表结构+数据</p>
-<p>CREATE TABLE newadmin LIKE admin;  </p>
-<p>INSERT INTO newadmin SELECT * FROM admin;</p>
-<p>（4）跨数据库拷贝表</p>
-<p>CREATE TABLE newadmin LIKE shop.admin; </p>
-
+<h3 id><a href="#" class="headerlink" title></a></h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/24/%E7%AC%94%E8%AE%B0/Sql%E7%AC%94%E8%AE%B0/SQL%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2135,7 +647,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-31 23:10:22" itemprop="dateModified" datetime="2022-03-31T23:10:22+08:00">2022-03-31</time>
+                <time title="修改时间：2022-03-31 23:17:57" itemprop="dateModified" datetime="2022-03-31T23:17:57+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2170,24 +682,15 @@
 <p> id INT,</p>
 <p> ‘name’ VARCHAR(100)</p>
 <p>)</p>
-<h3 id="简单where条件"><a href="#简单where条件" class="headerlink" title="简单where条件"></a>简单where条件</h3><p>SELECT * FROM stu s WHERE s.sname&#x3D;’谢逊’</p>
-<h2 id="使用外键"><a href="#使用外键" class="headerlink" title="使用外键"></a><strong>使用外键</strong></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">### 创建部门表</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> dept (</span><br><span class="line"></span><br><span class="line"> did <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line"></span><br><span class="line"> dname <span class="type">VARCHAR</span>(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">## 创建员工表</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> emp (</span><br><span class="line"></span><br><span class="line"> eid <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line"></span><br><span class="line"> ename <span class="type">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line"></span><br><span class="line"> age <span class="type">INT</span>,</span><br><span class="line"></span><br><span class="line"> edid <span class="type">INT</span>,</span><br><span class="line"></span><br><span class="line"> <span class="keyword">FOREIGN</span> KEY(edid) <span class="keyword">REFERENCES</span> dept(did) </span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Mysql多表关联查询操作"><a href="#Mysql多表关联查询操作" class="headerlink" title="Mysql多表关联查询操作"></a><strong>Mysql多表关联查询操作</strong></h2><h3 id="笛卡尔积"><a href="#笛卡尔积" class="headerlink" title="笛卡尔积"></a><strong>笛卡尔积</strong></h3><p><strong>SELECT * FROM</strong> dept,emp</p>
-<h3 id="内连接查询"><a href="#内连接查询" class="headerlink" title="内连接查询"></a>内连接查询</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">inner</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">INNER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept,emp <span class="keyword">WHERE</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
-
-<h3 id="外连接-左外连接"><a href="#外连接-左外连接" class="headerlink" title="外连接-左外连接"></a>外连接-左外连接</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
-
-<h3 id="外连接-右外连接"><a href="#外连接-右外连接" class="headerlink" title="外连接-右外连接"></a>外连接-右外连接</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">right</span> <span class="keyword">outer</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
-
-<h3 id="A表独有数据"><a href="#A表独有数据" class="headerlink" title="A表独有数据"></a>A表独有数据</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.edid <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="B表独有数据"><a href="#B表独有数据" class="headerlink" title="B表独有数据"></a>B表独有数据</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> dept.did <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="AB全有（类似于全连接效果）"><a href="#AB全有（类似于全连接效果）" class="headerlink" title="AB全有（类似于全连接效果）"></a>AB全有（类似于全连接效果）</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
-
-<h3 id="A独有-B独有"><a href="#A独有-B独有" class="headerlink" title="A独有 + B独有"></a>A独有 + B独有</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid <span class="keyword">WHERE</span> emp.edid <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid <span class="keyword">WHERE</span> dept.did <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
-
+<h3 id><a href="#" class="headerlink" title></a></h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/24/%E7%AC%94%E8%AE%B0/Sql%E7%AC%94%E8%AE%B0/SQL%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2%E4%B8%8E%E5%A4%9A%E8%A1%A8%E5%85%B3%E8%81%94/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2237,7 +740,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-31 23:09:52" itemprop="dateModified" datetime="2022-03-31T23:09:52+08:00">2022-03-31</time>
+                <time title="修改时间：2022-03-31 23:17:45" itemprop="dateModified" datetime="2022-03-31T23:17:45+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2265,42 +768,15 @@
 <h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><p><strong>DROP</strong> DATABASE db_0224;</p>
 <h3 id="切换数据库"><a href="#切换数据库" class="headerlink" title="切换数据库"></a>切换数据库</h3><p><strong>USE</strong> 数据库名称;</p>
 <h3 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h3><p><strong>DESC</strong> t_stu</p>
-<h3 id="重命名表"><a href="#重命名表" class="headerlink" title="重命名表"></a>重命名表</h3><p>ALTER TABLE t_stu <strong>RENAME</strong> students</p>
-<h3 id="增加一列"><a href="#增加一列" class="headerlink" title="增加一列"></a>增加一列</h3><p>ALTER TABLE students <strong>ADD</strong> newcolumn INT</p>
-<h3 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h3><p>ALTER TABLE students <strong>DROP</strong> newcolumn2;</p>
-<h3 id="修改列类型"><a href="#修改列类型" class="headerlink" title="修改列类型"></a>修改列类型</h3><p>ALTER TABLE students <strong>MODIFY</strong> newcolumn VARCHAR(100);</p>
-<h3 id="修改列名"><a href="#修改列名" class="headerlink" title="修改列名"></a>修改列名</h3><p>ALTER TABLE students <strong>CHANGE</strong> newcolumn address VARCHAR(100);</p>
-<h2 id="添加操作记录sql"><a href="#添加操作记录sql" class="headerlink" title="添加操作记录sql"></a><strong>添加操作记录sql</strong></h2><p><strong>INSERT INTO</strong></p>
-<p> students(id,NAME,gender,salary,birthday,createtime)</p>
-<p> VALUES(1,’张三’,’男’,999,’2020-11-11’,NULL)</p>
-<h2 id="Mysql约束"><a href="#Mysql约束" class="headerlink" title="Mysql约束"></a><strong>Mysql约束</strong></h2><h3 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h3><p>CREATE TABLE users (</p>
-<p>  id INT <strong>PRIMARY KEY</strong>,</p>
-<p>  NAME VARCHAR(100)</p>
-<p>)</p>
-<h3 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h3><p>CREATE TABLE book (</p>
-<p>  id INT PRIMARY KEY ,</p>
-<p>  bname VARCHAR(100) <strong>UNIQUE</strong></p>
-<p>)</p>
-<h3 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h3><p>CREATE TABLE orders (</p>
-<p>  id INT PRIMARY KEY,</p>
-<p>  ordersname VARCHAR(100) <strong>NOT NULL</strong></p>
-<p>)</p>
-<h3 id="缺省约束"><a href="#缺省约束" class="headerlink" title="缺省约束"></a>缺省约束</h3><p>CREATE TABLE person (</p>
-<p>  id INT PRIMARY KEY,</p>
-<p>  pname VARCHAR(100) <strong>DEFAULT</strong> ‘lucy’</p>
-<p>)</p>
-<h2 id="自动增长和索引"><a href="#自动增长和索引" class="headerlink" title="自动增长和索引"></a><strong>自动增长和索引</strong></h2><h3 id="自动增长"><a href="#自动增长" class="headerlink" title="自动增长"></a>自动增长</h3><p>CREATE TABLE dept (</p>
-<p> id INT PRIMARY KEY <strong>AUTO_INCREMENT</strong>,</p>
-<p> dname VARCHAR(100)</p>
-<p>)</p>
-<h2 id="添加记录sql语句"><a href="#添加记录sql语句" class="headerlink" title="添加记录sql语句"></a><strong>添加记录sql语句</strong></h2><h3 id="添加sql语句"><a href="#添加sql语句" class="headerlink" title="添加sql语句"></a>添加sql语句</h3><p><strong>insert into</strong> 表名称(字段名称1,字段名称2..) values(值1,值2..)</p>
-<h3 id="添加一条记录"><a href="#添加一条记录" class="headerlink" title="添加一条记录"></a>添加一条记录</h3><p><strong>INSERT INTO</strong> dept VALUE(NULL,’研发部’)</p>
-<h3 id="添加多条记录"><a href="#添加多条记录" class="headerlink" title="添加多条记录"></a>添加多条记录</h3><p><strong>INSERT INTO</strong> dept VALUES(NULL,’外交部’),(NULL,’社区互动部’),(NULL,’运维保障’)</p>
-<h2 id="DML-修改操作"><a href="#DML-修改操作" class="headerlink" title="DML-修改操作"></a><strong>DML-修改操作</strong></h2><h3 id="修改操作sql语句"><a href="#修改操作sql语句" class="headerlink" title="修改操作sql语句"></a><strong>修改操作sql语句</strong></h3><p><strong>update</strong> 表名称 <strong>set</strong> 字段名称&#x3D;值, 字段名称&#x3D;值… <strong>where</strong> 条件</p>
-<h2 id="DML-删除操作"><a href="#DML-删除操作" class="headerlink" title="DML-删除操作"></a><strong>DML-删除操作</strong></h2><h3 id="删除操作sql语句"><a href="#删除操作sql语句" class="headerlink" title="删除操作sql语句"></a>删除操作sql语句</h3><p><strong>delete</strong> from 表名称 <strong>where</strong> 条件</p>
-<h3 id="删除表所有记录-delete-from-和-truncate方式"><a href="#删除表所有记录-delete-from-和-truncate方式" class="headerlink" title="删除表所有记录 delete from 和 truncate方式"></a>删除表所有记录 delete from 和 truncate方式</h3><p>DELETE from stu</p>
-<p>TRUNCATE stu</p>
-
+<h3 id><a href="#" class="headerlink" title></a></h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/24/%E7%AC%94%E8%AE%B0/Sql%E7%AC%94%E8%AE%B0/SQL%E8%A1%A8%E6%93%8D%E4%BD%9C/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2350,7 +826,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-31 22:41:26" itemprop="dateModified" datetime="2022-03-31T22:41:26+08:00">2022-03-31</time>
+                <time title="修改时间：2022-03-31 23:18:35" itemprop="dateModified" datetime="2022-03-31T23:18:35+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2381,165 +857,20 @@
 <li><strong>适合PB级以上海量数据的离线处理</strong></li>
 </ol>
 <h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
-<li><strong>不擅长实时计算</strong></li>
-<li><strong>不擅长流式计算</strong></li>
-<li><strong>不擅长DAG（有向无环图）计算</strong>（多个应用程序存在依赖关系，后一个应用程序的输入为前一个的输出，在这种情况下，MapReduce并不是不能做，而是使用后，每个MapReduce作业的输出结果都会写入到磁盘，会造成大量的磁盘IO，导致性能非常的低下）</li>
-</ol>
-<h2 id="MapReduce核心思想"><a href="#MapReduce核心思想" class="headerlink" title="MapReduce核心思想"></a>MapReduce核心思想</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220324182403256.png" alt="image-20220324182403256" style="zoom: 50%;">
-
-<h2 id="常用数据序列化类型"><a href="#常用数据序列化类型" class="headerlink" title="常用数据序列化类型"></a>常用数据序列化类型</h2><table>
-<thead>
-<tr>
-<th>Java类型</th>
-<th align="center">Hadoop Writable类型</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Boolean</td>
-<td align="center">BooleanWritable</td>
-</tr>
-<tr>
-<td>Byte</td>
-<td align="center">ByteWritable</td>
-</tr>
-<tr>
-<td>Int</td>
-<td align="center">IntWritable</td>
-</tr>
-<tr>
-<td>Float</td>
-<td align="center">FloatWritable</td>
-</tr>
-<tr>
-<td>Long</td>
-<td align="center">LongWritable</td>
-</tr>
-<tr>
-<td>Double</td>
-<td align="center">DoubleWritable</td>
-</tr>
-<tr>
-<td>String</td>
-<td align="center">Text</td>
-</tr>
-<tr>
-<td>Map</td>
-<td align="center">MapWritable</td>
-</tr>
-<tr>
-<td>Array</td>
-<td align="center">ArrayWritable</td>
-</tr>
-<tr>
-<td>Null</td>
-<td align="center">NullWritable</td>
-</tr>
-</tbody></table>
-<h2 id="Hadoop序列化"><a href="#Hadoop序列化" class="headerlink" title="Hadoop序列化"></a>Hadoop序列化</h2><h3 id="什么是序列化"><a href="#什么是序列化" class="headerlink" title="什么是序列化"></a>什么是序列化</h3><p>序列化就是把内存中的对象，转换成字节序列（或其他数据传输协议）以便于存储到磁盘（持久化）和网络传输</p>
-<h3 id="为什么不用Java的序列化"><a href="#为什么不用Java的序列化" class="headerlink" title="为什么不用Java的序列化"></a>为什么不用Java的序列化</h3><p>Java的序列化是一个重量级序列化框架，序列化后会附带很多额外的信息（校验信息，Header，继承体系），不便于高效传输</p>
-<h3 id="Hadoop序列化特点"><a href="#Hadoop序列化特点" class="headerlink" title="Hadoop序列化特点"></a>Hadoop序列化特点</h3><ol>
-<li>紧凑：高效使用存储空间</li>
-<li>快速：读写数据的额外开销小</li>
-<li>可扩展：随着通信协议的升级而可升级</li>
-<li>互操作：支持多语言的交互</li>
-</ol>
-<p>自定义bean对象实现序列化接口（Writable）<strong>注意反序列化的顺序和序列化的顺序完全一致</strong></p>
-<h2 id="MapReduce框架原理"><a href="#MapReduce框架原理" class="headerlink" title="MapReduce框架原理"></a>MapReduce框架原理</h2><h3 id="InputFormat数据输入"><a href="#InputFormat数据输入" class="headerlink" title="InputFormat数据输入"></a>InputFormat数据输入</h3><h4 id="切片与MapTask并行度决定机制"><a href="#切片与MapTask并行度决定机制" class="headerlink" title="切片与MapTask并行度决定机制"></a>切片与MapTask并行度决定机制</h4><p><strong>数据块：</strong>Block是HDFS物理上把数据分成一块一块。数据块是HDFS存储数据单位。</p>
-<p><strong>数据切片：</strong>数据切片只是在逻辑上对输入进行分片，并不会在磁盘上将其切分成片进行存储。数据切片是MapReduce程序计算输入数据的单位，一个切片会对应启动一个MapTask。</p>
-<img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220324192552080.png" alt="image-20220324192552080" style="zoom:50%;">
-
-<h4 id="Job提交流程源码和切片源码"><a href="#Job提交流程源码和切片源码" class="headerlink" title="Job提交流程源码和切片源码"></a>Job提交流程源码和切片源码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">waitForCompletion()</span><br><span class="line">submit();</span><br><span class="line"><span class="comment">// 1建立连接</span></span><br><span class="line">	connect();	</span><br><span class="line">		<span class="comment">// 1）创建提交Job的代理</span></span><br><span class="line">		<span class="keyword">new</span> <span class="title class_">Cluster</span>(getConfiguration());</span><br><span class="line">			<span class="comment">// （1）判断是本地运行环境还是yarn集群运行环境</span></span><br><span class="line">			initialize(jobTrackAddr, conf); </span><br><span class="line"><span class="comment">// 2 提交job</span></span><br><span class="line">submitter.submitJobInternal(Job.<span class="built_in">this</span>, cluster)</span><br><span class="line">	<span class="comment">// 1）创建给集群提交数据的Stag路径</span></span><br><span class="line">	<span class="type">Path</span> <span class="variable">jobStagingArea</span> <span class="operator">=</span> JobSubmissionFiles.getStagingDir(cluster, conf);</span><br><span class="line">	<span class="comment">// 2）获取jobid ，并创建Job路径</span></span><br><span class="line">	<span class="type">JobID</span> <span class="variable">jobId</span> <span class="operator">=</span> submitClient.getNewJobID();</span><br><span class="line">	<span class="comment">// 3）拷贝jar包到集群</span></span><br><span class="line">copyAndConfigureFiles(job, submitJobDir);	</span><br><span class="line">	rUploader.uploadFiles(job, jobSubmitDir);</span><br><span class="line"><span class="comment">// 4）计算切片，生成切片规划文件</span></span><br><span class="line">writeSplits(job, submitJobDir);</span><br><span class="line">		maps = writeNewSplits(job, jobSubmitDir);</span><br><span class="line">		input.getSplits(job);</span><br><span class="line"><span class="comment">// 5）向Stag路径写XML配置文件</span></span><br><span class="line">writeConf(conf, submitJobFile);</span><br><span class="line">	conf.writeXml(out);</span><br><span class="line"><span class="comment">// 6）提交Job,返回提交状态</span></span><br><span class="line">status = submitClient.submitJob(jobId, submitJobDir.toString(), job.getCredentials());</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220325102532104.png" alt="image-20220325102532104"></p>
-<h4 id="FileInputFormat切片源码解析"><a href="#FileInputFormat切片源码解析" class="headerlink" title="FileInputFormat切片源码解析"></a>FileInputFormat切片源码解析</h4><ol>
-<li><p>程序先找到你数据存储的目录</p>
+<li><p><strong>不擅长实时计算</strong></p>
 </li>
-<li><p>开始遍历处理（规划切片）目录下的每个文件</p>
+<li><p><strong>不擅长流式计算</strong></p>
 </li>
-<li><p>遍历第一个文件22.txt</p>
-<ul>
-<li><p>获取<strong>fs.sizeOf(ss.txt)</strong></p>
-</li>
-<li><p>计算切片大小  </p>
-<p><strong>computeSplitSize(Math.max(MathSize,Math.min(maxSize,blocksize)))</strong> </p>
-<p>默认情况下，切片大小&#x3D;blocksize &#x3D;128M</p>
-</li>
-<li><p>每次切片时，都要判断切完剩下的部分是否大于块的<strong>1.1</strong>倍，不大于1.1倍就划分一块切片</p>
-</li>
-<li><p>将切片信息写到一个切片规划文件中</p>
-</li>
-<li><p>整个切片的核心过程在**getSplit()**方法中完成</p>
-</li>
-<li><p><strong>InputSplit</strong>只记录了切片的元数据信息（起始位置，长度以及所在节点列表）</p>
-</li>
-</ul>
-</li>
-<li><p>提交切片规划文件到YARN上，YARN上的<strong>MrAppMaster</strong>就可以根据切片规划文件计算开启MapTask</p>
-</li>
-</ol>
-<h4 id="FileInputFormat常见的接口实现类"><a href="#FileInputFormat常见的接口实现类" class="headerlink" title="FileInputFormat常见的接口实现类"></a>FileInputFormat常见的接口实现类</h4><ul>
-<li>TextInputFormat</li>
-<li>KeyValueTextInputFormat</li>
-<li>NLineInputFormat</li>
-<li>CombineTextInputFormat</li>
-<li>自定义InputFormat</li>
-</ul>
-<h4 id="TextInputFormat"><a href="#TextInputFormat" class="headerlink" title="TextInputFormat"></a>TextInputFormat</h4><p>TextInputFormat是默认的FileInputFormat实现类，按行读取每条记录。键是存储该行在整个文件中的起始字节偏移量，LongWritable类型。值是这行的内容，不包括任何行终止符（换行符和回车符）<img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220325110042960.png" alt="image-20220325110042960"></p>
-<p>框架默认的TextInputFormat切片机制是对任务按文件规划切片，不管文件多小，都会是一个单独的切片，都会交给一个MapTask，<strong>这样如果有大量小文件，就会产生大量的MapTask，处理效率极其低下</strong>。</p>
-<h4 id="CombineTextInputFormat切片机制"><a href="#CombineTextInputFormat切片机制" class="headerlink" title="CombineTextInputFormat切片机制"></a><strong>CombineTextInputFormat切片机制</strong></h4><p>用于小文件过多的场景，它可以将多个小文件从逻辑上规划到一个切片中，这样，多个小文件就可以交给一个MapTask处理。</p>
-<ul>
-<li><p><strong>虚拟存储切片最大值设置</strong></p>
-<p>CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);&#x2F;&#x2F; 4m</p>
-<p>注意：虚拟存储切片最大值设置最好根据实际的小文件大小情况来设置具体的值。</p>
-</li>
-<li><p><strong>切片机制</strong></p>
-<p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220331204822358.png" alt="image-20220331204822358"></p>
-</li>
-</ul>
-<h3 id="MapReduce工作流程"><a href="#MapReduce工作流程" class="headerlink" title="MapReduce工作流程"></a>MapReduce工作流程</h3><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220331205153496.png" alt="image-20220331205153496"></p>
-<p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220331205255778.png" alt="image-20220331205255778"></p>
-<h3 id="Shuffle机制"><a href="#Shuffle机制" class="headerlink" title="Shuffle机制"></a>Shuffle机制</h3><h4 id="Shuffle机制-1"><a href="#Shuffle机制-1" class="headerlink" title="Shuffle机制"></a>Shuffle机制</h4><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220331205453474.png" alt="image-20220331205453474"></p>
-<h4 id="Partition分区"><a href="#Partition分区" class="headerlink" title="Partition分区"></a>Partition分区</h4><ul>
-<li><p>默认partitioner分区</p>
-<p>默认分区是根据key的hashCode对ReduceTasks个数取模得到的。用户没法控制哪个key存储到哪个分区</p>
-</li>
-<li><p>自定义partitioner</p>
-<ol>
-<li>自定义类继承partitioner，重写getPartition()方法</li>
-<li>在Job驱动中，设置自定义Partitioner</li>
-<li>自定义Partition后，要根据自定义Partitioner的逻辑设置相应数量的ReduceTask</li>
-</ol>
-</li>
-<li><p>分区总结</p>
-<ol>
-<li>如果ReduceTask的数量&gt;getParition的结果数，则会多产生几个空的输出文件part-r-000xx</li>
-<li>如果1&lt;ReduceTask的数量&lt;getPartition的结果数，则有一部分分区数据无处安放，会Exception</li>
-<li>如果ReduceTask的数量&#x3D;1，则不管MapTask端输出多少个分区文件，最终结果都会交给这一个ReduceTask，最终也就只会产生一个结果文件part-r-00000；</li>
-<li>分区好必须从零开始，逐一累加</li>
-</ol>
-</li>
-</ul>
-<h4 id="WritableComparable排序"><a href="#WritableComparable排序" class="headerlink" title="WritableComparable排序"></a>WritableComparable排序</h4><ul>
-<li><p>排序概述</p>
-<p>排序是MapReduce框架中最重要的操作之一</p>
-<p>MapTask和ReduceTask均会对数据按照key进行排序，该操作属于Hadoop的默认行为。任何应用程序中的数据均会被排序，而不管逻辑上是否需要</p>
-<p>默认排序是按照字典顺序排序，且实现该排序的方法是快速排序</p>
-<ul>
-<li><p>MapTask</p>
-<p>它会将处理的结果暂时放到环形缓冲区中，当环形缓冲区使用率达到一定阈值后，再对缓冲区中的数据进行一次快速排序，并将这些有序数据溢写到硬盘上，而当数据处理完毕后，它会对磁盘上所有文件进行归并排序。</p>
-</li>
-<li><p>ReduceTask</p>
-<p>它从每个MapTask上远程拷贝相应的数据文件，如果文件大小超过一定阈值，则溢写磁盘上，否则存储在内存中。如果磁盘上文件数目达到一定阈值，则进行一次归并排序以生成一个更大文件；如果内存中文件大小或者数目超过一定阈值，则进行一次合并后将数据溢写到磁盘上。当所有数据拷贝完毕后，<strong>ReduceTask统一对内存和磁盘上的所有数据进行一次归并排序</strong>。</p>
-</li>
-</ul>
-</li>
-<li><p>排序分类</p>
-<ul>
-<li>部分排序</li>
-</ul>
-</li>
-</ul>
-
+<li><p><strong>不擅长DAG（有向无环图）计算</strong>（多个应用程序存在依赖关系，后一个应用程序的输入为前一个的输出，在这种情况下，MapReduce并不是不能做，而是使用后，每个MapReduce作业的输出结果都会写入到磁盘，会造成大量的磁盘IO，导致性能非常的低下）</p>
+<h3 id><a href="#" class="headerlink" title></a></h3></li></ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/MapReduce/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2581,10 +912,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-03-22 17:52:13 / 修改时间：18:03:06" itemprop="dateCreated datePublished" datetime="2022-03-22T17:52:13+08:00">2022-03-22</time>
+              <time title="创建时间：2022-03-22 17:52:13" itemprop="dateCreated datePublished" datetime="2022-03-22T17:52:13+08:00">2022-03-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-31 23:18:53" itemprop="dateModified" datetime="2022-03-31T23:18:53+08:00">2022-03-31</time>
+              </span>
 
           
 
@@ -2600,145 +937,30 @@
           <h1 id="欢迎使用Markdown编辑器"><a href="#欢迎使用Markdown编辑器" class="headerlink" title="欢迎使用Markdown编辑器"></a>欢迎使用Markdown编辑器</h1><p>你好！ 这是你第一次使用 <strong>Markdown编辑器</strong> 所展示的欢迎页。如果你想学习如何使用Markdown编辑器, 可以仔细阅读这篇文章，了解一下Markdown的基本语法知识。</p>
 <h2 id="新的改变"><a href="#新的改变" class="headerlink" title="新的改变"></a>新的改变</h2><p>我们对Markdown编辑器进行了一些功能拓展与语法支持，除了标准的Markdown编辑器功能，我们增加了如下几点新功能，帮助你用它写博客：</p>
 <ol>
-<li><strong>全新的界面设计</strong> ，将会带来全新的写作体验；</li>
-<li>在创作中心设置你喜爱的代码高亮样式，Markdown <strong>将代码片显示选择的高亮样式</strong> 进行展示；</li>
-<li>增加了 <strong>图片拖拽</strong> 功能，你可以将本地的图片直接拖拽到编辑区域直接展示；</li>
-<li>全新的 <strong>KaTeX数学公式</strong> 语法；</li>
-<li>增加了支持<strong>甘特图的mermaid语法<a href="%5Bmermaid%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E%5D(https://mermaidjs.github.io/)">^1</a></strong> 功能；</li>
-<li>增加了 <strong>多屏幕编辑</strong> Markdown文章功能；</li>
-<li>增加了 <strong>焦点写作模式、预览模式、简洁写作模式、左右区域同步滚轮设置</strong> 等功能，功能按钮位于编辑区域与预览区域中间；</li>
-<li>增加了 <strong>检查列表</strong> 功能。</li>
-</ol>
-<h2 id="功能快捷键"><a href="#功能快捷键" class="headerlink" title="功能快捷键"></a>功能快捷键</h2><p>撤销：<kbd>Ctrl/Command</kbd> + <kbd>Z</kbd><br>重做：<kbd>Ctrl/Command</kbd> + <kbd>Y</kbd><br>加粗：<kbd>Ctrl/Command</kbd> + <kbd>B</kbd><br>斜体：<kbd>Ctrl/Command</kbd> + <kbd>I</kbd><br>标题：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd><br>无序列表：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd><br>有序列表：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd><br>检查列表：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd><br>插入代码：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd><br>插入链接：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>L</kbd><br>插入图片：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>G</kbd><br>查找：<kbd>Ctrl/Command</kbd> + <kbd>F</kbd><br>替换：<kbd>Ctrl/Command</kbd> + <kbd>G</kbd></p>
-<h2 id="合理的创建标题，有助于目录的生成"><a href="#合理的创建标题，有助于目录的生成" class="headerlink" title="合理的创建标题，有助于目录的生成"></a>合理的创建标题，有助于目录的生成</h2><p>直接输入1次<kbd>#</kbd>，并按下<kbd>space</kbd>后，将生成1级标题。<br>输入2次<kbd>#</kbd>，并按下<kbd>space</kbd>后，将生成2级标题。<br>以此类推，我们支持6级标题。有助于使用<code>TOC</code>语法后生成一个完美的目录。</p>
-<h2 id="如何改变文本的样式"><a href="#如何改变文本的样式" class="headerlink" title="如何改变文本的样式"></a>如何改变文本的样式</h2><p><em>强调文本</em> <em>强调文本</em></p>
-<p><strong>加粗文本</strong> <strong>加粗文本</strong></p>
-<p>&#x3D;&#x3D;标记文本&#x3D;&#x3D;</p>
-<p><del>删除文本</del></p>
-<blockquote>
-<p>引用文本</p>
-</blockquote>
-<p>H<del>2</del>O is是液体。</p>
-<p>2^10^ 运算结果是 1024.</p>
-<h2 id="插入链接与图片"><a href="#插入链接与图片" class="headerlink" title="插入链接与图片"></a>插入链接与图片</h2><p>链接: <a target="_blank" rel="noopener" href="https://www.csdn.net/">link</a>.</p>
-<p>图片: <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hdmF0YXIuY3Nkbi5uZXQvNy83L0IvMV9yYWxmX2h4MTYzY29tLmpwZw" alt="Alt"></p>
-<p>居中的图片: <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hdmF0YXIuY3Nkbi5uZXQvNy83L0IvMV9yYWxmX2h4MTYzY29tLmpwZw#pic_center" alt="Alt"></p>
-<p>居中并且带尺寸的图片: ![Alt](<a target="_blank" rel="noopener" href="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hdmF0YXIuY3Nkbi5uZXQvNy83L0IvMV9yYWxmX2h4MTYzY29tLmpwZw#pic_center">https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hdmF0YXIuY3Nkbi5uZXQvNy83L0IvMV9yYWxmX2h4MTYzY29tLmpwZw#pic_center</a> &#x3D;30x30)</p>
-<p>当然，我们为了让用户更加便捷，我们增加了图片拖拽功能。</p>
-<h2 id="如何插入一段漂亮的代码片"><a href="#如何插入一段漂亮的代码片" class="headerlink" title="如何插入一段漂亮的代码片"></a>如何插入一段漂亮的代码片</h2><p>去<a target="_blank" rel="noopener" href="https://mp.csdn.net/console/configBlog">博客设置</a>页面，选择一款你喜欢的代码片高亮样式，下面展示同样高亮的 <code>代码片</code>.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// An highlighted block</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="string">&#x27;bar&#x27;</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="生成一个适合你的列表"><a href="#生成一个适合你的列表" class="headerlink" title="生成一个适合你的列表"></a>生成一个适合你的列表</h2><ul>
-<li>项目<ul>
-<li>项目<ul>
-<li>项目</li>
-</ul>
+<li><p><strong>全新的界面设计</strong> ，将会带来全新的写作体验；</p>
 </li>
-</ul>
+<li><p>在创作中心设置你喜爱的代码高亮样式，Markdown <strong>将代码片显示选择的高亮样式</strong> 进行展示；</p>
 </li>
-</ul>
-<ol>
-<li>项目1</li>
-<li>项目2</li>
-<li>项目3</li>
-</ol>
-<ul>
-<li><input disabled type="checkbox"> 计划任务</li>
-<li><input checked disabled type="checkbox"> 完成任务</li>
-</ul>
-<h2 id="创建一个表格"><a href="#创建一个表格" class="headerlink" title="创建一个表格"></a>创建一个表格</h2><p>一个简单的表格是这么创建的：</p>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>电脑</td>
-<td>$1600</td>
-</tr>
-<tr>
-<td>手机</td>
-<td>$12</td>
-</tr>
-<tr>
-<td>导管</td>
-<td>$1</td>
-</tr>
-</tbody></table>
-<h3 id="设定内容居中、居左、居右"><a href="#设定内容居中、居左、居右" class="headerlink" title="设定内容居中、居左、居右"></a>设定内容居中、居左、居右</h3><p>使用<code>:---------:</code>居中<br>使用<code>:----------</code>居左<br>使用<code>----------:</code>居右</p>
-<table>
-<thead>
-<tr>
-<th align="center">第一列</th>
-<th align="right">第二列</th>
-<th align="left">第三列</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">第一列文本居中</td>
-<td align="right">第二列文本居右</td>
-<td align="left">第三列文本居左</td>
-</tr>
-</tbody></table>
-<h3 id="SmartyPants"><a href="#SmartyPants" class="headerlink" title="SmartyPants"></a>SmartyPants</h3><p>SmartyPants将ASCII标点字符转换为“智能”印刷标点HTML实体。例如：</p>
-<table>
-<thead>
-<tr>
-<th>TYPE</th>
-<th>ASCII</th>
-<th>HTML</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Single backticks</td>
-<td><code>&#39;Isn&#39;t this fun?&#39;</code></td>
-<td>‘Isn’t this fun?’</td>
-</tr>
-<tr>
-<td>Quotes</td>
-<td><code>&quot;Isn&#39;t this fun?&quot;</code></td>
-<td>“Isn’t this fun?”</td>
-</tr>
-<tr>
-<td>Dashes</td>
-<td><code>-- is en-dash, --- is em-dash</code></td>
-<td>– is en-dash, — is em-dash</td>
-</tr>
-</tbody></table>
-<h2 id="创建一个自定义列表"><a href="#创建一个自定义列表" class="headerlink" title="创建一个自定义列表"></a>创建一个自定义列表</h2><dl><dt>Markdown</dt><dd>Text-to-HTML conversion tool</dd></dl><dl><dt>Authors<br>:  John</dt><dd>Luke</dd></dl><h2 id="如何创建一个注脚"><a href="#如何创建一个注脚" class="headerlink" title="如何创建一个注脚"></a>如何创建一个注脚</h2><p>一个具有注脚的文本。<a href="%E6%B3%A8%E8%84%9A%E7%9A%84%E8%A7%A3%E9%87%8A">^2</a></p>
-<h2 id="注释也是必不可少的"><a href="#注释也是必不可少的" class="headerlink" title="注释也是必不可少的"></a>注释也是必不可少的</h2><p>Markdown将文本转换为 HTML。</p>
-<p>*[HTML]:   超文本标记语言</p>
-<h2 id="KaTeX数学公式"><a href="#KaTeX数学公式" class="headerlink" title="KaTeX数学公式"></a>KaTeX数学公式</h2><p>您可以使用渲染LaTeX数学表达式 <a target="_blank" rel="noopener" href="https://khan.github.io/KaTeX/">KaTeX</a>:</p>
-<p>Gamma公式展示 $\Gamma(n) &#x3D; (n-1)!\quad\forall<br>n\in\mathbb N$ 是通过欧拉积分</p>
-<p>$$<br>\Gamma(z) &#x3D; \int_0^\infty t^{z-1}e^{-t}dt,.<br>$$</p>
-<blockquote>
-<p>你可以找到更多关于的信息 <strong>LaTeX</strong> 数学表达式<a target="_blank" rel="noopener" href="http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference">here</a>.</p>
-</blockquote>
-<h2 id="新的甘特图功能，丰富你的文章"><a href="#新的甘特图功能，丰富你的文章" class="headerlink" title="新的甘特图功能，丰富你的文章"></a>新的甘特图功能，丰富你的文章</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gantt</span><br><span class="line">        dateFormat  YYYY-MM-DD</span><br><span class="line">        title Adding GANTT diagram functionality to mermaid</span><br><span class="line">        section 现有任务</span><br><span class="line">        已完成               :done,    des1, 2014-01-06,2014-01-08</span><br><span class="line">        进行中               :active,  des2, 2014-01-09, 3d</span><br><span class="line">        计划一               :         des3, after des2, 5d</span><br><span class="line">        计划二               :         des4, after des3, 5d</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>关于 <strong>甘特图</strong> 语法，参考 <a target="_blank" rel="noopener" href="https://mermaidjs.github.io/">这儿</a>,</li>
-</ul>
-<h2 id="UML-图表"><a href="#UML-图表" class="headerlink" title="UML 图表"></a>UML 图表</h2><p>可以使用UML图表进行渲染。 <a target="_blank" rel="noopener" href="https://mermaidjs.github.io/">Mermaid</a>. 例如下面产生的一个序列图：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">张三 -&gt;&gt; 李四: 你好！李四, 最近怎么样?</span><br><span class="line">李四--&gt;&gt;王五: 你最近怎么样，王五？</span><br><span class="line">李四--x 张三: 我很好，谢谢!</span><br><span class="line">李四-x 王五: 我很好，谢谢!</span><br><span class="line">Note right of 王五: 李四想了很长时间, 文字太长了&lt;br/&gt;不适合放在一行.</span><br><span class="line"></span><br><span class="line">李四--&gt;&gt;张三: 打量着王五...</span><br><span class="line">张三-&gt;&gt;王五: 很好... 王五, 你怎么样?</span><br></pre></td></tr></table></figure>
-
-<p>这将产生一个流程图。:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[长方形] -- 链接 --&gt; B((圆))</span><br><span class="line">A --&gt; C(圆角长方形)</span><br><span class="line">B --&gt; D&#123;菱形&#125;</span><br><span class="line">C --&gt; D</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>关于 <strong>Mermaid</strong> 语法，参考 <a target="_blank" rel="noopener" href="https://mermaidjs.github.io/">这儿</a>,</li>
-</ul>
-<h2 id="FLowchart流程图"><a href="#FLowchart流程图" class="headerlink" title="FLowchart流程图"></a>FLowchart流程图</h2><p>我们依旧会支持flowchart的流程图：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">flowchat</span><br><span class="line">st=&gt;start: 开始</span><br><span class="line">e=&gt;end: 结束</span><br><span class="line">op=&gt;operation: 我的操作</span><br><span class="line">cond=&gt;condition: 确认？</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>关于 <strong>Flowchart流程图</strong> 语法，参考 <a target="_blank" rel="noopener" href="http://adrai.github.io/flowchart.js/">这儿</a>.</li>
-</ul>
-<h2 id="导出与导入"><a href="#导出与导入" class="headerlink" title="导出与导入"></a>导出与导入</h2><h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><p>如果你想尝试使用此编辑器, 你可以在此篇文章任意编辑。当你完成了一篇文章的写作, 在上方工具栏找到 <strong>文章导出</strong> ，生成一个.md文件或者.html文件进行本地保存。</p>
-<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><p>如果你想加载一篇你写过的.md文件，在上方工具栏可以选择导入功能进行对应扩展名的文件导入，<br>继续你的创作。</p>
-
+<li><p>增加了 <strong>图片拖拽</strong> 功能，你可以将本地的图片直接拖拽到编辑区域直接展示；</p>
+</li>
+<li><p>全新的 <strong>KaTeX数学公式</strong> 语法；</p>
+</li>
+<li><p>增加了支持<strong>甘特图的mermaid语法<a href="%5Bmermaid%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E%5D(https://mermaidjs.github.io/)">^1</a></strong> 功能；</p>
+</li>
+<li><p>增加了 <strong>多屏幕编辑</strong> Markdown文章功能；</p>
+</li>
+<li><p>增加了 <strong>焦点写作模式、预览模式、简洁写作模式、左右区域同步滚轮设置</strong> 等功能，功能按钮位于编辑区域与预览区域中间；</p>
+</li>
+<li><p>增加了 <strong>检查列表</strong> 功能。</p>
+<h3 id><a href="#" class="headerlink" title></a></h3></li></ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/22/Markdown%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

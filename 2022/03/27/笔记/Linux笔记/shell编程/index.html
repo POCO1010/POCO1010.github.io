@@ -20,16 +20,16 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="shell概述shell是一个命令行解释器，它接收应用程序&#x2F;用户命令，然后调用系统内核。 shell还是一个功能相当强大的编程语言，易编写，易调用，灵活性强。   Linux提供的Shell解析器 cat &#x2F;etc&#x2F;shells  123456&#x2F;bin&#x2F;sh&#x2F;bin&#x2F;bash&#x2F;sbin&#x2F;nologin&#x2F;bin&#x2F;dash&#x2F;bin&#x2F;tcsh&#x2F;bin&#x2F;csh">
+  <meta name="description" content="shell概述shell是一个命令行解释器，它接收应用程序&#x2F;用户命令，然后调用系统内核。 shell还是一个功能相当强大的编程语言，易编写，易调用，灵活性强。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell编程">
 <meta property="og:url" content="http://example.com/2022/03/27/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/shell%E7%BC%96%E7%A8%8B/index.html">
 <meta property="og:site_name" content="POCO的小站">
-<meta property="og:description" content="shell概述shell是一个命令行解释器，它接收应用程序&#x2F;用户命令，然后调用系统内核。 shell还是一个功能相当强大的编程语言，易编写，易调用，灵活性强。   Linux提供的Shell解析器 cat &#x2F;etc&#x2F;shells  123456&#x2F;bin&#x2F;sh&#x2F;bin&#x2F;bash&#x2F;sbin&#x2F;nologin&#x2F;bin&#x2F;dash&#x2F;bin&#x2F;tcsh&#x2F;bin&#x2F;csh">
+<meta property="og:description" content="shell概述shell是一个命令行解释器，它接收应用程序&#x2F;用户命令，然后调用系统内核。 shell还是一个功能相当强大的编程语言，易编写，易调用，灵活性强。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220327201501681.png">
 <meta property="article:published_time" content="2022-03-27T02:58:55.353Z">
-<meta property="article:modified_time" content="2022-03-27T12:18:51.284Z">
+<meta property="article:modified_time" content="2022-03-31T15:18:10.005Z">
 <meta property="article:author" content="POCO_POCO_POCO">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
@@ -213,10 +213,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-03-27 10:58:55 / 修改时间：20:18:51" itemprop="dateCreated datePublished" datetime="2022-03-27T10:58:55+08:00">2022-03-27</time>
+              <time title="创建时间：2022-03-27 10:58:55" itemprop="dateCreated datePublished" datetime="2022-03-27T10:58:55+08:00">2022-03-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-31 23:18:10" itemprop="dateModified" datetime="2022-03-31T23:18:10+08:00">2022-03-31</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -248,7 +254,7 @@
         <h2 id="shell概述"><a href="#shell概述" class="headerlink" title="shell概述"></a>shell概述</h2><p>shell是一个命令行解释器，它接收应用程序&#x2F;用户命令，然后调用系统内核。</p>
 <p>shell还是一个功能相当强大的编程语言，易编写，易调用，灵活性强。</p>
 <p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220327201501681.png" alt="image-20220327201501681"></p>
-<ul>
+<h3 id><a href="#" class="headerlink" title></a><span id="more"></span></h3><ul>
 <li><p>Linux提供的Shell解析器</p>
 <p><code>cat /etc/shells</code> </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/bin/sh</span><br><span class="line">/bin/bash</span><br><span class="line">/sbin/nologin</span><br><span class="line">/bin/dash</span><br><span class="line">/bin/tcsh</span><br><span class="line">/bin/csh</span><br></pre></td></tr></table></figure></li>
@@ -336,7 +342,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#shell%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">shell概述</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#shell%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">shell概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text"></span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
