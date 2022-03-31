@@ -147,121 +147,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>HDFS</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/HDFS/</url>
-    <content><![CDATA[<h2 id="HDFS的使用场景"><a href="#HDFS的使用场景" class="headerlink" title="HDFS的使用场景"></a>HDFS的使用场景</h2><p><strong>适合一次写入，多次读出的场景，且不支持文件的修改。</strong></p>
-<h2 id="HDFS优点和缺点"><a href="#HDFS优点和缺点" class="headerlink" title="HDFS优点和缺点"></a>HDFS优点和缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
-<li>高容错性</li>
-<li>适合处理大数据</li>
-<li>可构建在廉价机器上，并通过多副本机制提高可靠性</li>
-</ol>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
-<li>不适合低延时数据访问</li>
-<li>无法高效的对大量小文件进行存储(小文件的寻址时间会超过读取时间，违反HDF的设计目标)</li>
-<li>不支持并发写入，文件随机修改（仅支持数据的追加）</li>
-</ol>
-<h2 id="HDFS文件块的大小（重点）"><a href="#HDFS文件块的大小（重点）" class="headerlink" title="HDFS文件块的大小（重点）"></a>HDFS文件块的大小（重点）</h2><p>HDFS中的文件是分块存储（Block），块的大小通过参数（<strong>dfs.blocksize</strong>）来控制</p>
-<p><strong>默认大小</strong> 128M（2.x）64M（1.x）</p>
-<p><strong>如何规定的默认大小</strong>（主要取决于磁盘传输速率）</p>
-<ol>
-<li>寻址时间约10ms，</li>
-<li>寻址时间为传输时间的1%时，则为最佳状态。</li>
-<li>目前磁盘的传输速率普遍100MB&#x2F;s </li>
-<li>传输时间：10ms &#x2F; 0.01 &#x3D; 1s</li>
-<li>block大小： 1s * 100MB&#x2F;s &#x3D; 100MB</li>
-</ol>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><strong>启动Hadoop集群</strong></p>
-<p><code>sbin/start-dfs.sh</code> </p>
-<p><code>sbin/start-yarn.sh</code></p>
-<p><strong>上传</strong></p>
-<ul>
-<li><p>-moveFromLocal   <strong>剪切</strong>粘贴</p>
-<p><code>hadoop fs -moveFromLocal ./kongming.txt /sanguo/shuguo</code></p>
-</li>
-<li><p>-copyFromLocal（-put）  <strong>复制</strong>粘贴</p>
-<p><code>hadoop fs -copyFromLocal README.txt /</code></p>
-<p><code>hadoop fs -put ./liubei.txt /user/atguigu/test/</code></p>
-</li>
-<li><p>-appendToFile  追加到一个文件（已经在HDFS中存在）的文件末尾</p>
-<p><code>hadoop fs -appendToFile liubei.txt /sanguo/shuguo/kongming.txt</code></p>
-</li>
-</ul>
-<p><strong>下载</strong></p>
-<ul>
-<li><p>-copyToLocal（-get）  <strong>复制</strong>粘贴</p>
-<p><code>hadoop fs -copyToLocal /sanguo/shuguo/kongming.txt ./</code></p>
-<p><code>hadoop fs -get /sanguo/shuguo/kongming.txt ./</code></p>
-</li>
-<li><p>-getmerge  <strong>合并</strong>下载多个文件（不会对HDFS中的文件进行合并）</p>
-<p><code>hadoop fs -getmerge /user/atguigu/test/* ./zaiyiqi.txt</code></p>
-</li>
-</ul>
-<p><strong>HDFS直接操作</strong></p>
-<ul>
-<li><p>-du  统计文件夹的大小信息</p>
-<p><code>hadoop fs -du  -h /user/atguigu/test</code></p>
-</li>
-<li><p>-setrep  设置HDFS中文件的副本数量  </p>
-<p><em>（最终副本量还是取决于节点数 这里只是改了设置只有节点数达到才生效）</em></p>
-<p><code>hadoop fs -setrep 10 /sanguo/shuguo/kongming.txt</code></p>
-</li>
-</ul>
-<h2 id="HDFS写数据流程"><a href="#HDFS写数据流程" class="headerlink" title="HDFS写数据流程"></a>HDFS写数据流程</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322173126301.png" alt="image-20220322173126301" style="zoom: 33%;">
-
-<h2 id="网络拓扑（节点距离计算）"><a href="#网络拓扑（节点距离计算）" class="headerlink" title="网络拓扑（节点距离计算）"></a>网络拓扑（节点距离计算）</h2><p>在HDFS写数据的过程中，NameNode会选择距离待上传数据最近距离的DataNode接收数据。那么这个最近距离怎么计算呢？（节点距离：两个节点到达最近的共同祖先的距离总和。）</p>
-<p>拓扑排序</p>
-<h2 id="机架感知（副本存储节点选择）"><a href="#机架感知（副本存储节点选择）" class="headerlink" title="机架感知（副本存储节点选择）"></a>机架感知（副本存储节点选择）</h2><p>副本节点选择</p>
-<ol>
-<li>第一个副本：在Client所处的节点上，如果客户端在集群外，随机选一个</li>
-<li>第二个副本：在另一个机架的随机一个节点</li>
-<li>第三个副本：在第二个副本所在机架的随机节点</li>
-</ol>
-<p><strong>补充</strong></p>
-<p>   – Client为什么是以串行的方式建立通道？<br>      – 本质上就是为了降低client的IO开销</p>
-<p>   – 数据传输的时候如何保证数据成功？（了解）<br>      – 采用了ack回执的策略保证了数据完整成功上传。</p>
-<h2 id="HDFS读数据流程"><a href="#HDFS读数据流程" class="headerlink" title="HDFS读数据流程"></a>HDFS读数据流程</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322174853787.png" alt="image-20220322174853787" style="zoom: 33%;">
-
-<h2 id="NameNode和SecondaryNameNode（重点）"><a href="#NameNode和SecondaryNameNode（重点）" class="headerlink" title="NameNode和SecondaryNameNode（重点）"></a>NameNode和SecondaryNameNode（重点）</h2><h3 id="NameNode的元数据存储"><a href="#NameNode的元数据存储" class="headerlink" title="NameNode的元数据存储"></a>NameNode的元数据存储</h3><p>元数据存放在内存中，磁盘中备份元数据的<strong>FsImage</strong>，防止节点断电后数据丢失，引入<strong>Edits</strong>文件（只进行追加操作，效率高）每当元数据有更新或者添加元数据时，修改内存中的元数据并追加到Edits。<strong>断电后可以通过FsImage和Edits的合并</strong>，合成元数据。</p>
-<p>但是，如果长时间添加数据到Edits中，会导致该文件数据过大，效率降低，而且一旦断电，恢复元数据需要的时间过长。因此，需要定期进行FsImage和Edits的合并，如果这个操作由NameNode节点完成，又会效率过低。因此，<strong>引入一个新的节点SecondaryNamenode，专门用于FsImage和Edits的合并</strong>。</p>
-<h3 id="NN和2NN工作机制"><a href="#NN和2NN工作机制" class="headerlink" title="NN和2NN工作机制"></a>NN和2NN工作机制</h3><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322212553869.png" alt="image-20220322212553869" style="zoom:33%;">
-
-<p>补充</p>
-<p><strong>谁负责对NN的元数据信息进行合并？</strong><br>       2NN主要负责对NN的元数据精心合并，当满足一定条件的下，2NN会检测本地时间，每隔一个小时会主动对NN的edits文件和fsimage文件进行一次合并。合并的时候，首先会通知NN,这时候NN就会停止对正在使用的edits文件的追加，同时会新建一个新的edits编辑日志文件，保证NN的正常工作。接下来 2NN会把NN本地的fsimage文件和edits编辑日志拉取2NN的本地，在内存中对二者进行合并，最后产生最新fsimage文件。把最新的fsimage文件再发送给NN的本地。注意还有一个情况，当NN的edits文件中的操作次数累计达到100万次，即便还没到1小时，2NN（每隔60秒会检测一次NN方的edits文件的操作次数）也会进行合并。2NN 也会自己把最新的fsimage文件备份一份。</p>
-<h2 id="DataNode（面试开发重点）"><a href="#DataNode（面试开发重点）" class="headerlink" title="DataNode（面试开发重点）"></a>DataNode（面试开发重点）</h2><h3 id="DataNode工作机制"><a href="#DataNode工作机制" class="headerlink" title="DataNode工作机制"></a>DataNode工作机制</h3><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322212841530.png" alt="image-20220322212841530" style="zoom:33%;">
-
-<h3 id="掉线时限参数设置"><a href="#掉线时限参数设置" class="headerlink" title="掉线时限参数设置"></a>掉线时限参数设置</h3><ol>
-<li>DataNode进程死亡或网络故障造成DataNode无法与NameNode通信</li>
-<li>NameNode<strong>不会立即把该节点判定为死亡</strong>，默认要经过<strong>10分钟+30秒</strong></li>
-<li><strong>自定义时间</strong>为2*dfs.namenode.heartbeat.recheck-interval +10**dfs.heartbeat.interval</li>
-</ol>
-<p> 需要注意的是hdfs-site.xml 配置文件中的heartbeat.recheck.interval的单位为<strong>毫秒</strong>，dfs.heartbeat.interval的单位为<strong>秒</strong></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.heartbeat.recheck-interval<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>300000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.heartbeat.interval<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>3<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="服役新数据节点"><a href="#服役新数据节点" class="headerlink" title="服役新数据节点"></a>服役新数据节点</h3><ul>
-<li>直接启动DataNode，即可关联到集群</li>
-</ul>
-<p> <code>hdfs --daemon start datanode</code>    <code>yarn --daemon start nodemanager</code></p>
-<ul>
-<li>如果数据不均衡，可以用命令实现集群的再平衡</li>
-</ul>
-<p><code>./start-balancer.sh</code></p>
-<h3 id="DataNode多目录配置"><a href="#DataNode多目录配置" class="headerlink" title="DataNode多目录配置"></a>DataNode多目录配置</h3><p>在hdfs-site.xml文件中添加如下内容</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>file://$&#123;hadoop.tmp.dir&#125;/dfs/data1,file://$&#123;hadoop.tmp.dir&#125;/dfs/data2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="图解HDFS数据原理"><a href="#图解HDFS数据原理" class="headerlink" title="图解HDFS数据原理"></a>图解HDFS数据原理</h2><h3 id="HDFS写数据原理"><a href="#HDFS写数据原理" class="headerlink" title="HDFS写数据原理"></a>HDFS写数据原理<img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-write-1.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-write-2.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-write-3.jpg" alt="img"></h3><h3 id="HDFS读数据原理"><a href="#HDFS读数据原理" class="headerlink" title="HDFS读数据原理"></a>HDFS读数据原理</h3><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-read-1.jpg"></p>
-<h3 id="HDFS故障类型和其检测方法"><a href="#HDFS故障类型和其检测方法" class="headerlink" title="HDFS故障类型和其检测方法"></a>HDFS故障类型和其检测方法<img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-tolerance-1.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/BigData-notes/raw/master/pictures/hdfs-tolerance-2.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-tolerance-3.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-tolerance-4.jpg" alt="img"></h3>]]></content>
-      <categories>
-        <category>Hadoop笔记</category>
-      </categories>
-      <tags>
-        <tag>HDFS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>正则速记</title>
     <url>/2022/03/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E6%AD%A3%E5%88%99%E9%80%9F%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="正则速记"><a href="#正则速记" class="headerlink" title="正则速记"></a>正则速记</h1>]]></content>
@@ -270,450 +155,6 @@
       </categories>
       <tags>
         <tag>正则表达式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>haodoop概念总结</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/Hadoop%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<h2 id="大数据部门组织结构"><a href="#大数据部门组织结构" class="headerlink" title="大数据部门组织结构"></a>大数据部门组织结构</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322121236808.png" alt="image-20220322121236808"></p>
-<h2 id="Hadoop的优势（4高）"><a href="#Hadoop的优势（4高）" class="headerlink" title="Hadoop的优势（4高）"></a>Hadoop的优势（4高）</h2><ol>
-<li>高可靠性：Hadoop底层维护多个数据副本</li>
-<li>高扩展性：在集群间分配任务数据，可方便的扩展</li>
-<li>高效性：在MapReduce的思想下，Hadoop时并行工作的，从而加快任务处理速度</li>
-<li>高容错性：能够自动将失败的任务重新分配</li>
-</ol>
-<h2 id="Hadoop组成（重点）"><a href="#Hadoop组成（重点）" class="headerlink" title="Hadoop组成（重点）"></a>Hadoop组成（重点）</h2><ul>
-<li><p>hadoop1.x </p>
-<p>mapreduce（计算+<strong>资料调度</strong>） HDFS（数据存储） Common（辅助工具）</p>
-</li>
-<li><p>hadoop2.x</p>
-<p>mapreduce（<strong>计算</strong>） HDFS（数据存储） Common（辅助工具） yarn（<strong>资料调度</strong>）</p>
-</li>
-</ul>
-<h2 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfsarchitecture.png" alt="hdfsarchitecture" style="zoom: 67%;">
-
-<ul>
-<li><p><strong>NameNode</strong>（主管）  </p>
-<p>存储文件的元数据 （文件名，文件目录结构，文件属性（生成时间，副本数，文件权限））以及每个文件的块列表和块所在的DataNode</p>
-<ol>
-<li>管理HDFS的名称空间</li>
-<li>配置副本策略</li>
-<li>管理数据块（Block）映射信息</li>
-<li>处理客户端读写请求</li>
-</ol>
-</li>
-<li><p><strong>Secondary NameNode</strong>（主管秘书） </p>
-<p>每隔一段时间对NameNode元数据备份 </p>
-<p><strong>！！</strong>-&gt;并非NameNode的热备 无法在NameNode无法工作时代替NameNode工作</p>
-<ol>
-<li>辅助NameNode，分担其工作量（如：定期合并Fsimage和Edits，并推送给NameNode）</li>
-<li>在紧急情况下，可辅助恢复NameNode</li>
-</ol>
-</li>
-<li><p><strong>DataNode</strong>（员工） </p>
-<p>在本地文件系统存储文件块数据，以及块数据的校验和</p>
-<ol>
-<li>存储实际的数据块</li>
-<li>执行数据块的读&#x2F;写操作</li>
-</ol>
-</li>
-<li><p><strong>Client</strong> (客户端)</p>
-<ol>
-<li>文件切分</li>
-<li>与NameNode交互，获取文件的位置信息</li>
-<li>与DataNode交互，读取或写入数据</li>
-<li>执行一些命令来管理HDFS（如：NameNode的格式化）</li>
-<li>执行一些命令来访问HDFS(如：HDFS的增删改查)</li>
-</ol>
-</li>
-</ul>
-<h2 id="YARN架构"><a href="#YARN架构" class="headerlink" title="YARN架构"></a>YARN架构</h2><ul>
-<li><p>ResourceManager（RM）</p>
-<ol>
-<li>处理客户端请求</li>
-<li>监控NodeManager</li>
-<li>启动或监控ApplicationMaster</li>
-<li>资源的分配与调度</li>
-</ol>
-</li>
-<li><p>NodeManager（NM）</p>
-<ol>
-<li>管理单个节点上的资源</li>
-<li>处理来自ResourceManager的命令</li>
-<li>处理来自ApplicationMaster的命令</li>
-</ol>
-</li>
-<li><p>ApplicationMaster</p>
-<ol>
-<li>负责数据的切分</li>
-<li>为应用程序申请资源并分配给内部的任务</li>
-<li>任务的监控与容错</li>
-</ol>
-</li>
-<li><p>Container</p>
-<p>Container是YARN中的资源抽象，封装了某个节点上的多维度资源，（内存，cpu，磁盘，网络）</p>
-</li>
-</ul>
-<h2 id="大数据技术生态体系"><a href="#大数据技术生态体系" class="headerlink" title="大数据技术生态体系"></a>大数据技术生态体系</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322133034426.png" alt="image-20220322133034426"></p>
-<h2 id="Hadoop环境搭建的常用命令"><a href="#Hadoop环境搭建的常用命令" class="headerlink" title="Hadoop环境搭建的常用命令"></a>Hadoop环境搭建的常用命令</h2><ul>
-<li><p>修改主机名称</p>
-<p><code>vim /etc/hostname</code></p>
-</li>
-<li><p>配置linux克隆机主机名称映射hosts</p>
-<p><code>vim /etc/hosts</code></p>
-</li>
-<li><p>解压JDK到&#x2F;opt&#x2F;module目录下</p>
-<p><code>tar -zxvf jdk-8u212-linux-x64.tar.gz -C /opt/module/</code></p>
-</li>
-<li><p>配置JDK环境变量</p>
-</li>
-<li><p>新建&#x2F;etc&#x2F;profile.d&#x2F;my_env.sh文件</p>
-<p><code>sudo vim /etc/profile.d/my_env.sh</code></p>
-<p>添加如下内容</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#JAVA_HOME</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/opt/module/jdk1.8.0_212</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br></pre></td></tr></table></figure>
-
-
-</li>
-<li><p>环境变量PATH生效</p>
-<p><code>source /etc/profile</code></p>
-</li>
-<li><p>生成公钥和私钥</p>
-<p><code>ssh-keygen -t rsa</code></p>
-</li>
-<li><p>Hadoop执行MapReduce程序</p>
-<p><code>hadoop jar wc.jar com.atguigu.wordcount.WordcountDriver /user/atguigu/input /user/atguigu/output</code></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Hadoop笔记</category>
-      </categories>
-      <tags>
-        <tag>HDFS</tag>
-        <tag>Hadoop</tag>
-        <tag>Yarn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ZooKeeper笔记</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>ZooKeeper笔记</category>
-      </categories>
-      <tags>
-        <tag>ZooKeeper</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java笔记</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Java笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JDBC</title>
-    <url>/2022/03/27/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/JDBC/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Java笔记</category>
-      </categories>
-      <tags>
-        <tag>JDBC</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MapReduce</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/MapReduce/</url>
-    <content><![CDATA[<p>将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序</p>
-<h2 id="MapReduce优缺点"><a href="#MapReduce优缺点" class="headerlink" title="MapReduce优缺点"></a>MapReduce优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
-<li><strong>MapReduce 易于编程</strong></li>
-<li><strong>良好的扩展性</strong></li>
-<li><strong>高容错性</strong></li>
-<li><strong>适合PB级以上海量数据的离线处理</strong></li>
-</ol>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
-<li><strong>不擅长实时计算</strong></li>
-<li><strong>不擅长流式计算</strong></li>
-<li><strong>不擅长DAG（有向无环图）计算</strong>（多个应用程序存在依赖关系，后一个应用程序的输入为前一个的输出，在这种情况下，MapReduce并不是不能做，而是使用后，每个MapReduce作业的输出结果都会写入到磁盘，会造成大量的磁盘IO，导致性能非常的低下）</li>
-</ol>
-<h2 id="MapReduce核心思想"><a href="#MapReduce核心思想" class="headerlink" title="MapReduce核心思想"></a>MapReduce核心思想</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220324182403256.png" alt="image-20220324182403256" style="zoom: 50%;">
-
-<h2 id="常用数据序列化类型"><a href="#常用数据序列化类型" class="headerlink" title="常用数据序列化类型"></a>常用数据序列化类型</h2><table>
-<thead>
-<tr>
-<th>Java类型</th>
-<th align="center">Hadoop Writable类型</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Boolean</td>
-<td align="center">BooleanWritable</td>
-</tr>
-<tr>
-<td>Byte</td>
-<td align="center">ByteWritable</td>
-</tr>
-<tr>
-<td>Int</td>
-<td align="center">IntWritable</td>
-</tr>
-<tr>
-<td>Float</td>
-<td align="center">FloatWritable</td>
-</tr>
-<tr>
-<td>Long</td>
-<td align="center">LongWritable</td>
-</tr>
-<tr>
-<td>Double</td>
-<td align="center">DoubleWritable</td>
-</tr>
-<tr>
-<td>String</td>
-<td align="center">Text</td>
-</tr>
-<tr>
-<td>Map</td>
-<td align="center">MapWritable</td>
-</tr>
-<tr>
-<td>Array</td>
-<td align="center">ArrayWritable</td>
-</tr>
-<tr>
-<td>Null</td>
-<td align="center">NullWritable</td>
-</tr>
-</tbody></table>
-<h2 id="Hadoop序列化"><a href="#Hadoop序列化" class="headerlink" title="Hadoop序列化"></a>Hadoop序列化</h2><h3 id="什么是序列化"><a href="#什么是序列化" class="headerlink" title="什么是序列化"></a>什么是序列化</h3><p>序列化就是把内存中的对象，转换成字节序列（或其他数据传输协议）以便于存储到磁盘（持久化）和网络传输</p>
-<h3 id="为什么不用Java的序列化"><a href="#为什么不用Java的序列化" class="headerlink" title="为什么不用Java的序列化"></a>为什么不用Java的序列化</h3><p>Java的序列化是一个重量级序列化框架，序列化后会附带很多额外的信息（校验信息，Header，继承体系），不便于高效传输</p>
-<h3 id="Hadoop序列化特点"><a href="#Hadoop序列化特点" class="headerlink" title="Hadoop序列化特点"></a>Hadoop序列化特点</h3><ol>
-<li>紧凑：高效使用存储空间</li>
-<li>快速：读写数据的额外开销小</li>
-<li>可扩展：随着通信协议的升级而可升级</li>
-<li>互操作：支持多语言的交互</li>
-</ol>
-<p>自定义bean对象实现序列化接口（Writable）<strong>注意反序列化的顺序和序列化的顺序完全一致</strong></p>
-<h2 id="MapReduce框架原理"><a href="#MapReduce框架原理" class="headerlink" title="MapReduce框架原理"></a>MapReduce框架原理</h2><h3 id="InputFormat数据输入"><a href="#InputFormat数据输入" class="headerlink" title="InputFormat数据输入"></a>InputFormat数据输入</h3><h4 id="切片与MapTask并行度决定机制"><a href="#切片与MapTask并行度决定机制" class="headerlink" title="切片与MapTask并行度决定机制"></a>切片与MapTask并行度决定机制</h4><p><strong>数据块：</strong>Block是HDFS物理上把数据分成一块一块。数据块是HDFS存储数据单位。</p>
-<p><strong>数据切片：</strong>数据切片只是在逻辑上对输入进行分片，并不会在磁盘上将其切分成片进行存储。数据切片是MapReduce程序计算输入数据的单位，一个切片会对应启动一个MapTask。</p>
-<img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220324192552080.png" alt="image-20220324192552080" style="zoom:50%;">
-
-<h4 id="Job提交流程源码和切片源码"><a href="#Job提交流程源码和切片源码" class="headerlink" title="Job提交流程源码和切片源码"></a>Job提交流程源码和切片源码</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">waitForCompletion()</span><br><span class="line">submit();</span><br><span class="line"><span class="comment">// 1建立连接</span></span><br><span class="line">	connect();	</span><br><span class="line">		<span class="comment">// 1）创建提交Job的代理</span></span><br><span class="line">		<span class="keyword">new</span> <span class="title class_">Cluster</span>(getConfiguration());</span><br><span class="line">			<span class="comment">// （1）判断是本地运行环境还是yarn集群运行环境</span></span><br><span class="line">			initialize(jobTrackAddr, conf); </span><br><span class="line"><span class="comment">// 2 提交job</span></span><br><span class="line">submitter.submitJobInternal(Job.<span class="built_in">this</span>, cluster)</span><br><span class="line">	<span class="comment">// 1）创建给集群提交数据的Stag路径</span></span><br><span class="line">	<span class="type">Path</span> <span class="variable">jobStagingArea</span> <span class="operator">=</span> JobSubmissionFiles.getStagingDir(cluster, conf);</span><br><span class="line">	<span class="comment">// 2）获取jobid ，并创建Job路径</span></span><br><span class="line">	<span class="type">JobID</span> <span class="variable">jobId</span> <span class="operator">=</span> submitClient.getNewJobID();</span><br><span class="line">	<span class="comment">// 3）拷贝jar包到集群</span></span><br><span class="line">copyAndConfigureFiles(job, submitJobDir);	</span><br><span class="line">	rUploader.uploadFiles(job, jobSubmitDir);</span><br><span class="line"><span class="comment">// 4）计算切片，生成切片规划文件</span></span><br><span class="line">writeSplits(job, submitJobDir);</span><br><span class="line">		maps = writeNewSplits(job, jobSubmitDir);</span><br><span class="line">		input.getSplits(job);</span><br><span class="line"><span class="comment">// 5）向Stag路径写XML配置文件</span></span><br><span class="line">writeConf(conf, submitJobFile);</span><br><span class="line">	conf.writeXml(out);</span><br><span class="line"><span class="comment">// 6）提交Job,返回提交状态</span></span><br><span class="line">status = submitClient.submitJob(jobId, submitJobDir.toString(), job.getCredentials());</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220325102532104.png" alt="image-20220325102532104"></p>
-<h4 id="FileInputFormat切片源码解析"><a href="#FileInputFormat切片源码解析" class="headerlink" title="FileInputFormat切片源码解析"></a>FileInputFormat切片源码解析</h4><ol>
-<li><p>程序先找到你数据存储的目录</p>
-</li>
-<li><p>开始遍历处理（规划切片）目录下的每个文件</p>
-</li>
-<li><p>遍历第一个文件22.txt</p>
-<ul>
-<li><p>获取<strong>fs.sizeOf(ss.txt)</strong></p>
-</li>
-<li><p>计算切片大小  </p>
-<p><strong>computeSplitSize(Math.max(MathSize,Math.min(maxSize,blocksize)))</strong> </p>
-<p>默认情况下，切片大小&#x3D;blocksize &#x3D;128M</p>
-</li>
-<li><p>每次切片时，都要判断切完剩下的部分是否大于块的<strong>1.1</strong>倍，不大于1.1倍就划分一块切片</p>
-</li>
-<li><p>将切片信息写到一个切片规划文件中</p>
-</li>
-<li><p>整个切片的核心过程在**getSplit()**方法中完成</p>
-</li>
-<li><p><strong>InputSplit</strong>只记录了切片的元数据信息（起始位置，长度以及所在节点列表）</p>
-</li>
-</ul>
-</li>
-<li><p>提交切片规划文件到YARN上，YARN上的<strong>MrAppMaster</strong>就可以根据切片规划文件计算开启MapTask</p>
-</li>
-</ol>
-<h4 id="FileInputFormat常见的接口实现类"><a href="#FileInputFormat常见的接口实现类" class="headerlink" title="FileInputFormat常见的接口实现类"></a>FileInputFormat常见的接口实现类</h4><ul>
-<li>TextInputFormat</li>
-<li>KeyValueTextInputFormat</li>
-<li>NLineInputFormat</li>
-<li>CombineTextInputFormat</li>
-<li>自定义InputFormat</li>
-</ul>
-<h4 id="TextInputFormat"><a href="#TextInputFormat" class="headerlink" title="TextInputFormat"></a>TextInputFormat</h4><p>TextInputFormat是默认的FileInputFormat实现类，按行读取每条记录。键是存储该行在整个文件中的起始字节偏移量，LongWritable类型。值是这行的内容，不包括任何行终止符（换行符和回车符）<img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220325110042960.png" alt="image-20220325110042960"></p>
-<p>框架默认的TextInputFormat切片机制是对任务按文件规划切片，不管文件多小，都会是一个单独的切片，都会交给一个MapTask，<strong>这样如果有大量小文件，就会产生大量的MapTask，处理效率极其低下</strong>。</p>
-<h4 id="CombineTextInputFormat切片机制"><a href="#CombineTextInputFormat切片机制" class="headerlink" title="CombineTextInputFormat切片机制"></a><strong>CombineTextInputFormat切片机制</strong></h4><p>用于小文件过多的场景，它可以将多个小文件从逻辑上规划到一个切片中，这样，多个小文件就可以交给一个MapTask处理。</p>
-<ul>
-<li><p><strong>虚拟存储切片最大值设置</strong></p>
-<p>CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);&#x2F;&#x2F; 4m</p>
-<p>注意：虚拟存储切片最大值设置最好根据实际的小文件大小情况来设置具体的值。</p>
-</li>
-<li><p><strong>切片机制</strong></p>
-<p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220331204822358.png" alt="image-20220331204822358"></p>
-</li>
-</ul>
-<h3 id="MapReduce工作流程"><a href="#MapReduce工作流程" class="headerlink" title="MapReduce工作流程"></a>MapReduce工作流程</h3><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220331205153496.png" alt="image-20220331205153496"></p>
-<p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220331205255778.png" alt="image-20220331205255778"></p>
-<h3 id="Shuffle机制"><a href="#Shuffle机制" class="headerlink" title="Shuffle机制"></a>Shuffle机制</h3><h4 id="Shuffle机制-1"><a href="#Shuffle机制-1" class="headerlink" title="Shuffle机制"></a>Shuffle机制</h4><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220331205453474.png" alt="image-20220331205453474"></p>
-<h4 id="Partition分区"><a href="#Partition分区" class="headerlink" title="Partition分区"></a>Partition分区</h4><ul>
-<li><p>默认partitioner分区</p>
-<p>默认分区是根据key的hashCode对ReduceTasks个数取模得到的。用户没法控制哪个key存储到哪个分区</p>
-</li>
-<li><p>自定义partitioner</p>
-<ol>
-<li>自定义类继承partitioner，重写getPartition()方法</li>
-<li>在Job驱动中，设置自定义Partitioner</li>
-<li>自定义Partition后，要根据自定义Partitioner的逻辑设置相应数量的ReduceTask</li>
-</ol>
-</li>
-<li><p>分区总结</p>
-<ol>
-<li>如果ReduceTask的数量&gt;getParition的结果数，则会多产生几个空的输出文件part-r-000xx</li>
-<li>如果1&lt;ReduceTask的数量&lt;getPartition的结果数，则有一部分分区数据无处安放，会Exception</li>
-<li>如果ReduceTask的数量&#x3D;1，则不管MapTask端输出多少个分区文件，最终结果都会交给这一个ReduceTask，最终也就只会产生一个结果文件part-r-00000；</li>
-<li>分区好必须从零开始，逐一累加</li>
-</ol>
-</li>
-</ul>
-<h4 id="WritableComparable排序"><a href="#WritableComparable排序" class="headerlink" title="WritableComparable排序"></a>WritableComparable排序</h4><ul>
-<li><p>排序概述</p>
-<p>排序是MapReduce框架中最重要的操作之一</p>
-<p>MapTask和ReduceTask均会对数据按照key进行排序，该操作属于Hadoop的默认行为。任何应用程序中的数据均会被排序，而不管逻辑上是否需要</p>
-<p>默认排序是按照字典顺序排序，且实现该排序的方法是快速排序</p>
-<ul>
-<li><p>MapTask</p>
-<p>它会将处理的结果暂时放到环形缓冲区中，当环形缓冲区使用率达到一定阈值后，再对缓冲区中的数据进行一次快速排序，并将这些有序数据溢写到硬盘上，而当数据处理完毕后，它会对磁盘上所有文件进行归并排序。</p>
-</li>
-<li><p>ReduceTask</p>
-<p>它从每个MapTask上远程拷贝相应的数据文件，如果文件大小超过一定阈值，则溢写磁盘上，否则存储在内存中。如果磁盘上文件数目达到一定阈值，则进行一次归并排序以生成一个更大文件；如果内存中文件大小或者数目超过一定阈值，则进行一次合并后将数据溢写到磁盘上。当所有数据拷贝完毕后，<strong>ReduceTask统一对内存和磁盘上的所有数据进行一次归并排序</strong>。</p>
-</li>
-</ul>
-</li>
-<li><p>排序分类</p>
-<ul>
-<li>部分排序</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Hadoop笔记</category>
-      </categories>
-      <tags>
-        <tag>MapReduce</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL简单查询与多表关联</title>
-    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2%E4%B8%8E%E5%A4%9A%E8%A1%A8%E5%85%B3%E8%81%94/</url>
-    <content><![CDATA[<h2 id="Mysql简单查询操作"><a href="#Mysql简单查询操作" class="headerlink" title="Mysql简单查询操作"></a>Mysql简单查询操作</h2><p>SELECT 字段1,字段2… FROM 表名称1,表名称2…</p>
-<p>WHERE 条件</p>
-<p>GROUP BY 字段 HAVING 筛选条件</p>
-<p>ORDER BY 字段 ASC | DESC</p>
-<p>LIMIT </p>
-<h3 id="查询表里面所有记录"><a href="#查询表里面所有记录" class="headerlink" title="查询表里面所有记录"></a>查询表里面所有记录</h3><p>SELECT sid,sname,age,address FROM stu</p>
-<p>SELECT ***** FROM stu</p>
-<h3 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h3><p>SELECT sid <strong>AS</strong> sid_id,sname <strong>AS</strong> sname_name FROM stu s</p>
-<h3 id="飘符号（反引号）"><a href="#飘符号（反引号）" class="headerlink" title="飘符号（反引号）"></a>飘符号（反引号）</h3><p>CREATE TABLE t1 (</p>
-<p> id INT,</p>
-<p> ‘name’ VARCHAR(100)</p>
-<p>)</p>
-<h3 id="简单where条件"><a href="#简单where条件" class="headerlink" title="简单where条件"></a>简单where条件</h3><p>SELECT * FROM stu s WHERE s.sname&#x3D;’谢逊’</p>
-<h2 id="使用外键"><a href="#使用外键" class="headerlink" title="使用外键"></a><strong>使用外键</strong></h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">### 创建部门表</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> dept (</span><br><span class="line"></span><br><span class="line"> did <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line"></span><br><span class="line"> dname <span class="type">VARCHAR</span>(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">## 创建员工表</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> emp (</span><br><span class="line"></span><br><span class="line"> eid <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line"></span><br><span class="line"> ename <span class="type">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line"></span><br><span class="line"> age <span class="type">INT</span>,</span><br><span class="line"></span><br><span class="line"> edid <span class="type">INT</span>,</span><br><span class="line"></span><br><span class="line"> <span class="keyword">FOREIGN</span> KEY(edid) <span class="keyword">REFERENCES</span> dept(did) </span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Mysql多表关联查询操作"><a href="#Mysql多表关联查询操作" class="headerlink" title="Mysql多表关联查询操作"></a><strong>Mysql多表关联查询操作</strong></h2><h3 id="笛卡尔积"><a href="#笛卡尔积" class="headerlink" title="笛卡尔积"></a><strong>笛卡尔积</strong></h3><p><strong>SELECT * FROM</strong> dept,emp</p>
-<h3 id="内连接查询"><a href="#内连接查询" class="headerlink" title="内连接查询"></a>内连接查询</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">inner</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">INNER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept,emp <span class="keyword">WHERE</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
-
-<h3 id="外连接-左外连接"><a href="#外连接-左外连接" class="headerlink" title="外连接-左外连接"></a>外连接-左外连接</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
-
-<h3 id="外连接-右外连接"><a href="#外连接-右外连接" class="headerlink" title="外连接-右外连接"></a>外连接-右外连接</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">right</span> <span class="keyword">outer</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
-
-<h3 id="A表独有数据"><a href="#A表独有数据" class="headerlink" title="A表独有数据"></a>A表独有数据</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.edid <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="B表独有数据"><a href="#B表独有数据" class="headerlink" title="B表独有数据"></a>B表独有数据</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> dept.did <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="AB全有（类似于全连接效果）"><a href="#AB全有（类似于全连接效果）" class="headerlink" title="AB全有（类似于全连接效果）"></a>AB全有（类似于全连接效果）</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
-
-<h3 id="A独有-B独有"><a href="#A独有-B独有" class="headerlink" title="A独有 + B独有"></a>A独有 + B独有</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid <span class="keyword">WHERE</span> emp.edid <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid <span class="keyword">WHERE</span> dept.did <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>MySql笔记</category>
-      </categories>
-      <tags>
-        <tag>MySql查询</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL查询操作</title>
-    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h2 id="去重操作-DISTINCT"><a href="#去重操作-DISTINCT" class="headerlink" title="去重操作 DISTINCT"></a>去重操作 DISTINCT</h2><p>SELECT <strong>DISTINCT</strong> ename FROM emp</p>
-<h2 id="where条件使用"><a href="#where条件使用" class="headerlink" title="where条件使用"></a>where条件使用</h2><p># 查询年龄大于20岁</p>
-<p>SELECT * FROM emp <strong>WHERE</strong> age&gt;20</p>
-<h2 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h2><p># 查询所有姓张人员信息</p>
-<p><strong># %代表通配符，匹配任意内容</strong></p>
-<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘张**%**’</p>
-<p># 查询姓名中最后一个字 亮结尾</p>
-<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘**%**亮’</p>
-<p># 查询姓名包含张</p>
-<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘<strong>%<strong>张</strong>%</strong>‘</p>
-<p># 查询姓名里面第一个字母是m，m后面包含三个字母</p>
-<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘m**___**’</p>
-<h2 id="排序操作"><a href="#排序操作" class="headerlink" title="排序操作   !"></a>排序操作   !</h2><p># 查询emp表所有记录，根据eid进行排序</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">ORDER</span> <span class="keyword">BY</span> eid <span class="operator">*</span><span class="operator">*</span><span class="keyword">ASC</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">ORDER</span> <span class="keyword">BY</span> eid <span class="operator">*</span><span class="keyword">DESC</span><span class="operator">*</span><span class="operator">*</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="查询区间范围"><a href="#查询区间范围" class="headerlink" title="查询区间范围"></a>查询区间范围</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># 查询emp表年龄 <span class="number">30</span><span class="number">-50</span>范围  </span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> age<span class="operator">&gt;=</span><span class="number">30</span> <span class="keyword">AND</span> age<span class="operator">&lt;=</span><span class="number">50</span> </span><br><span class="line"></span><br><span class="line"># <span class="keyword">BETWEEN</span> 开始值 <span class="keyword">AND</span> 结束值</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> age <span class="keyword">BETWEEN</span> <span class="number">30</span> <span class="keyword">AND</span> <span class="number">50</span></span><br><span class="line"></span><br><span class="line"># 查询年龄是 <span class="number">20</span> <span class="number">40</span> <span class="number">60</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> age <span class="keyword">IN</span>(<span class="number">20</span>,<span class="number">40</span>,<span class="number">60</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="mysql分页查询"><a href="#mysql分页查询" class="headerlink" title="mysql分页查询"></a>mysql分页查询</h3><p>（1）limit后面有两个参数</p>
-<p>第一个参数 查询数据开始位置，从0开始</p>
-<p>第二个参数 每页显示多少条记录</p>
-<p>（2）查询数据开始位置计算公式</p>
-<p>(当前页-1)*每页显示记录数</p>
-<p>3、编写分页语句</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># 分页语句</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp LIMIT <span class="number">0</span>,<span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp LIMIT <span class="number">3</span>,<span class="number">3</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h2><h3 id="count-：统计"><a href="#count-：统计" class="headerlink" title="count() ：统计"></a>count() ：统计</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">## 查询表有多少条记录</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> num <span class="keyword">FROM</span> emp</span><br><span class="line"></span><br><span class="line"># 查询年龄大于<span class="number">40</span>人员数量</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> age<span class="operator">&gt;</span><span class="number">40</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="sum-：求和"><a href="#sum-：求和" class="headerlink" title="sum()：求和"></a>sum()：求和</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="built_in">sum</span>()：求和</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(age) <span class="keyword">FROM</span> emp</span><br></pre></td></tr></table></figure>
-
-<h3 id="avg-计算平均数"><a href="#avg-计算平均数" class="headerlink" title="avg():   计算平均数"></a>avg():   计算平均数</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="built_in">sum</span>()：求和</span><br><span class="line"># <span class="built_in">avg</span>(): 计算平均数</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">AVG</span>(age) <span class="keyword">FROM</span> emp</span><br><span class="line"></span><br><span class="line"># 把平均数值小数点后面位数</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">CAST</span>(<span class="built_in">AVG</span>(age) <span class="keyword">AS</span> <span class="type">DECIMAL</span>(<span class="number">10</span>,<span class="number">2</span>)) <span class="keyword">AS</span> avgnum <span class="keyword">FROM</span> emp</span><br></pre></td></tr></table></figure>
-
-<h3 id="max-获取最大值"><a href="#max-获取最大值" class="headerlink" title="max():   获取最大值"></a>max():   获取最大值</h3><p>SELECT <strong>MAX</strong>(age) FROM emp</p>
-<h3 id="min-获取最小值"><a href="#min-获取最小值" class="headerlink" title="min():   获取最小值"></a>min():   获取最小值</h3><p>SELECT <strong>MIN</strong>(age) FROM emp</p>
-<h2 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询 !"></a>分组查询 !</h2><p><strong>group by</strong> 分组字段</p>
-<h3 id="编写分组sql"><a href="#编写分组sql" class="headerlink" title="编写分组sql"></a>编写分组sql</h3><p>查询每个部门里面有多少个员工</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> num,edid <span class="keyword">AS</span> deptid </span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> emp </span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> edid</span><br></pre></td></tr></table></figure>
-
-<p>统计每个部门的年龄最大者</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(age),emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> emp </span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> emp.edid</span><br></pre></td></tr></table></figure>
-
-<p>统计每个部门里面最高工资</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(salarystand),emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> emp,salary</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.stid<span class="operator">=</span>salary.stid</span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> emp.edid</span><br></pre></td></tr></table></figure>
-
-<p>获取最高工资大于5000的部门</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(salarystand),emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> emp,salary</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.stid<span class="operator">=</span>salary.stid  </span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">MAX</span>(salarystand)<span class="operator">&gt;</span><span class="number">5000</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Mysql子查询"><a href="#Mysql子查询" class="headerlink" title="Mysql子查询"></a>Mysql子查询</h2><p><strong>一个查询结果，作为另外一个查询条件</strong></p>
-<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>查询比“张无忌”的工资高 查询张无忌工资 查询工资大于张无忌工资值</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp,salary </span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.stid<span class="operator">=</span>salary.stid </span><br><span class="line"></span><br><span class="line"><span class="keyword">AND</span> salary.salarystand <span class="operator">&gt;</span>  </span><br><span class="line"></span><br><span class="line">(<span class="keyword">SELECT</span> salary.salarystand  <span class="keyword">FROM</span> emp,salary <span class="keyword">WHERE</span> emp.stid<span class="operator">=</span>salary.stid <span class="keyword">AND</span> emp.ename<span class="operator">=</span><span class="string">&#x27;张无忌</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="exists子查询"><a href="#exists子查询" class="headerlink" title="exists子查询"></a>exists子查询</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_department </span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">EXISTS</span> (<span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_employee <span class="keyword">WHERE</span> t_employee.dept_id <span class="operator">=</span> t_department.did);</span><br></pre></td></tr></table></figure>
-
-<h3 id="复制子查询"><a href="#复制子查询" class="headerlink" title="复制子查询"></a>复制子查询</h3><p>（1）拷贝表结构</p>
-<p>CREATE TABLE newadmin LIKE admin;</p>
-<p>（2）拷贝表结构和数据（但约束与索引除外）</p>
-<p>CREATE TABLE newadmin AS  ( SELECT * FROM admin ) ;</p>
-<p>（3）拷贝表结构+数据</p>
-<p>CREATE TABLE newadmin LIKE admin;  </p>
-<p>INSERT INTO newadmin SELECT * FROM admin;</p>
-<p>（4）跨数据库拷贝表</p>
-<p>CREATE TABLE newadmin LIKE shop.admin; </p>
-]]></content>
-      <categories>
-        <category>MySql笔记</category>
-      </categories>
-      <tags>
-        <tag>MySql查询</tag>
       </tags>
   </entry>
   <entry>
@@ -2237,8 +1678,586 @@
       </tags>
   </entry>
   <entry>
+    <title>haodoop概念总结</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/Hadoop%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h2 id="大数据部门组织结构"><a href="#大数据部门组织结构" class="headerlink" title="大数据部门组织结构"></a>大数据部门组织结构</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322121236808.png" alt="image-20220322121236808"></p>
+<h2 id="Hadoop的优势（4高）"><a href="#Hadoop的优势（4高）" class="headerlink" title="Hadoop的优势（4高）"></a>Hadoop的优势（4高）</h2><ol>
+<li>高可靠性：Hadoop底层维护多个数据副本</li>
+<li>高扩展性：在集群间分配任务数据，可方便的扩展</li>
+<li>高效性：在MapReduce的思想下，Hadoop时并行工作的，从而加快任务处理速度</li>
+<li>高容错性：能够自动将失败的任务重新分配</li>
+</ol>
+<h2 id="Hadoop组成（重点）"><a href="#Hadoop组成（重点）" class="headerlink" title="Hadoop组成（重点）"></a>Hadoop组成（重点）</h2><ul>
+<li><p>hadoop1.x </p>
+<p>mapreduce（计算+<strong>资料调度</strong>） HDFS（数据存储） Common（辅助工具）</p>
+</li>
+<li><p>hadoop2.x</p>
+<p>mapreduce（<strong>计算</strong>） HDFS（数据存储） Common（辅助工具） yarn（<strong>资料调度</strong>）</p>
+</li>
+</ul>
+<h2 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfsarchitecture.png" alt="hdfsarchitecture" style="zoom: 67%;">
+
+<ul>
+<li><p><strong>NameNode</strong>（主管）  </p>
+<p>存储文件的元数据 （文件名，文件目录结构，文件属性（生成时间，副本数，文件权限））以及每个文件的块列表和块所在的DataNode</p>
+<ol>
+<li>管理HDFS的名称空间</li>
+<li>配置副本策略</li>
+<li>管理数据块（Block）映射信息</li>
+<li>处理客户端读写请求</li>
+</ol>
+</li>
+<li><p><strong>Secondary NameNode</strong>（主管秘书） </p>
+<p>每隔一段时间对NameNode元数据备份 </p>
+<p><strong>！！</strong>-&gt;并非NameNode的热备 无法在NameNode无法工作时代替NameNode工作</p>
+<ol>
+<li>辅助NameNode，分担其工作量（如：定期合并Fsimage和Edits，并推送给NameNode）</li>
+<li>在紧急情况下，可辅助恢复NameNode</li>
+</ol>
+</li>
+<li><p><strong>DataNode</strong>（员工） </p>
+<p>在本地文件系统存储文件块数据，以及块数据的校验和</p>
+<ol>
+<li>存储实际的数据块</li>
+<li>执行数据块的读&#x2F;写操作</li>
+</ol>
+</li>
+<li><p><strong>Client</strong> (客户端)</p>
+<ol>
+<li>文件切分</li>
+<li>与NameNode交互，获取文件的位置信息</li>
+<li>与DataNode交互，读取或写入数据</li>
+<li>执行一些命令来管理HDFS（如：NameNode的格式化）</li>
+<li>执行一些命令来访问HDFS(如：HDFS的增删改查)</li>
+</ol>
+</li>
+</ul>
+<h2 id="YARN架构"><a href="#YARN架构" class="headerlink" title="YARN架构"></a>YARN架构</h2><ul>
+<li><p>ResourceManager（RM）</p>
+<ol>
+<li>处理客户端请求</li>
+<li>监控NodeManager</li>
+<li>启动或监控ApplicationMaster</li>
+<li>资源的分配与调度</li>
+</ol>
+</li>
+<li><p>NodeManager（NM）</p>
+<ol>
+<li>管理单个节点上的资源</li>
+<li>处理来自ResourceManager的命令</li>
+<li>处理来自ApplicationMaster的命令</li>
+</ol>
+</li>
+<li><p>ApplicationMaster</p>
+<ol>
+<li>负责数据的切分</li>
+<li>为应用程序申请资源并分配给内部的任务</li>
+<li>任务的监控与容错</li>
+</ol>
+</li>
+<li><p>Container</p>
+<p>Container是YARN中的资源抽象，封装了某个节点上的多维度资源，（内存，cpu，磁盘，网络）</p>
+</li>
+</ul>
+<h2 id="大数据技术生态体系"><a href="#大数据技术生态体系" class="headerlink" title="大数据技术生态体系"></a>大数据技术生态体系</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322133034426.png" alt="image-20220322133034426"></p>
+<h2 id="Hadoop环境搭建的常用命令"><a href="#Hadoop环境搭建的常用命令" class="headerlink" title="Hadoop环境搭建的常用命令"></a>Hadoop环境搭建的常用命令</h2><ul>
+<li><p>修改主机名称</p>
+<p><code>vim /etc/hostname</code></p>
+</li>
+<li><p>配置linux克隆机主机名称映射hosts</p>
+<p><code>vim /etc/hosts</code></p>
+</li>
+<li><p>解压JDK到&#x2F;opt&#x2F;module目录下</p>
+<p><code>tar -zxvf jdk-8u212-linux-x64.tar.gz -C /opt/module/</code></p>
+</li>
+<li><p>配置JDK环境变量</p>
+</li>
+<li><p>新建&#x2F;etc&#x2F;profile.d&#x2F;my_env.sh文件</p>
+<p><code>sudo vim /etc/profile.d/my_env.sh</code></p>
+<p>添加如下内容</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#JAVA_HOME</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/opt/module/jdk1.8.0_212</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>环境变量PATH生效</p>
+<p><code>source /etc/profile</code></p>
+</li>
+<li><p>生成公钥和私钥</p>
+<p><code>ssh-keygen -t rsa</code></p>
+</li>
+<li><p>Hadoop执行MapReduce程序</p>
+<p><code>hadoop jar wc.jar com.atguigu.wordcount.WordcountDriver /user/atguigu/input /user/atguigu/output</code></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hadoop笔记</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>Yarn</tag>
+        <tag>HDFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MapReduce</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/MapReduce/</url>
+    <content><![CDATA[<p>将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序</p>
+<h2 id="MapReduce优缺点"><a href="#MapReduce优缺点" class="headerlink" title="MapReduce优缺点"></a>MapReduce优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li><strong>MapReduce 易于编程</strong></li>
+<li><strong>良好的扩展性</strong></li>
+<li><strong>高容错性</strong></li>
+<li><strong>适合PB级以上海量数据的离线处理</strong></li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li><strong>不擅长实时计算</strong></li>
+<li><strong>不擅长流式计算</strong></li>
+<li><strong>不擅长DAG（有向无环图）计算</strong>（多个应用程序存在依赖关系，后一个应用程序的输入为前一个的输出，在这种情况下，MapReduce并不是不能做，而是使用后，每个MapReduce作业的输出结果都会写入到磁盘，会造成大量的磁盘IO，导致性能非常的低下）</li>
+</ol>
+<h2 id="MapReduce核心思想"><a href="#MapReduce核心思想" class="headerlink" title="MapReduce核心思想"></a>MapReduce核心思想</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220324182403256.png" alt="image-20220324182403256" style="zoom: 50%;">
+
+<h2 id="常用数据序列化类型"><a href="#常用数据序列化类型" class="headerlink" title="常用数据序列化类型"></a>常用数据序列化类型</h2><table>
+<thead>
+<tr>
+<th>Java类型</th>
+<th align="center">Hadoop Writable类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Boolean</td>
+<td align="center">BooleanWritable</td>
+</tr>
+<tr>
+<td>Byte</td>
+<td align="center">ByteWritable</td>
+</tr>
+<tr>
+<td>Int</td>
+<td align="center">IntWritable</td>
+</tr>
+<tr>
+<td>Float</td>
+<td align="center">FloatWritable</td>
+</tr>
+<tr>
+<td>Long</td>
+<td align="center">LongWritable</td>
+</tr>
+<tr>
+<td>Double</td>
+<td align="center">DoubleWritable</td>
+</tr>
+<tr>
+<td>String</td>
+<td align="center">Text</td>
+</tr>
+<tr>
+<td>Map</td>
+<td align="center">MapWritable</td>
+</tr>
+<tr>
+<td>Array</td>
+<td align="center">ArrayWritable</td>
+</tr>
+<tr>
+<td>Null</td>
+<td align="center">NullWritable</td>
+</tr>
+</tbody></table>
+<h2 id="Hadoop序列化"><a href="#Hadoop序列化" class="headerlink" title="Hadoop序列化"></a>Hadoop序列化</h2><h3 id="什么是序列化"><a href="#什么是序列化" class="headerlink" title="什么是序列化"></a>什么是序列化</h3><p>序列化就是把内存中的对象，转换成字节序列（或其他数据传输协议）以便于存储到磁盘（持久化）和网络传输</p>
+<h3 id="为什么不用Java的序列化"><a href="#为什么不用Java的序列化" class="headerlink" title="为什么不用Java的序列化"></a>为什么不用Java的序列化</h3><p>Java的序列化是一个重量级序列化框架，序列化后会附带很多额外的信息（校验信息，Header，继承体系），不便于高效传输</p>
+<h3 id="Hadoop序列化特点"><a href="#Hadoop序列化特点" class="headerlink" title="Hadoop序列化特点"></a>Hadoop序列化特点</h3><ol>
+<li>紧凑：高效使用存储空间</li>
+<li>快速：读写数据的额外开销小</li>
+<li>可扩展：随着通信协议的升级而可升级</li>
+<li>互操作：支持多语言的交互</li>
+</ol>
+<p>自定义bean对象实现序列化接口（Writable）<strong>注意反序列化的顺序和序列化的顺序完全一致</strong></p>
+<h2 id="MapReduce框架原理"><a href="#MapReduce框架原理" class="headerlink" title="MapReduce框架原理"></a>MapReduce框架原理</h2><h3 id="InputFormat数据输入"><a href="#InputFormat数据输入" class="headerlink" title="InputFormat数据输入"></a>InputFormat数据输入</h3><h4 id="切片与MapTask并行度决定机制"><a href="#切片与MapTask并行度决定机制" class="headerlink" title="切片与MapTask并行度决定机制"></a>切片与MapTask并行度决定机制</h4><p><strong>数据块：</strong>Block是HDFS物理上把数据分成一块一块。数据块是HDFS存储数据单位。</p>
+<p><strong>数据切片：</strong>数据切片只是在逻辑上对输入进行分片，并不会在磁盘上将其切分成片进行存储。数据切片是MapReduce程序计算输入数据的单位，一个切片会对应启动一个MapTask。</p>
+<img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220324192552080.png" alt="image-20220324192552080" style="zoom:50%;">
+
+<h4 id="Job提交流程源码和切片源码"><a href="#Job提交流程源码和切片源码" class="headerlink" title="Job提交流程源码和切片源码"></a>Job提交流程源码和切片源码</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">waitForCompletion()</span><br><span class="line">submit();</span><br><span class="line"><span class="comment">// 1建立连接</span></span><br><span class="line">	connect();	</span><br><span class="line">		<span class="comment">// 1）创建提交Job的代理</span></span><br><span class="line">		<span class="keyword">new</span> <span class="title class_">Cluster</span>(getConfiguration());</span><br><span class="line">			<span class="comment">// （1）判断是本地运行环境还是yarn集群运行环境</span></span><br><span class="line">			initialize(jobTrackAddr, conf); </span><br><span class="line"><span class="comment">// 2 提交job</span></span><br><span class="line">submitter.submitJobInternal(Job.<span class="built_in">this</span>, cluster)</span><br><span class="line">	<span class="comment">// 1）创建给集群提交数据的Stag路径</span></span><br><span class="line">	<span class="type">Path</span> <span class="variable">jobStagingArea</span> <span class="operator">=</span> JobSubmissionFiles.getStagingDir(cluster, conf);</span><br><span class="line">	<span class="comment">// 2）获取jobid ，并创建Job路径</span></span><br><span class="line">	<span class="type">JobID</span> <span class="variable">jobId</span> <span class="operator">=</span> submitClient.getNewJobID();</span><br><span class="line">	<span class="comment">// 3）拷贝jar包到集群</span></span><br><span class="line">copyAndConfigureFiles(job, submitJobDir);	</span><br><span class="line">	rUploader.uploadFiles(job, jobSubmitDir);</span><br><span class="line"><span class="comment">// 4）计算切片，生成切片规划文件</span></span><br><span class="line">writeSplits(job, submitJobDir);</span><br><span class="line">		maps = writeNewSplits(job, jobSubmitDir);</span><br><span class="line">		input.getSplits(job);</span><br><span class="line"><span class="comment">// 5）向Stag路径写XML配置文件</span></span><br><span class="line">writeConf(conf, submitJobFile);</span><br><span class="line">	conf.writeXml(out);</span><br><span class="line"><span class="comment">// 6）提交Job,返回提交状态</span></span><br><span class="line">status = submitClient.submitJob(jobId, submitJobDir.toString(), job.getCredentials());</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220325102532104.png" alt="image-20220325102532104"></p>
+<h4 id="FileInputFormat切片源码解析"><a href="#FileInputFormat切片源码解析" class="headerlink" title="FileInputFormat切片源码解析"></a>FileInputFormat切片源码解析</h4><ol>
+<li><p>程序先找到你数据存储的目录</p>
+</li>
+<li><p>开始遍历处理（规划切片）目录下的每个文件</p>
+</li>
+<li><p>遍历第一个文件22.txt</p>
+<ul>
+<li><p>获取<strong>fs.sizeOf(ss.txt)</strong></p>
+</li>
+<li><p>计算切片大小  </p>
+<p><strong>computeSplitSize(Math.max(MathSize,Math.min(maxSize,blocksize)))</strong> </p>
+<p>默认情况下，切片大小&#x3D;blocksize &#x3D;128M</p>
+</li>
+<li><p>每次切片时，都要判断切完剩下的部分是否大于块的<strong>1.1</strong>倍，不大于1.1倍就划分一块切片</p>
+</li>
+<li><p>将切片信息写到一个切片规划文件中</p>
+</li>
+<li><p>整个切片的核心过程在**getSplit()**方法中完成</p>
+</li>
+<li><p><strong>InputSplit</strong>只记录了切片的元数据信息（起始位置，长度以及所在节点列表）</p>
+</li>
+</ul>
+</li>
+<li><p>提交切片规划文件到YARN上，YARN上的<strong>MrAppMaster</strong>就可以根据切片规划文件计算开启MapTask</p>
+</li>
+</ol>
+<h4 id="FileInputFormat常见的接口实现类"><a href="#FileInputFormat常见的接口实现类" class="headerlink" title="FileInputFormat常见的接口实现类"></a>FileInputFormat常见的接口实现类</h4><ul>
+<li>TextInputFormat</li>
+<li>KeyValueTextInputFormat</li>
+<li>NLineInputFormat</li>
+<li>CombineTextInputFormat</li>
+<li>自定义InputFormat</li>
+</ul>
+<h4 id="TextInputFormat"><a href="#TextInputFormat" class="headerlink" title="TextInputFormat"></a>TextInputFormat</h4><p>TextInputFormat是默认的FileInputFormat实现类，按行读取每条记录。键是存储该行在整个文件中的起始字节偏移量，LongWritable类型。值是这行的内容，不包括任何行终止符（换行符和回车符）<img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220325110042960.png" alt="image-20220325110042960"></p>
+<p>框架默认的TextInputFormat切片机制是对任务按文件规划切片，不管文件多小，都会是一个单独的切片，都会交给一个MapTask，<strong>这样如果有大量小文件，就会产生大量的MapTask，处理效率极其低下</strong>。</p>
+<h4 id="CombineTextInputFormat切片机制"><a href="#CombineTextInputFormat切片机制" class="headerlink" title="CombineTextInputFormat切片机制"></a><strong>CombineTextInputFormat切片机制</strong></h4><p>用于小文件过多的场景，它可以将多个小文件从逻辑上规划到一个切片中，这样，多个小文件就可以交给一个MapTask处理。</p>
+<ul>
+<li><p><strong>虚拟存储切片最大值设置</strong></p>
+<p>CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);&#x2F;&#x2F; 4m</p>
+<p>注意：虚拟存储切片最大值设置最好根据实际的小文件大小情况来设置具体的值。</p>
+</li>
+<li><p><strong>切片机制</strong></p>
+<p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220331204822358.png" alt="image-20220331204822358"></p>
+</li>
+</ul>
+<h3 id="MapReduce工作流程"><a href="#MapReduce工作流程" class="headerlink" title="MapReduce工作流程"></a>MapReduce工作流程</h3><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220331205153496.png" alt="image-20220331205153496"></p>
+<p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220331205255778.png" alt="image-20220331205255778"></p>
+<h3 id="Shuffle机制"><a href="#Shuffle机制" class="headerlink" title="Shuffle机制"></a>Shuffle机制</h3><h4 id="Shuffle机制-1"><a href="#Shuffle机制-1" class="headerlink" title="Shuffle机制"></a>Shuffle机制</h4><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220331205453474.png" alt="image-20220331205453474"></p>
+<h4 id="Partition分区"><a href="#Partition分区" class="headerlink" title="Partition分区"></a>Partition分区</h4><ul>
+<li><p>默认partitioner分区</p>
+<p>默认分区是根据key的hashCode对ReduceTasks个数取模得到的。用户没法控制哪个key存储到哪个分区</p>
+</li>
+<li><p>自定义partitioner</p>
+<ol>
+<li>自定义类继承partitioner，重写getPartition()方法</li>
+<li>在Job驱动中，设置自定义Partitioner</li>
+<li>自定义Partition后，要根据自定义Partitioner的逻辑设置相应数量的ReduceTask</li>
+</ol>
+</li>
+<li><p>分区总结</p>
+<ol>
+<li>如果ReduceTask的数量&gt;getParition的结果数，则会多产生几个空的输出文件part-r-000xx</li>
+<li>如果1&lt;ReduceTask的数量&lt;getPartition的结果数，则有一部分分区数据无处安放，会Exception</li>
+<li>如果ReduceTask的数量&#x3D;1，则不管MapTask端输出多少个分区文件，最终结果都会交给这一个ReduceTask，最终也就只会产生一个结果文件part-r-00000；</li>
+<li>分区好必须从零开始，逐一累加</li>
+</ol>
+</li>
+</ul>
+<h4 id="WritableComparable排序"><a href="#WritableComparable排序" class="headerlink" title="WritableComparable排序"></a>WritableComparable排序</h4><ul>
+<li><p>排序概述</p>
+<p>排序是MapReduce框架中最重要的操作之一</p>
+<p>MapTask和ReduceTask均会对数据按照key进行排序，该操作属于Hadoop的默认行为。任何应用程序中的数据均会被排序，而不管逻辑上是否需要</p>
+<p>默认排序是按照字典顺序排序，且实现该排序的方法是快速排序</p>
+<ul>
+<li><p>MapTask</p>
+<p>它会将处理的结果暂时放到环形缓冲区中，当环形缓冲区使用率达到一定阈值后，再对缓冲区中的数据进行一次快速排序，并将这些有序数据溢写到硬盘上，而当数据处理完毕后，它会对磁盘上所有文件进行归并排序。</p>
+</li>
+<li><p>ReduceTask</p>
+<p>它从每个MapTask上远程拷贝相应的数据文件，如果文件大小超过一定阈值，则溢写磁盘上，否则存储在内存中。如果磁盘上文件数目达到一定阈值，则进行一次归并排序以生成一个更大文件；如果内存中文件大小或者数目超过一定阈值，则进行一次合并后将数据溢写到磁盘上。当所有数据拷贝完毕后，<strong>ReduceTask统一对内存和磁盘上的所有数据进行一次归并排序</strong>。</p>
+</li>
+</ul>
+</li>
+<li><p>排序分类</p>
+<ul>
+<li>部分排序</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hadoop笔记</category>
+      </categories>
+      <tags>
+        <tag>MapReduce</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JDBC</title>
+    <url>/2022/03/27/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/JDBC/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Java笔记</category>
+      </categories>
+      <tags>
+        <tag>JDBC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HDFS</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/HDFS/</url>
+    <content><![CDATA[<h2 id="HDFS的使用场景"><a href="#HDFS的使用场景" class="headerlink" title="HDFS的使用场景"></a>HDFS的使用场景</h2><p><strong>适合一次写入，多次读出的场景，且不支持文件的修改。</strong></p>
+<h2 id="HDFS优点和缺点"><a href="#HDFS优点和缺点" class="headerlink" title="HDFS优点和缺点"></a>HDFS优点和缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>高容错性</li>
+<li>适合处理大数据</li>
+<li>可构建在廉价机器上，并通过多副本机制提高可靠性</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>不适合低延时数据访问</li>
+<li>无法高效的对大量小文件进行存储(小文件的寻址时间会超过读取时间，违反HDF的设计目标)</li>
+<li>不支持并发写入，文件随机修改（仅支持数据的追加）</li>
+</ol>
+<h2 id="HDFS文件块的大小（重点）"><a href="#HDFS文件块的大小（重点）" class="headerlink" title="HDFS文件块的大小（重点）"></a>HDFS文件块的大小（重点）</h2><p>HDFS中的文件是分块存储（Block），块的大小通过参数（<strong>dfs.blocksize</strong>）来控制</p>
+<p><strong>默认大小</strong> 128M（2.x）64M（1.x）</p>
+<p><strong>如何规定的默认大小</strong>（主要取决于磁盘传输速率）</p>
+<ol>
+<li>寻址时间约10ms，</li>
+<li>寻址时间为传输时间的1%时，则为最佳状态。</li>
+<li>目前磁盘的传输速率普遍100MB&#x2F;s </li>
+<li>传输时间：10ms &#x2F; 0.01 &#x3D; 1s</li>
+<li>block大小： 1s * 100MB&#x2F;s &#x3D; 100MB</li>
+</ol>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><strong>启动Hadoop集群</strong></p>
+<p><code>sbin/start-dfs.sh</code> </p>
+<p><code>sbin/start-yarn.sh</code></p>
+<p><strong>上传</strong></p>
+<ul>
+<li><p>-moveFromLocal   <strong>剪切</strong>粘贴</p>
+<p><code>hadoop fs -moveFromLocal ./kongming.txt /sanguo/shuguo</code></p>
+</li>
+<li><p>-copyFromLocal（-put）  <strong>复制</strong>粘贴</p>
+<p><code>hadoop fs -copyFromLocal README.txt /</code></p>
+<p><code>hadoop fs -put ./liubei.txt /user/atguigu/test/</code></p>
+</li>
+<li><p>-appendToFile  追加到一个文件（已经在HDFS中存在）的文件末尾</p>
+<p><code>hadoop fs -appendToFile liubei.txt /sanguo/shuguo/kongming.txt</code></p>
+</li>
+</ul>
+<p><strong>下载</strong></p>
+<ul>
+<li><p>-copyToLocal（-get）  <strong>复制</strong>粘贴</p>
+<p><code>hadoop fs -copyToLocal /sanguo/shuguo/kongming.txt ./</code></p>
+<p><code>hadoop fs -get /sanguo/shuguo/kongming.txt ./</code></p>
+</li>
+<li><p>-getmerge  <strong>合并</strong>下载多个文件（不会对HDFS中的文件进行合并）</p>
+<p><code>hadoop fs -getmerge /user/atguigu/test/* ./zaiyiqi.txt</code></p>
+</li>
+</ul>
+<p><strong>HDFS直接操作</strong></p>
+<ul>
+<li><p>-du  统计文件夹的大小信息</p>
+<p><code>hadoop fs -du  -h /user/atguigu/test</code></p>
+</li>
+<li><p>-setrep  设置HDFS中文件的副本数量  </p>
+<p><em>（最终副本量还是取决于节点数 这里只是改了设置只有节点数达到才生效）</em></p>
+<p><code>hadoop fs -setrep 10 /sanguo/shuguo/kongming.txt</code></p>
+</li>
+</ul>
+<h2 id="HDFS写数据流程"><a href="#HDFS写数据流程" class="headerlink" title="HDFS写数据流程"></a>HDFS写数据流程</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322173126301.png" alt="image-20220322173126301" style="zoom: 33%;">
+
+<h2 id="网络拓扑（节点距离计算）"><a href="#网络拓扑（节点距离计算）" class="headerlink" title="网络拓扑（节点距离计算）"></a>网络拓扑（节点距离计算）</h2><p>在HDFS写数据的过程中，NameNode会选择距离待上传数据最近距离的DataNode接收数据。那么这个最近距离怎么计算呢？（节点距离：两个节点到达最近的共同祖先的距离总和。）</p>
+<p>拓扑排序</p>
+<h2 id="机架感知（副本存储节点选择）"><a href="#机架感知（副本存储节点选择）" class="headerlink" title="机架感知（副本存储节点选择）"></a>机架感知（副本存储节点选择）</h2><p>副本节点选择</p>
+<ol>
+<li>第一个副本：在Client所处的节点上，如果客户端在集群外，随机选一个</li>
+<li>第二个副本：在另一个机架的随机一个节点</li>
+<li>第三个副本：在第二个副本所在机架的随机节点</li>
+</ol>
+<p><strong>补充</strong></p>
+<p>   – Client为什么是以串行的方式建立通道？<br>      – 本质上就是为了降低client的IO开销</p>
+<p>   – 数据传输的时候如何保证数据成功？（了解）<br>      – 采用了ack回执的策略保证了数据完整成功上传。</p>
+<h2 id="HDFS读数据流程"><a href="#HDFS读数据流程" class="headerlink" title="HDFS读数据流程"></a>HDFS读数据流程</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322174853787.png" alt="image-20220322174853787" style="zoom: 33%;">
+
+<h2 id="NameNode和SecondaryNameNode（重点）"><a href="#NameNode和SecondaryNameNode（重点）" class="headerlink" title="NameNode和SecondaryNameNode（重点）"></a>NameNode和SecondaryNameNode（重点）</h2><h3 id="NameNode的元数据存储"><a href="#NameNode的元数据存储" class="headerlink" title="NameNode的元数据存储"></a>NameNode的元数据存储</h3><p>元数据存放在内存中，磁盘中备份元数据的<strong>FsImage</strong>，防止节点断电后数据丢失，引入<strong>Edits</strong>文件（只进行追加操作，效率高）每当元数据有更新或者添加元数据时，修改内存中的元数据并追加到Edits。<strong>断电后可以通过FsImage和Edits的合并</strong>，合成元数据。</p>
+<p>但是，如果长时间添加数据到Edits中，会导致该文件数据过大，效率降低，而且一旦断电，恢复元数据需要的时间过长。因此，需要定期进行FsImage和Edits的合并，如果这个操作由NameNode节点完成，又会效率过低。因此，<strong>引入一个新的节点SecondaryNamenode，专门用于FsImage和Edits的合并</strong>。</p>
+<h3 id="NN和2NN工作机制"><a href="#NN和2NN工作机制" class="headerlink" title="NN和2NN工作机制"></a>NN和2NN工作机制</h3><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322212553869.png" alt="image-20220322212553869" style="zoom:33%;">
+
+<p>补充</p>
+<p><strong>谁负责对NN的元数据信息进行合并？</strong><br>       2NN主要负责对NN的元数据精心合并，当满足一定条件的下，2NN会检测本地时间，每隔一个小时会主动对NN的edits文件和fsimage文件进行一次合并。合并的时候，首先会通知NN,这时候NN就会停止对正在使用的edits文件的追加，同时会新建一个新的edits编辑日志文件，保证NN的正常工作。接下来 2NN会把NN本地的fsimage文件和edits编辑日志拉取2NN的本地，在内存中对二者进行合并，最后产生最新fsimage文件。把最新的fsimage文件再发送给NN的本地。注意还有一个情况，当NN的edits文件中的操作次数累计达到100万次，即便还没到1小时，2NN（每隔60秒会检测一次NN方的edits文件的操作次数）也会进行合并。2NN 也会自己把最新的fsimage文件备份一份。</p>
+<h2 id="DataNode（面试开发重点）"><a href="#DataNode（面试开发重点）" class="headerlink" title="DataNode（面试开发重点）"></a>DataNode（面试开发重点）</h2><h3 id="DataNode工作机制"><a href="#DataNode工作机制" class="headerlink" title="DataNode工作机制"></a>DataNode工作机制</h3><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322212841530.png" alt="image-20220322212841530" style="zoom:33%;">
+
+<h3 id="掉线时限参数设置"><a href="#掉线时限参数设置" class="headerlink" title="掉线时限参数设置"></a>掉线时限参数设置</h3><ol>
+<li>DataNode进程死亡或网络故障造成DataNode无法与NameNode通信</li>
+<li>NameNode<strong>不会立即把该节点判定为死亡</strong>，默认要经过<strong>10分钟+30秒</strong></li>
+<li><strong>自定义时间</strong>为2*dfs.namenode.heartbeat.recheck-interval +10**dfs.heartbeat.interval</li>
+</ol>
+<p> 需要注意的是hdfs-site.xml 配置文件中的heartbeat.recheck.interval的单位为<strong>毫秒</strong>，dfs.heartbeat.interval的单位为<strong>秒</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.heartbeat.recheck-interval<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>300000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.heartbeat.interval<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>3<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="服役新数据节点"><a href="#服役新数据节点" class="headerlink" title="服役新数据节点"></a>服役新数据节点</h3><ul>
+<li>直接启动DataNode，即可关联到集群</li>
+</ul>
+<p> <code>hdfs --daemon start datanode</code>    <code>yarn --daemon start nodemanager</code></p>
+<ul>
+<li>如果数据不均衡，可以用命令实现集群的再平衡</li>
+</ul>
+<p><code>./start-balancer.sh</code></p>
+<h3 id="DataNode多目录配置"><a href="#DataNode多目录配置" class="headerlink" title="DataNode多目录配置"></a>DataNode多目录配置</h3><p>在hdfs-site.xml文件中添加如下内容</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>file://$&#123;hadoop.tmp.dir&#125;/dfs/data1,file://$&#123;hadoop.tmp.dir&#125;/dfs/data2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="图解HDFS数据原理"><a href="#图解HDFS数据原理" class="headerlink" title="图解HDFS数据原理"></a>图解HDFS数据原理</h2><h3 id="HDFS写数据原理"><a href="#HDFS写数据原理" class="headerlink" title="HDFS写数据原理"></a>HDFS写数据原理<img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-write-1.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-write-2.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-write-3.jpg" alt="img"></h3><h3 id="HDFS读数据原理"><a href="#HDFS读数据原理" class="headerlink" title="HDFS读数据原理"></a>HDFS读数据原理</h3><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-read-1.jpg"></p>
+<h3 id="HDFS故障类型和其检测方法"><a href="#HDFS故障类型和其检测方法" class="headerlink" title="HDFS故障类型和其检测方法"></a>HDFS故障类型和其检测方法<img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-tolerance-1.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/BigData-notes/raw/master/pictures/hdfs-tolerance-2.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-tolerance-3.jpg" alt="img"><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfs-tolerance-4.jpg" alt="img"></h3>]]></content>
+      <categories>
+        <category>Hadoop笔记</category>
+      </categories>
+      <tags>
+        <tag>HDFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>shell编程</title>
+    <url>/2022/03/27/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/shell%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="shell概述"><a href="#shell概述" class="headerlink" title="shell概述"></a>shell概述</h2><p>shell是一个命令行解释器，它接收应用程序&#x2F;用户命令，然后调用系统内核。</p>
+<p>shell还是一个功能相当强大的编程语言，易编写，易调用，灵活性强。</p>
+<p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220327201501681.png" alt="image-20220327201501681"></p>
+<ul>
+<li><p>Linux提供的Shell解析器</p>
+<p><code>cat /etc/shells</code> </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/bin/sh</span><br><span class="line">/bin/bash</span><br><span class="line">/sbin/nologin</span><br><span class="line">/bin/dash</span><br><span class="line">/bin/tcsh</span><br><span class="line">/bin/csh</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux笔记</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java笔记</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Java笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL查询操作</title>
+    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Sql%E7%AC%94%E8%AE%B0/SQL%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h2 id="去重操作-DISTINCT"><a href="#去重操作-DISTINCT" class="headerlink" title="去重操作 DISTINCT"></a>去重操作 DISTINCT</h2><p>SELECT <strong>DISTINCT</strong> ename FROM emp</p>
+<h2 id="where条件使用"><a href="#where条件使用" class="headerlink" title="where条件使用"></a>where条件使用</h2><p># 查询年龄大于20岁</p>
+<p>SELECT * FROM emp <strong>WHERE</strong> age&gt;20</p>
+<h2 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h2><p># 查询所有姓张人员信息</p>
+<p><strong># %代表通配符，匹配任意内容</strong></p>
+<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘张**%**’</p>
+<p># 查询姓名中最后一个字 亮结尾</p>
+<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘**%**亮’</p>
+<p># 查询姓名包含张</p>
+<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘<strong>%<strong>张</strong>%</strong>‘</p>
+<p># 查询姓名里面第一个字母是m，m后面包含三个字母</p>
+<p>SELECT * FROM emp WHERE ename <strong>LIKE</strong> ‘m**___**’</p>
+<h2 id="排序操作"><a href="#排序操作" class="headerlink" title="排序操作   !"></a>排序操作   !</h2><p># 查询emp表所有记录，根据eid进行排序</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">ORDER</span> <span class="keyword">BY</span> eid <span class="operator">*</span><span class="operator">*</span><span class="keyword">ASC</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">ORDER</span> <span class="keyword">BY</span> eid <span class="operator">*</span><span class="keyword">DESC</span><span class="operator">*</span><span class="operator">*</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="查询区间范围"><a href="#查询区间范围" class="headerlink" title="查询区间范围"></a>查询区间范围</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># 查询emp表年龄 <span class="number">30</span><span class="number">-50</span>范围  </span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> age<span class="operator">&gt;=</span><span class="number">30</span> <span class="keyword">AND</span> age<span class="operator">&lt;=</span><span class="number">50</span> </span><br><span class="line"></span><br><span class="line"># <span class="keyword">BETWEEN</span> 开始值 <span class="keyword">AND</span> 结束值</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> age <span class="keyword">BETWEEN</span> <span class="number">30</span> <span class="keyword">AND</span> <span class="number">50</span></span><br><span class="line"></span><br><span class="line"># 查询年龄是 <span class="number">20</span> <span class="number">40</span> <span class="number">60</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> age <span class="keyword">IN</span>(<span class="number">20</span>,<span class="number">40</span>,<span class="number">60</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="mysql分页查询"><a href="#mysql分页查询" class="headerlink" title="mysql分页查询"></a>mysql分页查询</h3><p>（1）limit后面有两个参数</p>
+<p>第一个参数 查询数据开始位置，从0开始</p>
+<p>第二个参数 每页显示多少条记录</p>
+<p>（2）查询数据开始位置计算公式</p>
+<p>(当前页-1)*每页显示记录数</p>
+<p>3、编写分页语句</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># 分页语句</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp LIMIT <span class="number">0</span>,<span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp LIMIT <span class="number">3</span>,<span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h2><h3 id="count-：统计"><a href="#count-：统计" class="headerlink" title="count() ：统计"></a>count() ：统计</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">## 查询表有多少条记录</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> num <span class="keyword">FROM</span> emp</span><br><span class="line"></span><br><span class="line"># 查询年龄大于<span class="number">40</span>人员数量</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> age<span class="operator">&gt;</span><span class="number">40</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="sum-：求和"><a href="#sum-：求和" class="headerlink" title="sum()：求和"></a>sum()：求和</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="built_in">sum</span>()：求和</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(age) <span class="keyword">FROM</span> emp</span><br></pre></td></tr></table></figure>
+
+<h3 id="avg-计算平均数"><a href="#avg-计算平均数" class="headerlink" title="avg():   计算平均数"></a>avg():   计算平均数</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="built_in">sum</span>()：求和</span><br><span class="line"># <span class="built_in">avg</span>(): 计算平均数</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">AVG</span>(age) <span class="keyword">FROM</span> emp</span><br><span class="line"></span><br><span class="line"># 把平均数值小数点后面位数</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">CAST</span>(<span class="built_in">AVG</span>(age) <span class="keyword">AS</span> <span class="type">DECIMAL</span>(<span class="number">10</span>,<span class="number">2</span>)) <span class="keyword">AS</span> avgnum <span class="keyword">FROM</span> emp</span><br></pre></td></tr></table></figure>
+
+<h3 id="max-获取最大值"><a href="#max-获取最大值" class="headerlink" title="max():   获取最大值"></a>max():   获取最大值</h3><p>SELECT <strong>MAX</strong>(age) FROM emp</p>
+<h3 id="min-获取最小值"><a href="#min-获取最小值" class="headerlink" title="min():   获取最小值"></a>min():   获取最小值</h3><p>SELECT <strong>MIN</strong>(age) FROM emp</p>
+<h2 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询 !"></a>分组查询 !</h2><p><strong>group by</strong> 分组字段</p>
+<h3 id="编写分组sql"><a href="#编写分组sql" class="headerlink" title="编写分组sql"></a>编写分组sql</h3><p>查询每个部门里面有多少个员工</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> num,edid <span class="keyword">AS</span> deptid </span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> emp </span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> edid</span><br></pre></td></tr></table></figure>
+
+<p>统计每个部门的年龄最大者</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(age),emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> emp </span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> emp.edid</span><br></pre></td></tr></table></figure>
+
+<p>统计每个部门里面最高工资</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(salarystand),emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> emp,salary</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.stid<span class="operator">=</span>salary.stid</span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> emp.edid</span><br></pre></td></tr></table></figure>
+
+<p>获取最高工资大于5000的部门</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(salarystand),emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> emp,salary</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.stid<span class="operator">=</span>salary.stid  </span><br><span class="line"></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">MAX</span>(salarystand)<span class="operator">&gt;</span><span class="number">5000</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Mysql子查询"><a href="#Mysql子查询" class="headerlink" title="Mysql子查询"></a>Mysql子查询</h2><p><strong>一个查询结果，作为另外一个查询条件</strong></p>
+<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>查询比“张无忌”的工资高 查询张无忌工资 查询工资大于张无忌工资值</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp,salary </span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.stid<span class="operator">=</span>salary.stid </span><br><span class="line"></span><br><span class="line"><span class="keyword">AND</span> salary.salarystand <span class="operator">&gt;</span>  </span><br><span class="line"></span><br><span class="line">(<span class="keyword">SELECT</span> salary.salarystand  <span class="keyword">FROM</span> emp,salary <span class="keyword">WHERE</span> emp.stid<span class="operator">=</span>salary.stid <span class="keyword">AND</span> emp.ename<span class="operator">=</span><span class="string">&#x27;张无忌</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="exists子查询"><a href="#exists子查询" class="headerlink" title="exists子查询"></a>exists子查询</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_department </span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">EXISTS</span> (<span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_employee <span class="keyword">WHERE</span> t_employee.dept_id <span class="operator">=</span> t_department.did);</span><br></pre></td></tr></table></figure>
+
+<h3 id="复制子查询"><a href="#复制子查询" class="headerlink" title="复制子查询"></a>复制子查询</h3><p>（1）拷贝表结构</p>
+<p>CREATE TABLE newadmin LIKE admin;</p>
+<p>（2）拷贝表结构和数据（但约束与索引除外）</p>
+<p>CREATE TABLE newadmin AS  ( SELECT * FROM admin ) ;</p>
+<p>（3）拷贝表结构+数据</p>
+<p>CREATE TABLE newadmin LIKE admin;  </p>
+<p>INSERT INTO newadmin SELECT * FROM admin;</p>
+<p>（4）跨数据库拷贝表</p>
+<p>CREATE TABLE newadmin LIKE shop.admin; </p>
+]]></content>
+      <categories>
+        <category>Sql笔记</category>
+      </categories>
+      <tags>
+        <tag>Sql查询</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ZooKeeper笔记</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/ZooKeeper%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>ZooKeeper笔记</category>
+      </categories>
+      <tags>
+        <tag>ZooKeeper</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL简单查询与多表关联</title>
+    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Sql%E7%AC%94%E8%AE%B0/SQL%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2%E4%B8%8E%E5%A4%9A%E8%A1%A8%E5%85%B3%E8%81%94/</url>
+    <content><![CDATA[<h2 id="Mysql简单查询操作"><a href="#Mysql简单查询操作" class="headerlink" title="Mysql简单查询操作"></a>Mysql简单查询操作</h2><p>SELECT 字段1,字段2… FROM 表名称1,表名称2…</p>
+<p>WHERE 条件</p>
+<p>GROUP BY 字段 HAVING 筛选条件</p>
+<p>ORDER BY 字段 ASC | DESC</p>
+<p>LIMIT </p>
+<h3 id="查询表里面所有记录"><a href="#查询表里面所有记录" class="headerlink" title="查询表里面所有记录"></a>查询表里面所有记录</h3><p>SELECT sid,sname,age,address FROM stu</p>
+<p>SELECT ***** FROM stu</p>
+<h3 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h3><p>SELECT sid <strong>AS</strong> sid_id,sname <strong>AS</strong> sname_name FROM stu s</p>
+<h3 id="飘符号（反引号）"><a href="#飘符号（反引号）" class="headerlink" title="飘符号（反引号）"></a>飘符号（反引号）</h3><p>CREATE TABLE t1 (</p>
+<p> id INT,</p>
+<p> ‘name’ VARCHAR(100)</p>
+<p>)</p>
+<h3 id="简单where条件"><a href="#简单where条件" class="headerlink" title="简单where条件"></a>简单where条件</h3><p>SELECT * FROM stu s WHERE s.sname&#x3D;’谢逊’</p>
+<h2 id="使用外键"><a href="#使用外键" class="headerlink" title="使用外键"></a><strong>使用外键</strong></h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">### 创建部门表</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> dept (</span><br><span class="line"></span><br><span class="line"> did <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line"></span><br><span class="line"> dname <span class="type">VARCHAR</span>(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">## 创建员工表</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> emp (</span><br><span class="line"></span><br><span class="line"> eid <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line"></span><br><span class="line"> ename <span class="type">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line"></span><br><span class="line"> age <span class="type">INT</span>,</span><br><span class="line"></span><br><span class="line"> edid <span class="type">INT</span>,</span><br><span class="line"></span><br><span class="line"> <span class="keyword">FOREIGN</span> KEY(edid) <span class="keyword">REFERENCES</span> dept(did) </span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mysql多表关联查询操作"><a href="#Mysql多表关联查询操作" class="headerlink" title="Mysql多表关联查询操作"></a><strong>Mysql多表关联查询操作</strong></h2><h3 id="笛卡尔积"><a href="#笛卡尔积" class="headerlink" title="笛卡尔积"></a><strong>笛卡尔积</strong></h3><p><strong>SELECT * FROM</strong> dept,emp</p>
+<h3 id="内连接查询"><a href="#内连接查询" class="headerlink" title="内连接查询"></a>内连接查询</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">inner</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">INNER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept,emp <span class="keyword">WHERE</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
+
+<h3 id="外连接-左外连接"><a href="#外连接-左外连接" class="headerlink" title="外连接-左外连接"></a>外连接-左外连接</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
+
+<h3 id="外连接-右外连接"><a href="#外连接-右外连接" class="headerlink" title="外连接-右外连接"></a>外连接-右外连接</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">right</span> <span class="keyword">outer</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
+
+<h3 id="A表独有数据"><a href="#A表独有数据" class="headerlink" title="A表独有数据"></a>A表独有数据</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.edid <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="B表独有数据"><a href="#B表独有数据" class="headerlink" title="B表独有数据"></a>B表独有数据</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> dept.did <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="AB全有（类似于全连接效果）"><a href="#AB全有（类似于全连接效果）" class="headerlink" title="AB全有（类似于全连接效果）"></a>AB全有（类似于全连接效果）</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
+
+<h3 id="A独有-B独有"><a href="#A独有-B独有" class="headerlink" title="A独有 + B独有"></a>A独有 + B独有</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid <span class="keyword">WHERE</span> emp.edid <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid <span class="keyword">WHERE</span> dept.did <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Sql笔记</category>
+      </categories>
+      <tags>
+        <tag>Sql查询</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL表操作</title>
-    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E8%A1%A8%E6%93%8D%E4%BD%9C/</url>
+    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Sql%E7%AC%94%E8%AE%B0/SQL%E8%A1%A8%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p><strong>create</strong> database db_0224；</p>
 <h3 id="查看有哪些数据库"><a href="#查看有哪些数据库" class="headerlink" title="查看有哪些数据库"></a>查看有哪些数据库</h3><p><strong>show</strong> databases;</p>
 <h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><p><strong>DROP</strong> DATABASE db_0224;</p>
@@ -2281,29 +2300,10 @@
 <p>TRUNCATE stu</p>
 ]]></content>
       <categories>
-        <category>MySql笔记</category>
+        <category>Sql笔记</category>
       </categories>
       <tags>
-        <tag>MySql表操作</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>shell编程</title>
-    <url>/2022/03/27/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/shell%E7%BC%96%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="shell概述"><a href="#shell概述" class="headerlink" title="shell概述"></a>shell概述</h2><p>shell是一个命令行解释器，它接收应用程序&#x2F;用户命令，然后调用系统内核。</p>
-<p>shell还是一个功能相当强大的编程语言，易编写，易调用，灵活性强。</p>
-<p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220327201501681.png" alt="image-20220327201501681"></p>
-<ul>
-<li><p>Linux提供的Shell解析器</p>
-<p><code>cat /etc/shells</code> </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/bin/sh</span><br><span class="line">/bin/bash</span><br><span class="line">/sbin/nologin</span><br><span class="line">/bin/dash</span><br><span class="line">/bin/tcsh</span><br><span class="line">/bin/csh</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Linux笔记</category>
-      </categories>
-      <tags>
-        <tag>shell</tag>
+        <tag>Sql表操作</tag>
       </tags>
   </entry>
 </search>
