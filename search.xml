@@ -1678,14 +1678,125 @@
       </tags>
   </entry>
   <entry>
-    <title>Java笔记</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[]]></content>
+    <title>haodoop概念总结</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/Hadoop%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h2 id="大数据部门组织结构"><a href="#大数据部门组织结构" class="headerlink" title="大数据部门组织结构"></a>大数据部门组织结构</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322121236808.png" alt="image-20220322121236808"></p>
+<h2 id="Hadoop的优势（4高）"><a href="#Hadoop的优势（4高）" class="headerlink" title="Hadoop的优势（4高）"></a>Hadoop的优势（4高）</h2><ol>
+<li>高可靠性：Hadoop底层维护多个数据副本</li>
+<li>高扩展性：在集群间分配任务数据，可方便的扩展</li>
+<li>高效性：在MapReduce的思想下，Hadoop时并行工作的，从而加快任务处理速度</li>
+<li>高容错性：能够自动将失败的任务重新分配</li>
+</ol>
+<h2 id="Hadoop组成（重点）"><a href="#Hadoop组成（重点）" class="headerlink" title="Hadoop组成（重点）"></a>Hadoop组成（重点）</h2><ul>
+<li><p>hadoop1.x </p>
+<p>mapreduce（计算+<strong>资料调度</strong>） HDFS（数据存储） Common（辅助工具）</p>
+</li>
+<li><p>hadoop2.x</p>
+<p>mapreduce（<strong>计算</strong>） HDFS（数据存储） Common（辅助工具） yarn（<strong>资料调度</strong>）</p>
+</li>
+</ul>
+<h2 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfsarchitecture.png" alt="hdfsarchitecture" style="zoom: 67%;">
+
+<ul>
+<li><p><strong>NameNode</strong>（主管）  </p>
+<p>存储文件的元数据 （文件名，文件目录结构，文件属性（生成时间，副本数，文件权限））以及每个文件的块列表和块所在的DataNode</p>
+<ol>
+<li>管理HDFS的名称空间</li>
+<li>配置副本策略</li>
+<li>管理数据块（Block）映射信息</li>
+<li>处理客户端读写请求</li>
+</ol>
+</li>
+<li><p><strong>Secondary NameNode</strong>（主管秘书） </p>
+<p>每隔一段时间对NameNode元数据备份 </p>
+<p><strong>！！</strong>-&gt;并非NameNode的热备 无法在NameNode无法工作时代替NameNode工作</p>
+<ol>
+<li>辅助NameNode，分担其工作量（如：定期合并Fsimage和Edits，并推送给NameNode）</li>
+<li>在紧急情况下，可辅助恢复NameNode</li>
+</ol>
+</li>
+<li><p><strong>DataNode</strong>（员工） </p>
+<p>在本地文件系统存储文件块数据，以及块数据的校验和</p>
+<ol>
+<li>存储实际的数据块</li>
+<li>执行数据块的读&#x2F;写操作</li>
+</ol>
+</li>
+<li><p><strong>Client</strong> (客户端)</p>
+<ol>
+<li>文件切分</li>
+<li>与NameNode交互，获取文件的位置信息</li>
+<li>与DataNode交互，读取或写入数据</li>
+<li>执行一些命令来管理HDFS（如：NameNode的格式化）</li>
+<li>执行一些命令来访问HDFS(如：HDFS的增删改查)</li>
+</ol>
+</li>
+</ul>
+<h2 id="YARN架构"><a href="#YARN架构" class="headerlink" title="YARN架构"></a>YARN架构</h2><ul>
+<li><p>ResourceManager（RM）</p>
+<ol>
+<li>处理客户端请求</li>
+<li>监控NodeManager</li>
+<li>启动或监控ApplicationMaster</li>
+<li>资源的分配与调度</li>
+</ol>
+</li>
+<li><p>NodeManager（NM）</p>
+<ol>
+<li>管理单个节点上的资源</li>
+<li>处理来自ResourceManager的命令</li>
+<li>处理来自ApplicationMaster的命令</li>
+</ol>
+</li>
+<li><p>ApplicationMaster</p>
+<ol>
+<li>负责数据的切分</li>
+<li>为应用程序申请资源并分配给内部的任务</li>
+<li>任务的监控与容错</li>
+</ol>
+</li>
+<li><p>Container</p>
+<p>Container是YARN中的资源抽象，封装了某个节点上的多维度资源，（内存，cpu，磁盘，网络）</p>
+</li>
+</ul>
+<h2 id="大数据技术生态体系"><a href="#大数据技术生态体系" class="headerlink" title="大数据技术生态体系"></a>大数据技术生态体系</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322133034426.png" alt="image-20220322133034426"></p>
+<h2 id="Hadoop环境搭建的常用命令"><a href="#Hadoop环境搭建的常用命令" class="headerlink" title="Hadoop环境搭建的常用命令"></a>Hadoop环境搭建的常用命令</h2><ul>
+<li><p>修改主机名称</p>
+<p><code>vim /etc/hostname</code></p>
+</li>
+<li><p>配置linux克隆机主机名称映射hosts</p>
+<p><code>vim /etc/hosts</code></p>
+</li>
+<li><p>解压JDK到&#x2F;opt&#x2F;module目录下</p>
+<p><code>tar -zxvf jdk-8u212-linux-x64.tar.gz -C /opt/module/</code></p>
+</li>
+<li><p>配置JDK环境变量</p>
+</li>
+<li><p>新建&#x2F;etc&#x2F;profile.d&#x2F;my_env.sh文件</p>
+<p><code>sudo vim /etc/profile.d/my_env.sh</code></p>
+<p>添加如下内容</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#JAVA_HOME</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/opt/module/jdk1.8.0_212</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>环境变量PATH生效</p>
+<p><code>source /etc/profile</code></p>
+</li>
+<li><p>生成公钥和私钥</p>
+<p><code>ssh-keygen -t rsa</code></p>
+</li>
+<li><p>Hadoop执行MapReduce程序</p>
+<p><code>hadoop jar wc.jar com.atguigu.wordcount.WordcountDriver /user/atguigu/input /user/atguigu/output</code></p>
+</li>
+</ul>
+]]></content>
       <categories>
-        <category>Java笔记</category>
+        <category>Hadoop笔记</category>
       </categories>
       <tags>
-        <tag>Java</tag>
+        <tag>Hadoop</tag>
+        <tag>Yarn</tag>
+        <tag>HDFS</tag>
       </tags>
   </entry>
   <entry>
@@ -1705,6 +1816,17 @@
       </categories>
       <tags>
         <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JDBC</title>
+    <url>/2022/03/27/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/JDBC/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Java笔记</category>
+      </categories>
+      <tags>
+        <tag>JDBC</tag>
       </tags>
   </entry>
   <entry>
@@ -1933,12 +2055,19 @@
 <p>排序是MapReduce框架中最重要的操作之一</p>
 <p>MapTask和ReduceTask均会对数据按照key进行排序，该操作属于Hadoop的默认行为。任何应用程序中的数据均会被排序，而不管逻辑上是否需要</p>
 <p>默认排序是按照字典顺序排序，且实现该排序的方法是快速排序</p>
-</li>
+<ul>
 <li><p>MapTask</p>
 <p>它会将处理的结果暂时放到环形缓冲区中，当环形缓冲区使用率达到一定阈值后，再对缓冲区中的数据进行一次快速排序，并将这些有序数据溢写到硬盘上，而当数据处理完毕后，它会对磁盘上所有文件进行归并排序。</p>
 </li>
 <li><p>ReduceTask</p>
-<p>它从每个MapTask上远程拷贝相应的数据文件，如果文件大小超过一定阈值，则溢写磁盘上，否则存储在内存中。如果</p>
+<p>它从每个MapTask上远程拷贝相应的数据文件，如果文件大小超过一定阈值，则溢写磁盘上，否则存储在内存中。如果磁盘上文件数目达到一定阈值，则进行一次归并排序以生成一个更大文件；如果内存中文件大小或者数目超过一定阈值，则进行一次合并后将数据溢写到磁盘上。当所有数据拷贝完毕后，<strong>ReduceTask统一对内存和磁盘上的所有数据进行一次归并排序</strong>。</p>
+</li>
+</ul>
+</li>
+<li><p>排序分类</p>
+<ul>
+<li>部分排序</li>
+</ul>
 </li>
 </ul>
 ]]></content>
@@ -1950,176 +2079,14 @@
       </tags>
   </entry>
   <entry>
-    <title>JDBC</title>
-    <url>/2022/03/27/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/JDBC/</url>
+    <title>Java笔记</title>
+    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/Java%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[]]></content>
       <categories>
         <category>Java笔记</category>
       </categories>
       <tags>
-        <tag>JDBC</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>haodoop概念总结</title>
-    <url>/2022/03/22/%E7%AC%94%E8%AE%B0/Hadoop%E7%AC%94%E8%AE%B0/Hadoop%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<h2 id="大数据部门组织结构"><a href="#大数据部门组织结构" class="headerlink" title="大数据部门组织结构"></a>大数据部门组织结构</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322121236808.png" alt="image-20220322121236808"></p>
-<h2 id="Hadoop的优势（4高）"><a href="#Hadoop的优势（4高）" class="headerlink" title="Hadoop的优势（4高）"></a>Hadoop的优势（4高）</h2><ol>
-<li>高可靠性：Hadoop底层维护多个数据副本</li>
-<li>高扩展性：在集群间分配任务数据，可方便的扩展</li>
-<li>高效性：在MapReduce的思想下，Hadoop时并行工作的，从而加快任务处理速度</li>
-<li>高容错性：能够自动将失败的任务重新分配</li>
-</ol>
-<h2 id="Hadoop组成（重点）"><a href="#Hadoop组成（重点）" class="headerlink" title="Hadoop组成（重点）"></a>Hadoop组成（重点）</h2><ul>
-<li><p>hadoop1.x </p>
-<p>mapreduce（计算+<strong>资料调度</strong>） HDFS（数据存储） Common（辅助工具）</p>
-</li>
-<li><p>hadoop2.x</p>
-<p>mapreduce（<strong>计算</strong>） HDFS（数据存储） Common（辅助工具） yarn（<strong>资料调度</strong>）</p>
-</li>
-</ul>
-<h2 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h2><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/hdfsarchitecture.png" alt="hdfsarchitecture" style="zoom: 67%;">
-
-<ul>
-<li><p><strong>NameNode</strong>（主管）  </p>
-<p>存储文件的元数据 （文件名，文件目录结构，文件属性（生成时间，副本数，文件权限））以及每个文件的块列表和块所在的DataNode</p>
-<ol>
-<li>管理HDFS的名称空间</li>
-<li>配置副本策略</li>
-<li>管理数据块（Block）映射信息</li>
-<li>处理客户端读写请求</li>
-</ol>
-</li>
-<li><p><strong>Secondary NameNode</strong>（主管秘书） </p>
-<p>每隔一段时间对NameNode元数据备份 </p>
-<p><strong>！！</strong>-&gt;并非NameNode的热备 无法在NameNode无法工作时代替NameNode工作</p>
-<ol>
-<li>辅助NameNode，分担其工作量（如：定期合并Fsimage和Edits，并推送给NameNode）</li>
-<li>在紧急情况下，可辅助恢复NameNode</li>
-</ol>
-</li>
-<li><p><strong>DataNode</strong>（员工） </p>
-<p>在本地文件系统存储文件块数据，以及块数据的校验和</p>
-<ol>
-<li>存储实际的数据块</li>
-<li>执行数据块的读&#x2F;写操作</li>
-</ol>
-</li>
-<li><p><strong>Client</strong> (客户端)</p>
-<ol>
-<li>文件切分</li>
-<li>与NameNode交互，获取文件的位置信息</li>
-<li>与DataNode交互，读取或写入数据</li>
-<li>执行一些命令来管理HDFS（如：NameNode的格式化）</li>
-<li>执行一些命令来访问HDFS(如：HDFS的增删改查)</li>
-</ol>
-</li>
-</ul>
-<h2 id="YARN架构"><a href="#YARN架构" class="headerlink" title="YARN架构"></a>YARN架构</h2><ul>
-<li><p>ResourceManager（RM）</p>
-<ol>
-<li>处理客户端请求</li>
-<li>监控NodeManager</li>
-<li>启动或监控ApplicationMaster</li>
-<li>资源的分配与调度</li>
-</ol>
-</li>
-<li><p>NodeManager（NM）</p>
-<ol>
-<li>管理单个节点上的资源</li>
-<li>处理来自ResourceManager的命令</li>
-<li>处理来自ApplicationMaster的命令</li>
-</ol>
-</li>
-<li><p>ApplicationMaster</p>
-<ol>
-<li>负责数据的切分</li>
-<li>为应用程序申请资源并分配给内部的任务</li>
-<li>任务的监控与容错</li>
-</ol>
-</li>
-<li><p>Container</p>
-<p>Container是YARN中的资源抽象，封装了某个节点上的多维度资源，（内存，cpu，磁盘，网络）</p>
-</li>
-</ul>
-<h2 id="大数据技术生态体系"><a href="#大数据技术生态体系" class="headerlink" title="大数据技术生态体系"></a>大数据技术生态体系</h2><p><img src="https://gitee.com/POCOPOCOPOCO/png/raw/master/image-20220322133034426.png" alt="image-20220322133034426"></p>
-<h2 id="Hadoop环境搭建的常用命令"><a href="#Hadoop环境搭建的常用命令" class="headerlink" title="Hadoop环境搭建的常用命令"></a>Hadoop环境搭建的常用命令</h2><ul>
-<li><p>修改主机名称</p>
-<p><code>vim /etc/hostname</code></p>
-</li>
-<li><p>配置linux克隆机主机名称映射hosts</p>
-<p><code>vim /etc/hosts</code></p>
-</li>
-<li><p>解压JDK到&#x2F;opt&#x2F;module目录下</p>
-<p><code>tar -zxvf jdk-8u212-linux-x64.tar.gz -C /opt/module/</code></p>
-</li>
-<li><p>配置JDK环境变量</p>
-</li>
-<li><p>新建&#x2F;etc&#x2F;profile.d&#x2F;my_env.sh文件</p>
-<p><code>sudo vim /etc/profile.d/my_env.sh</code></p>
-<p>添加如下内容</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#JAVA_HOME</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/opt/module/jdk1.8.0_212</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br></pre></td></tr></table></figure>
-
-
-</li>
-<li><p>环境变量PATH生效</p>
-<p><code>source /etc/profile</code></p>
-</li>
-<li><p>生成公钥和私钥</p>
-<p><code>ssh-keygen -t rsa</code></p>
-</li>
-<li><p>Hadoop执行MapReduce程序</p>
-<p><code>hadoop jar wc.jar com.atguigu.wordcount.WordcountDriver /user/atguigu/input /user/atguigu/output</code></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Hadoop笔记</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>Yarn</tag>
-        <tag>HDFS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL简单查询与多表关联</title>
-    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2%E4%B8%8E%E5%A4%9A%E8%A1%A8%E5%85%B3%E8%81%94/</url>
-    <content><![CDATA[<h2 id="Mysql简单查询操作"><a href="#Mysql简单查询操作" class="headerlink" title="Mysql简单查询操作"></a>Mysql简单查询操作</h2><p>SELECT 字段1,字段2… FROM 表名称1,表名称2…</p>
-<p>WHERE 条件</p>
-<p>GROUP BY 字段 HAVING 筛选条件</p>
-<p>ORDER BY 字段 ASC | DESC</p>
-<p>LIMIT </p>
-<h3 id="查询表里面所有记录"><a href="#查询表里面所有记录" class="headerlink" title="查询表里面所有记录"></a>查询表里面所有记录</h3><p>SELECT sid,sname,age,address FROM stu</p>
-<p>SELECT ***** FROM stu</p>
-<h3 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h3><p>SELECT sid <strong>AS</strong> sid_id,sname <strong>AS</strong> sname_name FROM stu s</p>
-<h3 id="飘符号（反引号）"><a href="#飘符号（反引号）" class="headerlink" title="飘符号（反引号）"></a>飘符号（反引号）</h3><p>CREATE TABLE t1 (</p>
-<p> id INT,</p>
-<p> ‘name’ VARCHAR(100)</p>
-<p>)</p>
-<h3 id="简单where条件"><a href="#简单where条件" class="headerlink" title="简单where条件"></a>简单where条件</h3><p>SELECT * FROM stu s WHERE s.sname&#x3D;’谢逊’</p>
-<h2 id="使用外键"><a href="#使用外键" class="headerlink" title="使用外键"></a><strong>使用外键</strong></h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">### 创建部门表</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> dept (</span><br><span class="line"></span><br><span class="line"> did <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line"></span><br><span class="line"> dname <span class="type">VARCHAR</span>(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">## 创建员工表</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> emp (</span><br><span class="line"></span><br><span class="line"> eid <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line"></span><br><span class="line"> ename <span class="type">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line"></span><br><span class="line"> age <span class="type">INT</span>,</span><br><span class="line"></span><br><span class="line"> edid <span class="type">INT</span>,</span><br><span class="line"></span><br><span class="line"> <span class="keyword">FOREIGN</span> KEY(edid) <span class="keyword">REFERENCES</span> dept(did) </span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Mysql多表关联查询操作"><a href="#Mysql多表关联查询操作" class="headerlink" title="Mysql多表关联查询操作"></a><strong>Mysql多表关联查询操作</strong></h2><h3 id="笛卡尔积"><a href="#笛卡尔积" class="headerlink" title="笛卡尔积"></a><strong>笛卡尔积</strong></h3><p><strong>SELECT * FROM</strong> dept,emp</p>
-<h3 id="内连接查询"><a href="#内连接查询" class="headerlink" title="内连接查询"></a>内连接查询</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">inner</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">INNER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept,emp <span class="keyword">WHERE</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
-
-<h3 id="外连接-左外连接"><a href="#外连接-左外连接" class="headerlink" title="外连接-左外连接"></a>外连接-左外连接</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
-
-<h3 id="外连接-右外连接"><a href="#外连接-右外连接" class="headerlink" title="外连接-右外连接"></a>外连接-右外连接</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">right</span> <span class="keyword">outer</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
-
-<h3 id="A表独有数据"><a href="#A表独有数据" class="headerlink" title="A表独有数据"></a>A表独有数据</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.edid <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="B表独有数据"><a href="#B表独有数据" class="headerlink" title="B表独有数据"></a>B表独有数据</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> dept.did <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="AB全有（类似于全连接效果）"><a href="#AB全有（类似于全连接效果）" class="headerlink" title="AB全有（类似于全连接效果）"></a>AB全有（类似于全连接效果）</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
-
-<h3 id="A独有-B独有"><a href="#A独有-B独有" class="headerlink" title="A独有 + B独有"></a>A独有 + B独有</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid <span class="keyword">WHERE</span> emp.edid <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid <span class="keyword">WHERE</span> dept.did <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>MySql笔记</category>
-      </categories>
-      <tags>
-        <tag>MySql查询</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -2235,6 +2202,46 @@
       </categories>
       <tags>
         <tag>HDFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL简单查询与多表关联</title>
+    <url>/2022/03/24/%E7%AC%94%E8%AE%B0/Mysql%E7%AC%94%E8%AE%B0/SQL%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2%E4%B8%8E%E5%A4%9A%E8%A1%A8%E5%85%B3%E8%81%94/</url>
+    <content><![CDATA[<h2 id="Mysql简单查询操作"><a href="#Mysql简单查询操作" class="headerlink" title="Mysql简单查询操作"></a>Mysql简单查询操作</h2><p>SELECT 字段1,字段2… FROM 表名称1,表名称2…</p>
+<p>WHERE 条件</p>
+<p>GROUP BY 字段 HAVING 筛选条件</p>
+<p>ORDER BY 字段 ASC | DESC</p>
+<p>LIMIT </p>
+<h3 id="查询表里面所有记录"><a href="#查询表里面所有记录" class="headerlink" title="查询表里面所有记录"></a>查询表里面所有记录</h3><p>SELECT sid,sname,age,address FROM stu</p>
+<p>SELECT ***** FROM stu</p>
+<h3 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h3><p>SELECT sid <strong>AS</strong> sid_id,sname <strong>AS</strong> sname_name FROM stu s</p>
+<h3 id="飘符号（反引号）"><a href="#飘符号（反引号）" class="headerlink" title="飘符号（反引号）"></a>飘符号（反引号）</h3><p>CREATE TABLE t1 (</p>
+<p> id INT,</p>
+<p> ‘name’ VARCHAR(100)</p>
+<p>)</p>
+<h3 id="简单where条件"><a href="#简单where条件" class="headerlink" title="简单where条件"></a>简单where条件</h3><p>SELECT * FROM stu s WHERE s.sname&#x3D;’谢逊’</p>
+<h2 id="使用外键"><a href="#使用外键" class="headerlink" title="使用外键"></a><strong>使用外键</strong></h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">### 创建部门表</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> dept (</span><br><span class="line"></span><br><span class="line"> did <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line"></span><br><span class="line"> dname <span class="type">VARCHAR</span>(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">## 创建员工表</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> emp (</span><br><span class="line"></span><br><span class="line"> eid <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line"></span><br><span class="line"> ename <span class="type">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line"></span><br><span class="line"> age <span class="type">INT</span>,</span><br><span class="line"></span><br><span class="line"> edid <span class="type">INT</span>,</span><br><span class="line"></span><br><span class="line"> <span class="keyword">FOREIGN</span> KEY(edid) <span class="keyword">REFERENCES</span> dept(did) </span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mysql多表关联查询操作"><a href="#Mysql多表关联查询操作" class="headerlink" title="Mysql多表关联查询操作"></a><strong>Mysql多表关联查询操作</strong></h2><h3 id="笛卡尔积"><a href="#笛卡尔积" class="headerlink" title="笛卡尔积"></a><strong>笛卡尔积</strong></h3><p><strong>SELECT * FROM</strong> dept,emp</p>
+<h3 id="内连接查询"><a href="#内连接查询" class="headerlink" title="内连接查询"></a>内连接查询</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">inner</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">INNER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept,emp <span class="keyword">WHERE</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
+
+<h3 id="外连接-左外连接"><a href="#外连接-左外连接" class="headerlink" title="外连接-左外连接"></a>外连接-左外连接</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
+
+<h3 id="外连接-右外连接"><a href="#外连接-右外连接" class="headerlink" title="外连接-右外连接"></a>外连接-右外连接</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># <span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">right</span> <span class="keyword">outer</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 关联条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
+
+<h3 id="A表独有数据"><a href="#A表独有数据" class="headerlink" title="A表独有数据"></a>A表独有数据</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> emp.edid <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="B表独有数据"><a href="#B表独有数据" class="headerlink" title="B表独有数据"></a>B表独有数据</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> dept.did <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="AB全有（类似于全连接效果）"><a href="#AB全有（类似于全连接效果）" class="headerlink" title="AB全有（类似于全连接效果）"></a>AB全有（类似于全连接效果）</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid</span><br></pre></td></tr></table></figure>
+
+<h3 id="A独有-B独有"><a href="#A独有-B独有" class="headerlink" title="A独有 + B独有"></a>A独有 + B独有</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid <span class="keyword">WHERE</span> emp.edid <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> dept.did<span class="operator">=</span>emp.edid <span class="keyword">WHERE</span> dept.did <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>MySql笔记</category>
+      </categories>
+      <tags>
+        <tag>MySql查询</tag>
       </tags>
   </entry>
   <entry>
